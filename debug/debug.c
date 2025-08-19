@@ -1,41 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cleanup.c                                          :+:      :+:    :+:   */
+/*   debug.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/06 17:28:21 by brian             #+#    #+#             */
-/*   Updated: 2025/08/18 02:08:14 by brian            ###   ########.fr       */
+/*   Created: 2025/08/19 18:47:16 by brian             #+#    #+#             */
+/*   Updated: 2025/08/19 18:48:00 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cube3d.h"
+#include "debug.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-void	cleanUp(t_brain *b)
+void	disp_point(t_fpoint p)
 {
-	if (b)
-	{
-		free(b);
-	}
-}
-
-void	exit_cube(t_brain *brain, char *msg, int exit_now)
-{
-	static t_brain *b = NULL;
-
-	if (b == NULL && brain != NULL)
-	{
-		b = brain;
-		ft_putstr("Stored brain pointer\n");
-	}
-	if (exit_now)
-		return ;
-	ft_putstr(RED"\nCub3D Exit - Error: ");
-	ft_putstr(msg);
-	ft_putstr(RST"\n");
-	cleanUp(b);
-	ft_putstr(YELO"Clean Up OK\n"RST);
-	ft_putstr(BLUE"Exit Done\n"RST);
-	exit(0);
+	dprintf(1, "{ x:%6f, y:%6f }\n", p.x, p.y);
 }

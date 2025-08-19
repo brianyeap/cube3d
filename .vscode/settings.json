@@ -1,0 +1,7 @@
+{
+	"files.associations": {
+		"cube3d.h": "c",
+		"canvas.h": "c",
+		"string.h": "c"
+	}
+}

@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 15:43:47 by brian             #+#    #+#             */
-/*   Updated: 2025/08/09 00:11:02 by brian            ###   ########.fr       */
+/*   Updated: 2025/08/18 02:07:00 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,9 @@ int	check_ending(char *str, char *end)
 
 void	ft_exit(char *str, t_type *map)
 {
-	ft_putstr("Cub3d Exit - Error: ");
+	ft_putstr(RED"Cub3d Exit - Error: ");
 	ft_putstr(str);
-	ft_putstr("\n");
+	ft_putstr(RST"\n");
 	free(map);
 	exit(0);
 }

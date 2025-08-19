@@ -6,12 +6,14 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 16:30:36 by brian             #+#    #+#             */
-/*   Updated: 2025/08/11 22:19:14 by brian            ###   ########.fr       */
+/*   Updated: 2025/08/19 18:57:08 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3d.h"
+#ifndef MAP_H
+# define MAP_H
 
+# include "cube3d.h"
 
 typedef struct s_sprite
 {
@@ -59,3 +61,17 @@ typedef struct s_map
 	t_buff		*skybox;
 	void		*brain;
 }				t_map;
+
+typedef struct s_player_detect
+{
+	int			pos_x;
+	char		direction;
+}				t_player_detect;
+
+
+t_player_detect		*add_map_row(t_map *m, char *line);
+t_player_detect		*chr_trt(char *line, t_map *m);
+int					realloc_map(t_map *m, char *line);
+int					init_map(t_ctx *ctx, void *brain);
+
+#endif

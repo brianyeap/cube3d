@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 17:46:56 by brian             #+#    #+#             */
-/*   Updated: 2025/08/11 23:28:18 by brian            ###   ########.fr       */
+/*   Updated: 2025/08/19 17:29:58 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,22 @@ t_brain	*new_brain(int width, int height, char *name)
 
 int	main(int argc, char **argv)
 {
+	t_brain			*b;
 	t_type			*map;
 
-	(void)argv;
-	if (argc < 2 || argc > 3)
-		exit_cube(NULL, "Invalid number of arguments\n\
-	launch with ./Cub3D <map_file>\n", 0);
-	if ((map = ft_getmap_config(argv[1])) == NULL)
+	if (argc != 2)
+		exit_cube(NULL, "Invalid number of arguments\n\n\
+launch with ./Cub3D <map_file>\n", 0);
+	map = ft_getmap_config(argv[1]);
+	if (!map)
 		exit_cube(NULL, "Map Not Found\n", 0);
+	b = new_brain(map->res[0], map->res[1], "Cube3D");
+	exit_cube(b, "Init Exit", 1);
+	b->ctx->width = map->res[0];
+	b->ctx->height = map->res[1];
+	ft_printf("Opening Map ""%s\n", argv[1]);
+	open_map(b, argv[1], map);
+	if (!check_map(b->map))
+		exit_cube(b, "BAD MAP", 0);
 	return (0);
 }
