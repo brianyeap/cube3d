@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 16:01:30 by brian             #+#    #+#             */
-/*   Updated: 2025/08/18 02:01:30 by brian            ###   ########.fr       */
+/*   Updated: 2025/08/19 19:08:05 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ typedef struct s_ctx
 // Points
 t_point		new_point(int x, int y);
 t_fpoint	new_fpoint(float x, float y);
+float		calc_dist(t_fpoint p1, t_fpoint p2);
 
 // Render
 t_ctx		*new_ctx(int width, int height);

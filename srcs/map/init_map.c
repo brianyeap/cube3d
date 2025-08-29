@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 17:48:01 by brian             #+#    #+#             */
-/*   Updated: 2025/08/18 21:52:10 by brian            ###   ########.fr       */
+/*   Updated: 2025/08/29 16:37:34 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	init_map(t_ctx *ctx, void *brain)
 	t_brain	*b;
 
 	b = (t_brain *)brain;
-	b->map = check_malloc(malloc(sizeof(t_map)), brain, "Malloc Error for Map");
+	b->map = ch_m(malloc(sizeof(t_map)), brain, "Malloc Error for Map");
 	b->map->height = 0;
 	b->map->width = 0;
 	b->map->grid = NULL;
@@ -28,7 +28,6 @@ int	init_map(t_ctx *ctx, void *brain)
 	b->map->w_s = NULL;
 	b->map->w_w = NULL;
 	b->map->floor = NULL;
-	b->map->sprites = malloc(sizeof(t_spr_list));
 	b->map->sprites = ch_m(malloc(sizeof(t_spr_list)), brain,
 			"malloc fail for sprite list");
 	b->map->sprites->column = ch_m(malloc(b->ctx->width * sizeof(float)), brain,
@@ -109,8 +108,6 @@ t_player_detect	*chr_trt(char *line, t_map *m)
 
 t_player_detect	*add_map_row(t_map *m, char *line)
 {
-	int				*new;
-	int				*temp;
 	t_player_detect	*player;
 
 	player = chr_trt(line, m);

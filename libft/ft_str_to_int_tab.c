@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/19 17:40:33 by brian             #+#    #+#             */
-/*   Updated: 2025/08/19 17:46:56 by brian            ###   ########.fr       */
+/*   Created: 2025/08/29 16:37:13 by brian             #+#    #+#             */
+/*   Updated: 2025/08/29 16:37:14 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@ int	*ft_str_to_int_tab(const char *s1)
 	length = 0;
 	while (s1 && s1[length] != '\0')
 		length++;
-	dup = malloc((length + 1) * sizeof(int));
-	if (!dup)
+	if ((dup = malloc((length + 1) * sizeof(int))) != NULL)
 	{
 		if (s1)
 		{

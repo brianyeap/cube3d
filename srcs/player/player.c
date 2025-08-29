@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 17:54:50 by brian             #+#    #+#             */
-/*   Updated: 2025/08/19 18:45:41 by brian            ###   ########.fr       */
+/*   Updated: 2025/08/29 15:57:57 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,9 @@ int	init_player(t_brain *b, int pos_x, char angle)
 	init_cam(b);
 	init_values(b, b->player);
 	b->player->angle = get_player_angle(angle);
-	b->player->rot(b->player, 0);
+	// b->player->rot(b->player, 0); joe do
 	b->player->ctx = b->ctx;
 	b->ctx->col_step = b->player->cam->fov / b->ctx->width;
-	disp_point(*b->player->position);
 	ft_putstr("	-> Init Cam - ");
 	ft_putstr(GRN"OK\n");
 	ft_printf(GRN"Player init - "GRN"OK\n"RST);

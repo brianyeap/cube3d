@@ -6,13 +6,13 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 17:54:30 by brian             #+#    #+#             */
-/*   Updated: 2025/08/18 18:33:01 by brian            ###   ########.fr       */
+/*   Updated: 2025/08/19 19:26:27 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cube3d.h"
 
-void	*ch_m(void *ptr, void *brain, const char *msg)
+void	*ch_m(void *ptr, void *brain, char *msg)
 {
 	if (!ptr)
 		exit_cube(brain, msg, 0);

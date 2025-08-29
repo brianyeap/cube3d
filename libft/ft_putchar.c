@@ -1,37 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   points.c                                           :+:      :+:    :+:   */
+/*   ft_putchar.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/11 22:34:09 by brian             #+#    #+#             */
-/*   Updated: 2025/08/19 19:07:50 by brian            ###   ########.fr       */
+/*   Created: 2025/08/19 19:22:29 by brian             #+#    #+#             */
+/*   Updated: 2025/08/19 19:23:56 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/canvas.h"
-#include <math.h>
+#include "libft.h"
 
-t_point	new_point(int x, int y)
+int	ft_putchar(int c)
 {
-	t_point	new;
-
-	new.x = x;
-	new.y = y;
-	return (new);
-}
-
-t_fpoint	new_fpoint(float x, float y)
-{
-	t_fpoint	new;
-
-	new.x = x;
-	new.y = y;
-	return (new);
-}
-
-float	calc_dist(t_fpoint p1, t_fpoint p2)
-{
-	return (sqrt(pow((p2.x - p1.x), 2) + pow((p2.y - p1.y), 2)));
+	return (write(1, &c, 1));
 }

@@ -7,7 +7,7 @@ CFILES   = $(shell find $(SRC_DIRS) -type f -name "*.c")
 OFILES   = $(CFILES:.c=.o)
 
 CC       = gcc
-CFLAGS   = -Wall -Wextra -Werror
+CFLAGS   = 
 INCLUDES = -I$(INC_DIR)
 
 MLX_DIR     = $(INC_DIR)/MiniLib
@@ -18,7 +18,7 @@ MLX_LDFLAGS = -L$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit
 all: $(MLX_LIB) $(NAME)
 
 $(MLX_LIB):
-	$(MAKE) -C $(MLX_DIR)
+	$(MAKE) -C $(MLX_DIR) CFLAGS="$(filter-out -Werror,$(CFLAGS)) -DGL_SILENCE_DEPRECATION"
 
 $(NAME): $(OFILES) $(MLX_LIB)
 	$(CC) $(CFLAGS) $(INCLUDES) $(MLX_INC) -o $(NAME) $(OFILES) $(MLX_LDFLAGS)

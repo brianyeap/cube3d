@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 03:46:46 by brian             #+#    #+#             */
-/*   Updated: 2025/08/19 18:59:42 by brian            ###   ########.fr       */
+/*   Updated: 2025/08/29 16:02:30 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,8 @@
 
 static void	free_player_close_file(t_player_detect *player, int fd)
 {
-	if (player)
-		free(player);
-	if (fd != -1)
-		close(fd);
+	free(player);
+	close(fd);
 }
 
 void	get_map(t_brain *b, char *map_path)
@@ -37,7 +35,7 @@ void	get_map(t_brain *b, char *map_path)
 	while (ret != -1)
 	{
 		player = add_map_row(b->map, line);
-		if (player != NULL)
+		if (player)
 		{
 			init_player(b, player->pos_x, player->direction);
 			free(player);
@@ -49,6 +47,18 @@ void	get_map(t_brain *b, char *map_path)
 	free_player_close_file(player, file);
 }
 
+void	free_map_check(t_type *map)
+{
+	free(map->no);
+	free(map->so);
+	free(map->we);
+	free(map->ea);
+	free(map->s);
+	free(map->f);
+	free(map->c);
+	free(map);
+}
+
 int	open_map(t_brain *b, char *map_path, t_type *map)
 {
 	init_map(b->ctx, b);
@@ -57,7 +67,6 @@ int	open_map(t_brain *b, char *map_path, t_type *map)
 	sort_sprites(b->player->position, b->map->sprites);
 	ft_printf(CYAN"	-> Width: [%d]\n", b->map->width);
 	ft_printf(CYAN"	-> Height:[%d]\n\n"RST, b->map->height);
-	print_map_grid((b->map));
 	b->map->px_width = b->map->width * b->map->bloc_size;
 	b->map->px_height = b->map->height * b->map->bloc_size;
 	dprintf(1, CYAN"\nReal Size : %d x %d px\n", b->map->px_width,

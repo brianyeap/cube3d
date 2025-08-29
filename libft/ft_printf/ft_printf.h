@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 16:34:30 by bryeap            #+#    #+#             */
-/*   Updated: 2025/04/03 21:20:46 by brian            ###   ########.fr       */
+/*   Updated: 2025/08/27 18:31:17 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdint.h>
+# include "../libft.h"
 
 int		ft_printf(const char *str, ...);
 int		ft_print_char(int c);

@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 18:22:12 by brian             #+#    #+#             */
-/*   Updated: 2025/08/19 18:49:18 by brian            ###   ########.fr       */
+/*   Updated: 2025/08/29 16:02:00 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,11 @@ int			init_map(t_ctx *ctx, void *brain);
 void		init_textures(t_brain *b, t_type *map);
 int			open_map(t_brain *b, char *map_path, t_type *map);
 
+// Player
+int			init_player(t_brain *b, int pos_x, char angle);
+
 // Map Helper
-void		*ch_m(void *ptr, void *brain, const char *msg);
+void		*ch_m(void *ptr, void *brain, char *msg);
 
 // Textures
 void		init_texture(t_brain *b, char *path, t_buff **t);
@@ -102,6 +105,11 @@ void		init_keys(t_brain *b);
 // Utilities
 int			ft_strmultichr(char *str, char *chrlst);
 int			check_ending(char *str, char *end);
+void		sort_sprites(t_fpoint *pos, t_spr_list *lst_sprt);
+
+// Sprites
+void		add_spr_to_list(t_spr_list *s_list, t_sprite *s);
+t_sprite	*init_sprite(t_map *m, t_fpoint pos, int type);
 
 
 #endif

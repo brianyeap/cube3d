@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 18:12:13 by brian             #+#    #+#             */
-/*   Updated: 2025/08/19 18:36:32 by brian            ###   ########.fr       */
+/*   Updated: 2025/08/29 15:43:08 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <limits.h>
+# include <fcntl.h>
 # include "ft_printf/ft_printf.h"
 
 # ifndef BUFFER_SIZE
@@ -64,14 +65,12 @@ void	ft_skip_is_space(const char *str, int *i);
 int		get_next_line(int fd, char **line);
 int		ft_strisnum(const char *str);
 void	ft_putendl(char *s);
-int		process_stock(char **stock, char **line, int read_len);
 int		newline_check(char *stock, int read_size);
 char	*get_line(char *stock);
-char	*stock_trim(char *stock);
-int		process_stock(char **stock, char **line, int read_len);
-int		read_to_stock(int fd, char **stock);
 char	*buf_join(char *stock, char *buf);
 int		*ft_str_to_int_tab(const char *s1);
 float	ft_inrad(float deg);
+int		ft_putchar(int c);
+size_t	ft_putnbr(long n);
 
 #endif

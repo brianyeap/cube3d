@@ -1,37 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   points.c                                           :+:      :+:    :+:   */
+/*   ft_putnbr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/11 22:34:09 by brian             #+#    #+#             */
-/*   Updated: 2025/08/19 19:07:50 by brian            ###   ########.fr       */
+/*   Created: 2025/08/19 19:23:30 by brian             #+#    #+#             */
+/*   Updated: 2025/08/27 18:29:37 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/canvas.h"
-#include <math.h>
+#include "libft.h"
 
-t_point	new_point(int x, int y)
+size_t	ft_putnbr(long n)
 {
-	t_point	new;
+	size_t	count;
 
-	new.x = x;
-	new.y = y;
-	return (new);
-}
-
-t_fpoint	new_fpoint(float x, float y)
-{
-	t_fpoint	new;
-
-	new.x = x;
-	new.y = y;
-	return (new);
-}
-
-float	calc_dist(t_fpoint p1, t_fpoint p2)
-{
-	return (sqrt(pow((p2.x - p1.x), 2) + pow((p2.y - p1.y), 2)));
+	count = 0;
+	if (n < 0)
+	{
+		count += ft_putchar('-');
+		n = -n;
+	}
+	if (n <= 9)
+		count += ft_putchar(n + '0');
+	else
+	{
+		count += ft_putnbr(n / 10);
+		count += ft_putnbr(n % 10);
+	}
+	return (count);
 }
