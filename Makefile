@@ -3,11 +3,12 @@ NAME     = cube3d
 SRC_DIRS = srcs libft
 INC_DIR  = includes
 
-CFILES   = $(shell find $(SRC_DIRS) -type f -name "*.c")
+# Collect .c files but exclude srcs/test/*
+CFILES   = $(filter-out srcs/test/%,$(shell find $(SRC_DIRS) -type f -name "*.c"))
 OFILES   = $(CFILES:.c=.o)
 
 CC       = gcc
-CFLAGS   = 
+CFLAGS   =
 INCLUDES = -I$(INC_DIR)
 
 MLX_DIR     = $(INC_DIR)/MiniLib

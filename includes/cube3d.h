@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 18:22:12 by brian             #+#    #+#             */
-/*   Updated: 2025/08/29 16:02:00 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/02 19:41:00 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,5 +111,8 @@ void		sort_sprites(t_fpoint *pos, t_spr_list *lst_sprt);
 void		add_spr_to_list(t_spr_list *s_list, t_sprite *s);
 t_sprite	*init_sprite(t_map *m, t_fpoint pos, int type);
 
+void		action_keys(int key, void *param, t_brain *b);
+int			key_press(int key, void *param);
+int			key_release(int key, void *param);
 
 #endif
