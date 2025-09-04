@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 17:46:56 by brian             #+#    #+#             */
-/*   Updated: 2025/09/04 19:25:51 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/04 21:04:44 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ t_brain	*new_brain(int width, int height, char *name)
 	new->ctx->color = 0x00FFFF;
 	new->map = NULL;
 	new->player = NULL;
+	new->rc = NULL;
 	init_buff(new->ctx, &new->ctx->buff, new->ctx->width, new->ctx->height);
 	init_keys(new);
 	new->initialized = 1;

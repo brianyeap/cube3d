@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 18:22:12 by brian             #+#    #+#             */
-/*   Updated: 2025/09/04 19:25:03 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/04 20:58:33 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,22 @@
 # define GREY   "\033[0;90m"
 # define PURP   "\033[0;94m"
 
+typedef struct s_rcboot {
+  void  *img;
+  char  *data;
+  int    bpp;
+  int    stride;
+  int    endian;
+
+  float  px, py;   // player position (boot view)
+  float  pa;       // angle
+  float  pdx, pdy; // derived from angle
+  int    tile;     // tile size
+
+  t_map *world;    // points to b->map
+  int    w, h;     // render size (RC_W, RC_H)
+} t_rcboot;
+
 typedef struct s_brain
 {
 	int			initialized;
@@ -44,6 +60,7 @@ typedef struct s_brain
 	t_map		*map;
 	t_player	*player;
 	int			*keys;
+  	t_rcboot *rc;    // <-- add this
 }				t_brain;
 
 typedef struct s_type
@@ -120,7 +137,7 @@ int rc_boot_init(t_brain *b);
 int rc_boot_loop(t_brain *b);
 int rc_boot_keydown(int key, t_brain *b);
 
-static void forward_to_boot_if_needed(int key, t_brain *b);
+void forward_to_boot_if_needed(int key, t_brain *b);
 int	add_key_pressed(t_brain *b, int key);
 int	del_key_pressed(t_brain *b, int key);
 int key_press(int key, void *param);
