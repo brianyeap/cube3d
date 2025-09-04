@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   key_states.c                                       :+:      :+:    :+:   */
+/*   keys_states.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 00:52:05 by brian             #+#    #+#             */
-/*   Updated: 2025/08/12 01:28:42 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/02 20:30:07 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,3 +65,12 @@ int	del_key_pressed(t_brain *b, int key)
 	}
 	return (0);
 }
+
+static void forward_to_boot_if_needed(int key, t_brain *b)
+{
+    // Forward to the boot renderer controls (W/S/A/D/ESC)
+    // Safe to call for any key; it ignores non-relevant ones.
+    rc_boot_keydown(key, b);
+}
+
+

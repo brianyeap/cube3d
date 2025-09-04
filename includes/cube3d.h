@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 18:22:12 by brian             #+#    #+#             */
-/*   Updated: 2025/09/02 19:41:00 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/04 19:25:03 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,5 +114,17 @@ t_sprite	*init_sprite(t_map *m, t_fpoint pos, int type);
 void		action_keys(int key, void *param, t_brain *b);
 int			key_press(int key, void *param);
 int			key_release(int key, void *param);
+
+// Boot raycaster (temporary smoke test renderer)
+int rc_boot_init(t_brain *b);
+int rc_boot_loop(t_brain *b);
+int rc_boot_keydown(int key, t_brain *b);
+
+static void forward_to_boot_if_needed(int key, t_brain *b);
+int	add_key_pressed(t_brain *b, int key);
+int	del_key_pressed(t_brain *b, int key);
+int key_press(int key, void *param);
+
+void rc_boot_attach_world(t_brain *b);
 
 #endif

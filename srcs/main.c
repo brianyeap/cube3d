@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 17:46:56 by brian             #+#    #+#             */
-/*   Updated: 2025/08/29 19:51:04 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/04 19:25:51 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ t_brain	*new_brain(int width, int height, char *name)
 	init_buff(new->ctx, &new->ctx->buff, new->ctx->width, new->ctx->height);
 	init_keys(new);
 	new->initialized = 1;
+	if (rc_boot_init(new) != 0)
+		exit_cube(new, "Boot renderer failed to init", 1);
 	return (new);
 }
 
@@ -32,10 +34,11 @@ int	loop_hook(t_brain *b)
 {
 	mlx_clear_window(b->ctx->mlx_ptr, b->ctx->win_ptr);
 	key_press(-1, b);
-	// Minimap if needed
-	// render image to screen
+
+	rc_boot_loop(b);
 	return (b->initialized);
 }
+
 
 int	red_x_exit(void *brain)
 {
@@ -54,6 +57,40 @@ void	init_loop(t_brain *b)
 	mlx_loop(b->ctx->mlx_ptr);
 }
 
+// Helpers: tweak these to match ft_str_to_int_tab’s encoding.
+static char int_to_tile(int v)
+{
+    // Common conventions; adjust to your encoding
+    if (v == -1) return ' ';      // void / outside
+    if (v == 0)  return '.';      // floor/empty
+    if (v == 1)  return '#';      // wall
+    if (v == 2)  return '2';      // e.g., door/sprite/etc
+    if (v == 3)  return '3';
+    if (v == 4)  return '4';
+    // fall back to digit or '?'
+    if (v >= 0 && v <= 9) return (char)('0' + v);
+    return '?';
+}
+
+
+void debug_print_map_pretty(t_map *m)
+{
+    if (!m || !m->grid) { ft_putstr("Map is NULL\n"); return; }
+
+    ft_printf("Map %dx%d\n", m->width, m->height);
+    for (int y = 0; y < m->height; y++)
+    {
+        t_map_line *row = m->grid[y];
+        if (!row) { ft_putstr("(null row)\n"); continue; }
+
+        for (int x = 0; x < row->length; x++)
+            ft_putchar(int_to_tile(row->line[x]));
+        ft_putchar('\n');
+    }
+}
+
+
+
 int	main(int argc, char **argv)
 {
 	t_brain			*b;
@@ -71,6 +108,8 @@ launch with ./Cub3D <map_file>\n", 0);
 	b->ctx->height = map->res[1];
 	ft_printf("Opening Map ""%s\n", argv[1]);
 	open_map(b, argv[1], map);
+	debug_print_map_pretty(b->map);
+	rc_boot_attach_world(b);
 	if (!check_map(b->map))
 		exit_cube(b, "BAD MAP", 0);
 	init_loop(b);
