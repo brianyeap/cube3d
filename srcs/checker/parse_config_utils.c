@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 15:43:47 by brian             #+#    #+#             */
-/*   Updated: 2025/08/18 02:07:00 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/05 18:46:10 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ int	ft_strmultichr(char *str, char *chrlst)
 		return (0);
 	while (str[i])
 	{
-		if (!(ptr = ft_strchr(chrlst, str[i])))
+		ptr = ft_strchr(chrlst, str[i]);
+		if (!ptr)
 			flaged = 0;
 		i++;
 	}

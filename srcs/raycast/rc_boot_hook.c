@@ -6,13 +6,12 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 14:26:36 by brian             #+#    #+#             */
-/*   Updated: 2025/09/05 15:14:44 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/05 19:06:17 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 #include "rc_boot.h"
-
 
 int	rc_boot_loop(t_brain *b)
 {
@@ -22,43 +21,31 @@ int	rc_boot_loop(t_brain *b)
 	return (0);
 }
 
-int	rc_boot_keydown(int key, t_brain *b)
+void	rc_update_dir(t_brain *b)
 {
-	float nx;
-	float ny;
-	
-	if (key == 53)
-		exit(0);
-	if (key == 13)
-	{
-		nx = b->rc->px + b->rc->pdx;
-		ny = b->rc->py + b->rc->pdy;
-		if (!hit(b, nx, ny))
-		{
-			b->rc->px = nx;
-			b->rc->py = ny;
-		}
-	}
-	else if (key == 1)
-	{ // S
-		float nx = b->rc->px - b->rc->pdx, ny = b->rc->py - b->rc->pdy;
-		if (!hit(b, nx, ny))
-		{
-			b->rc->px = nx;
-			b->rc->py = ny;
-		}
-  } else if (key == 0) { // A
-    b->rc->pa -= 0.1f; if (b->rc->pa < 0) b->rc->pa += 2.0f*(float)M_PI;
-    b->rc->pdx = cosf(b->rc->pa) * 5.0f; b->rc->pdy = sinf(b->rc->pa) * 5.0f;
-  } else if (key == 2) { // D
-    b->rc->pa += 0.1f; if (b->rc->pa > 2.0f*(float)M_PI) b->rc->pa -= 2.0f*(float)M_PI;
-    b->rc->pdx = cosf(b->rc->pa) * 5.0f; b->rc->pdy = sinf(b->rc->pa) * 5.0f;
-  }
-  return 0;
+	b->rc->pdx = cosf(b->rc->pa) * RC_SPEED;
+	b->rc->pdy = sinf(b->rc->pa) * RC_SPEED;
 }
 
-int rc_boot_close(void *unused) {
-  (void)unused;
-  exit(0);
-  return 0;
+void	rc_wrap_angle(t_brain *b)
+{
+	if (b->rc->pa < 0.0f)
+		b->rc->pa += 2.0f * (float)M_PI;
+	else if (b->rc->pa > 2.0f * (float)M_PI)
+		b->rc->pa -= 2.0f * (float)M_PI;
+}
+
+int	rc_boot_keydown(int key, t_brain *b)
+{
+	if (key == KEY_ESC)
+		exit_cube(b, "Exit From ESC", 0);
+	else if (key == KEY_UP)
+		return (rc_boot_key_up(b));
+	else if (key == KEY_DOWN)
+		return (rc_boot_key_down(b));
+	else if (key == KEY_LEFT)
+		return (rc_boot_turn_left(b));
+	else if (key == KEY_RIGHT)
+		return (rc_boot_turn_right(b));
+	return (0);
 }

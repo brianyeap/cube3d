@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 18:22:12 by brian             #+#    #+#             */
-/*   Updated: 2025/09/05 18:42:21 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/05 18:49:13 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,13 @@
 # define CYAN   "\033[0;36m"
 # define GREY   "\033[0;90m"
 # define PURP   "\033[0;94m"
+
+// Key codes for Mac
+# define KEY_ESC 53
+# define KEY_UP 13
+# define KEY_DOWN 1
+# define KEY_LEFT 0
+# define KEY_RIGHT 2
 
 #ifndef M_PI
 # define M_PI 3.14159265358979323846
