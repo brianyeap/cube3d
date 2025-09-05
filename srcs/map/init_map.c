@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 17:48:01 by brian             #+#    #+#             */
-/*   Updated: 2025/08/29 16:37:34 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/05 17:44:02 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ int	init_map(t_ctx *ctx, void *brain)
 	b->map->sprites->list = NULL;
 	b->map->skybox = NULL;
 	b->map->brain = b;
-	init_buff(ctx, &b->map->frame, ctx->width, ctx->height);
 	return (1);
 }
 
@@ -98,7 +97,7 @@ t_player_detect	*chr_trt(char *line, t_map *m)
 			player->direction = line[i];
 		}
 		real = line[i] - '0';
-		if (real >= 2 && real <= 4) // Might have to change depends on future sprites
+		if (real == 2)
 			add_spr_to_list(m->sprites,
 				init_sprite(m, new_fpoint(i, m->height), real));
 		i++;

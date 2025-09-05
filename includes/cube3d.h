@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 18:22:12 by brian             #+#    #+#             */
-/*   Updated: 2025/09/05 16:54:18 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/05 18:07:40 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # include "canvas.h"
 # include "player.h"
 # include "map.h"
-# include "../debug/debug.h"
+# include "debug.h"
 # include "rc_boot.h"
 
 # define RST	"\033[0m"
@@ -124,8 +124,6 @@ void		ft_exit(char *str, t_type *map);
 void		ft_check_struct(t_type *map);
 int			check_surround(t_map *m, t_point *pos);
 
-// Canvas
-void		init_buff(t_ctx *ctx, t_buff **buff, int width, int height);
 
 // Keys
 void		init_keys(t_brain *b);
@@ -139,7 +137,6 @@ void		sort_sprites(t_fpoint *pos, t_spr_list *lst_sprt);
 void		add_spr_to_list(t_spr_list *s_list, t_sprite *s);
 t_sprite	*init_sprite(t_map *m, t_fpoint pos, int type);
 
-void		action_keys(int key, void *param, t_brain *b);
 int			key_press(int key, void *param);
 int			key_release(int key, void *param);
 
@@ -148,7 +145,7 @@ int			rc_boot_init(t_brain *b);
 int			rc_boot_loop(t_brain *b);
 int			rc_boot_keydown(int key, t_brain *b);
 
-void		forward_to_boot_if_needed(int key, t_brain *b);
+void		forward_to_boot(int key, t_brain *b);
 int			add_key_pressed(t_brain *b, int key);
 int			del_key_pressed(t_brain *b, int key);
 int			key_press(int key, void *param);

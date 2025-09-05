@@ -6,21 +6,12 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 22:34:09 by brian             #+#    #+#             */
-/*   Updated: 2025/08/19 19:07:50 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/05 17:46:01 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/canvas.h"
 #include <math.h>
-
-t_point	new_point(int x, int y)
-{
-	t_point	new;
-
-	new.x = x;
-	new.y = y;
-	return (new);
-}
 
 t_fpoint	new_fpoint(float x, float y)
 {
