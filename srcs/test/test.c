@@ -6,7 +6,7 @@
 /*   By: jow <jow@student.42kl.edu.my>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 00:10:27 by jow               #+#    #+#             */
-/*   Updated: 2025/09/02 14:48:27 by jow              ###   ########.fr       */
+/*   Updated: 2025/09/06 00:24:57 by jow              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,22 @@
 
 #define DEBUG 0 // Set to 1 for 2D debugging, 0 for 3D rendering
 
+typedef struct s_dda
+{
+    double delta_dist_x;
+    double delta_dist_y;
+    double side_dist_x;
+    double side_dist_y;
+    int step_x;
+    int step_y;
+    int map_x;
+    int map_y;
+    int side; // 0 if NS wall hit, 1 if EW wall hit
+    int hit;
+    double perp_wall_dist;
+    double wall_x; // exact position where wall was hit
+} t_dda;
+
 typedef struct s_brain
 {
     void *mlx_ptr;
@@ -47,12 +63,20 @@ typedef struct s_brain
     float player_dy;
     float player_angle;
     int map[64]; // 8x8 map
+
+    void *wall_texture;
+    char *wall_data;
+    int wall_width;
+    int wall_height;
+    int wall_bpp;
+    int wall_size_line;
+    int wall_endian;
+    t_dda dda;
 } t_brain;
 
 void draw_map(t_brain *brain);
 void draw_square(int x, int y, int size, int colour, t_brain *brain);
 int touch(float x, float y, t_brain *brain);
-
 
 float calcDist(const float ax, const float ay, const float bx, const float by)
 {
@@ -93,8 +117,8 @@ int close_window(void *param)
 int on_keypress(int keycode, void *param)
 {
     t_brain *brain = (t_brain *)param;
-    float   new_x;
-    float   new_y;
+    float new_x;
+    float new_y;
 
     if (keycode == KEY_ESC)
         exit(0);
@@ -141,16 +165,29 @@ int on_keypress(int keycode, void *param)
 
 /*-----------------------------------------------------------------------------------------------*/
 
-void ft_put_pixel(int x, int y, int colour, t_brain *brain)
+void ft_put_pixel(int x, int y, int color, t_brain *brain)
 {
     int index;
 
-    if (x >= WIDTH || y >= HEIGHT || x < 0 || y < 0)
+    if (x < 0 || y < 0 || x >= WIDTH || y >= HEIGHT)
         return;
-    index = y * brain->size_line + x * (brain->bpp / 8);
-    brain->data[index + 0] = colour & 0xFF;         // Blue
-    brain->data[index + 1] = (colour >> 8) & 0xFF;  // Green
-    brain->data[index + 2] = (colour >> 16) & 0xFF; // Red
+
+    index = (y * brain->size_line) + (x * (brain->bpp / 8));
+
+    if (brain->endian == 1) // Big endian: MSB first (ARGB)
+    {
+        brain->data[index + 0] = (color >> 24) & 0xFF; // A
+        brain->data[index + 1] = (color >> 16) & 0xFF; // R
+        brain->data[index + 2] = (color >> 8) & 0xFF;  // G
+        brain->data[index + 3] = (color) & 0xFF;       // B
+    }
+    else // Little endian: LSB first (BGRA in memory)
+    {
+        brain->data[index + 0] = (color) & 0xFF;       // B
+        brain->data[index + 1] = (color >> 8) & 0xFF;  // G
+        brain->data[index + 2] = (color >> 16) & 0xFF; // R
+        brain->data[index + 3] = (color >> 24) & 0xFF; // A
+    }
 }
 
 void draw_square(int x, int y, int size, int colour, t_brain *brain)
@@ -206,7 +243,7 @@ void ft_clear_image(t_brain *brain)
     }
 }
 
-// Add this helper function to check if a point hits a wall
+// check if ray touches wall
 int touch(float x, float y, t_brain *brain)
 {
     int map_x = (int)(x / 64);
@@ -225,15 +262,42 @@ float fixed_dist(float player_x, float player_y, float ray_x, float ray_y, float
     return (dist * cos(ray_angle - brain->player_angle)); // Fix fisheye effect
 }
 
+int get_texture_pixel(t_brain *brain, int tex_x, int tex_y)
+{
+    int index;
+    int color;
+
+    if (!brain->wall_data || tex_x < 0 || tex_x >= brain->wall_width ||
+        tex_y < 0 || tex_y >= brain->wall_height)
+        return (0xFFFFFF); // Return white if no texture or out of bounds
+
+    index = (tex_y * brain->wall_size_line) + (tex_x * (brain->wall_bpp / 8));
+
+    if (brain->wall_endian == 1) // Big endian
+    {
+        color = (brain->wall_data[index + 0] << 24) |
+                (brain->wall_data[index + 1] << 16) |
+                (brain->wall_data[index + 2] << 8) |
+                (brain->wall_data[index + 3]);
+    }
+    else // Little endian
+    {
+        color = (brain->wall_data[index + 3] << 24) |
+                (brain->wall_data[index + 2] << 16) |
+                (brain->wall_data[index + 1] << 8) |
+                (brain->wall_data[index + 0]);
+    }
+
+    return (color & 0xFFFFFF); // Remove alpha channel
+}
+
 void draw_line(t_brain *brain)
 {
     float fov = M_PI / 3; // 60 degree field of view
     float angle_step = fov / WIDTH;
     float start_angle = brain->player_angle - fov / 2;
     int i;
-    int y;
     int steps;
-
 
     i = 0;
     while (i < WIDTH)
@@ -246,10 +310,10 @@ void draw_line(t_brain *brain)
         steps = 0;
 
         // Cast ray until it hits a wall
-        while (!touch(ray_x, ray_y, brain) && steps < 300)
+        while (!touch(ray_x, ray_y, brain) && steps < 1000)
         {
             if (DEBUG)
-                ft_put_pixel((int)ray_x, (int)ray_y, 0xFF0000, brain); // Red for 2D debug
+                ft_put_pixel((int)ray_x, (int)ray_y, 0xFF0000, brain);
             ray_x += ray_dx;
             ray_y += ray_dy;
             steps++;
@@ -257,15 +321,37 @@ void draw_line(t_brain *brain)
 
         if (!DEBUG)
         {
-            // 3D rendering
+            // Calculate wall hit position
             float dist = fixed_dist(brain->player_x, brain->player_y, ray_x, ray_y, ray_angle, brain);
-            float height = (64.0 / dist) * (WIDTH / 2);
-            int start_y = (HEIGHT - height) / 2;
-            int end_y = start_y + height;
-            while (start_y < end_y)
+            float wall_height = (64.0 / dist) * (WIDTH / 2);
+            int start_y = (HEIGHT - wall_height) / 2;
+            int end_y = start_y + wall_height;
+
+            // Calculate texture X coordinate
+            float wall_hit_x = ray_x - floor(ray_x / 64) * 64; // Position within the 64x64 tile
+            float wall_hit_y = ray_y - floor(ray_y / 64) * 64;
+
+            // Determine which side of the wall was hit to get correct texture coordinate
+            int tex_x;
+            if (fabs(ray_dx) > fabs(ray_dy)) // Hit vertical wall
+                tex_x = (int)(wall_hit_y * brain->wall_width / 64);
+            else // Hit horizontal wall
+                tex_x = (int)(wall_hit_x * brain->wall_width / 64);
+
+            if (start_y < 0)
+                start_y = 0;
+            if (end_y > HEIGHT)
+                end_y = HEIGHT;
+            // Draw the textured wall column
+            for (int y = start_y; y < end_y && y >= 0 && y < HEIGHT; y++)
             {
-                ft_put_pixel(i, start_y, 0x0000FF, brain);
-                start_y++;
+                // Calculate texture Y coordinate
+                float tex_y_ratio = (float)(y - start_y) / wall_height;
+                int tex_y = (int)(tex_y_ratio * brain->wall_height);
+
+                // Get the color from texture
+                int color = get_texture_pixel(brain, tex_x, tex_y);
+                ft_put_pixel(i, y, color, brain);
             }
         }
         i++;
@@ -292,6 +378,11 @@ void init_game(t_brain *brain)
     brain->win_ptr = mlx_new_window(brain->mlx_ptr, WIDTH, HEIGHT, "Cube3D Test");
     brain->img_ptr = mlx_new_image(brain->mlx_ptr, WIDTH, HEIGHT);
     brain->data = mlx_get_data_addr(brain->img_ptr, &brain->bpp, &brain->size_line, &brain->endian);
+
+    brain->wall_height = 64;
+    brain->wall_width = 64;
+    brain->wall_texture = mlx_xpm_file_to_image(brain->mlx_ptr, "wall.xpm", &brain->wall_width, &brain->wall_height);
+    brain->wall_data = mlx_get_data_addr(brain->wall_texture, &brain->wall_bpp, &brain->wall_size_line, &brain->wall_endian);
     mlx_put_image_to_window(brain->mlx_ptr, brain->win_ptr, brain->img_ptr, 0, 0);
 }
 
