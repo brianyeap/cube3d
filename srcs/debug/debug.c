@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 18:47:16 by brian             #+#    #+#             */
-/*   Updated: 2025/09/05 18:26:20 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/06 00:06:33 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ int	debug_check_map(t_map *m)
 		ft_putstr("Map is NULL\n");
 		return (0);
 	}
-	ft_printf("Map %dx%d\n", m->width, m->height);
 	return (1);
 }
 
