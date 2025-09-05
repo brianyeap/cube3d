@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 18:22:12 by brian             #+#    #+#             */
-/*   Updated: 2025/09/05 14:52:10 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/05 15:59:42 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # include "player.h"
 # include "map.h"
 # include "../debug/debug.h"
+# include "rc_boot.h"
 
 # define RST	"\033[0m"
 # define RED    "\033[0;31m"
@@ -41,21 +42,25 @@
 # define M_PI 3.14159265358979323846
 #endif
 
-typedef struct s_rcboot {
-  void  *img;
-  char  *data;
-  int    bpp;
-  int    stride;
-  int    endian;
+typedef struct s_rcboot
+{
+	void		*img;
+	char		*data;
+	int			bpp;
+	int			stride;
+	int			endian;
 
-  float  px, py;   // player position (boot view)
-  float  pa;       // angle
-  float  pdx, pdy; // derived from angle
-  int    tile;     // tile size
+	float		px;
+	float		py;
+	float		pa;       // angle
+	float		pdx;      // derived from angle
+	float		pdy;      // derived from angle
+	int			tile;    // tile size
 
-  t_map *world;    // points to b->map
-  int    w, h;     // render size (RC_W, RC_H)
-} t_rcboot;
+	t_map		*world;    // points to b->map
+	int			w;
+	int			h;
+}	t_rcboot;
 
 typedef struct s_brain
 {
@@ -64,7 +69,7 @@ typedef struct s_brain
 	t_map		*map;
 	t_player	*player;
 	int			*keys;
-  	t_rcboot *rc;    // <-- add this
+	t_rcboot	*rc;
 }				t_brain;
 
 typedef struct s_type
@@ -137,17 +142,15 @@ int			key_press(int key, void *param);
 int			key_release(int key, void *param);
 
 // Boot raycaster (temporary smoke test renderer)
-int rc_boot_init(t_brain *b);
-int rc_boot_loop(t_brain *b);
-int rc_boot_keydown(int key, t_brain *b);
+int			rc_boot_init(t_brain *b);
+int			rc_boot_loop(t_brain *b);
+int			rc_boot_keydown(int key, t_brain *b);
 
-void forward_to_boot_if_needed(int key, t_brain *b);
-int	add_key_pressed(t_brain *b, int key);
-int	del_key_pressed(t_brain *b, int key);
-int key_press(int key, void *param);
+void		forward_to_boot_if_needed(int key, t_brain *b);
+int			add_key_pressed(t_brain *b, int key);
+int			del_key_pressed(t_brain *b, int key);
+int			key_press(int key, void *param);
 
-void rc_boot_attach_world(t_brain *b);
-
-#include "rc_boot.h"
+void		rc_boot_attach_world(t_brain *b);
 
 #endif

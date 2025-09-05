@@ -6,14 +6,14 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 14:21:51 by brian             #+#    #+#             */
-/*   Updated: 2025/09/05 14:55:20 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/05 15:57:07 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3d.h"
-
 #ifndef RC_BOOT_H
 # define RC_BOOT_H
+
+typedef struct s_brain	t_brain;
 
 // rc boot draw
 void			put_px(t_brain *b, int x, int y, int color);
