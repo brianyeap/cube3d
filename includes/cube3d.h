@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 18:22:12 by brian             #+#    #+#             */
-/*   Updated: 2025/09/05 18:25:07 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/05 18:42:21 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,6 @@ int			rc_boot_init(t_brain *b);
 int			rc_boot_loop(t_brain *b);
 int			rc_boot_keydown(int key, t_brain *b);
 
-void		forward_to_boot(int key, t_brain *b);
 int			add_key_pressed(t_brain *b, int key);
 int			del_key_pressed(t_brain *b, int key);
 int			key_press(int key, void *param);

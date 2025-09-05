@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 00:52:05 by brian             #+#    #+#             */
-/*   Updated: 2025/09/05 17:47:50 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/05 18:42:24 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,6 @@ void	init_keys(t_brain *b)
 	b->keys = ft_calloc(10, sizeof(int));
 	while (i < 10)
 		b->keys[i++] = -1;
-}
-
-int	is_key_pressed(t_brain *b, int key)
-{
-	int	i;
-
-	i = 0;
-	while (i < 10 && key != -1)
-	{
-		if (b->keys[i] == key)
-			return (i);
-		i++;
-	}
-	return (-1);
 }
 
 int	add_key_pressed(t_brain *b, int key)
@@ -78,9 +64,5 @@ int	del_key_pressed(t_brain *b, int key)
 	return (0);
 }
 
-void	forward_to_boot(int key, t_brain *b)
-{
-	rc_boot_keydown(key, b);
-}
 
 
