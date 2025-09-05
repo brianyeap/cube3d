@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 18:22:12 by brian             #+#    #+#             */
-/*   Updated: 2025/09/04 20:58:33 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/05 14:52:10 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,10 @@
 # define CYAN   "\033[0;36m"
 # define GREY   "\033[0;90m"
 # define PURP   "\033[0;94m"
+
+#ifndef M_PI
+# define M_PI 3.14159265358979323846
+#endif
 
 typedef struct s_rcboot {
   void  *img;
@@ -143,5 +147,7 @@ int	del_key_pressed(t_brain *b, int key);
 int key_press(int key, void *param);
 
 void rc_boot_attach_world(t_brain *b);
+
+#include "rc_boot.h"
 
 #endif
