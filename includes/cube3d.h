@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 18:22:12 by brian             #+#    #+#             */
-/*   Updated: 2025/09/05 15:59:42 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/05 16:54:18 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@
 #ifndef M_PI
 # define M_PI 3.14159265358979323846
 #endif
+
+# define MAX_KEYS 10
 
 typedef struct s_rcboot
 {

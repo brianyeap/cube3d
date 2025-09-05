@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 00:52:05 by brian             #+#    #+#             */
-/*   Updated: 2025/09/04 20:58:50 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/05 16:57:06 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,35 +36,51 @@ int	is_key_pressed(t_brain *b, int key)
 	return (-1);
 }
 
-int	add_key_pressed(t_brain *b, int key)
+int add_key_pressed(t_brain *b, int key)
 {
-	int	i;
+    int i;
 
-	i = 0;
-	while (b->keys[i] != -1 && i < 10)
-		i++;
-	if (i < 10)
-	{
-		b->keys[i] = key;
-		return (1);
-	}
-	return (0);
+    i = 0;
+    /* check for duplicate */
+    while (i < MAX_KEYS)
+    {
+        if (b->keys[i] == key)
+            return (1);
+        i++;
+    }
+
+    /* find first free slot */
+    i = 0;
+    while (i < MAX_KEYS)
+    {
+        if (b->keys[i] == -1)
+        {
+            b->keys[i] = key;
+            return (1);
+        }
+        i++;
+    }
+    return (0);
 }
 
-int	del_key_pressed(t_brain *b, int key)
+int del_key_pressed(t_brain *b, int key)
 {
-	int	i;
+    int i;
 
-	i = 0;
-	while (b->keys[i] != key && i < 10)
-		i++;
-	if (i < 10 && b->keys[i] == key)
-	{
-		b->keys[i] = -1;
-		return (1);
-	}
-	return (0);
+    i = 0;
+    while (i < MAX_KEYS)
+    {
+        if (b->keys[i] == key)
+        {
+            b->keys[i] = -1;
+            return (1);
+        }
+        i++;
+    }
+    return (0);
 }
+
+
 
 void forward_to_boot_if_needed(int key, t_brain *b)
 {
