@@ -8,7 +8,7 @@ CFILES   = $(filter-out srcs/test/%,$(shell find $(SRC_DIRS) -type f -name "*.c"
 OFILES   = $(CFILES:.c=.o)
 
 CC       = gcc
-CFLAGS   =
+CFLAGS   = -Wall -Wextra -Werror
 INCLUDES = -I$(INC_DIR)
 
 MLX_DIR     = $(INC_DIR)/MiniLib

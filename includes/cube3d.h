@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 18:22:12 by brian             #+#    #+#             */
-/*   Updated: 2025/09/05 18:07:40 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/05 18:25:07 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,9 @@
 #endif
 
 # define MAX_KEYS 10
+
+typedef struct s_sprite			t_sprite;
+typedef struct s_spr_list		t_spr_list;
 
 typedef struct s_rcboot
 {
@@ -105,7 +108,6 @@ t_type		*ft_getmap_config(char *file);
 // Map
 int			get_grid(t_map *m, int x, int y, int need_rescale);
 t_fpoint	to_grid(int x, int y, t_map *m);
-int			init_map(t_ctx *ctx, void *brain);
 void		init_textures(t_brain *b, t_type *map);
 int			open_map(t_brain *b, char *map_path, t_type *map);
 

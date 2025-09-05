@@ -6,13 +6,13 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 17:48:01 by brian             #+#    #+#             */
-/*   Updated: 2025/09/05 17:44:02 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/05 18:16:40 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cube3d.h"
+#include "map.h"
 
-int	init_map(t_ctx *ctx, void *brain)
+int	init_map(void *brain)
 {
 	t_brain	*b;
 

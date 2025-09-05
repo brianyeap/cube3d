@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 03:46:46 by brian             #+#    #+#             */
-/*   Updated: 2025/08/29 16:02:30 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/05 18:27:08 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	free_map_check(t_type *map)
 
 int	open_map(t_brain *b, char *map_path, t_type *map)
 {
-	init_map(b->ctx, b);
+	init_map(b);
 	init_textures(b, map);
 	get_map(b, map_path);
 	sort_sprites(b->player->position, b->map->sprites);

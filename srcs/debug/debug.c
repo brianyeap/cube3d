@@ -6,11 +6,12 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 18:47:16 by brian             #+#    #+#             */
-/*   Updated: 2025/09/05 18:10:37 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/05 18:26:20 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/debug.h"
+#include "../../includes/map.h"
 
 char	int_to_tile(int v)
 {
