@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 00:52:05 by brian             #+#    #+#             */
-/*   Updated: 2025/09/05 18:42:24 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/09 14:51:56 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ int	add_key_pressed(t_brain *b, int key)
 			return (1);
 		i++;
 	}
-
 	i = 0;
 	while (i < MAX_KEYS)
 	{
@@ -63,6 +62,3 @@ int	del_key_pressed(t_brain *b, int key)
 	}
 	return (0);
 }
-
-
-

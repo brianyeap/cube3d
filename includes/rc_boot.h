@@ -6,15 +6,25 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 14:21:51 by brian             #+#    #+#             */
-/*   Updated: 2025/09/05 19:06:50 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/09 14:46:30 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RC_BOOT_H
 # define RC_BOOT_H
 
-#define RC_TURN   0.1f
-#define RC_SPEED  5.0f
+# define RC_TURN   0.1f
+# define RC_SPEED  5.0f
+
+typedef struct s_ray
+{
+	float	ang;
+	float	rdx;
+	float	rdy;
+	float	rx;
+	float	ry;
+	int		steps;
+}	t_ray;
 
 typedef struct s_brain	t_brain;
 
@@ -48,5 +58,7 @@ int				rc_boot_key_up(t_brain *b);
 int				rc_boot_key_down(t_brain *b);
 int				rc_boot_turn_left(t_brain *b);
 int				rc_boot_turn_right(t_brain *b);
+
+
 
 #endif /* RC_BOOT_H */
