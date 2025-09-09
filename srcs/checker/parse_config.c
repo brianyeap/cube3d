@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 15:43:47 by brian             #+#    #+#             */
-/*   Updated: 2025/08/08 23:55:59 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/09 16:03:44 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,9 @@ t_type	*ft_getmap_config(char *file)
 
 void	ft_getmap_values(char *line, t_type *map)
 {
-	int	res;
-
-	res = ft_strncmp(line, "R ", 2);
-	if (!res)
-		ft_set_resolution(line + 2, map->res, map);
-	else if (!(ft_strncmp(line, "NO ", 3)))
+	map->res[0] = WIN_W;
+	map->res[1] = WIN_H;
+	if (!(ft_strncmp(line, "NO ", 3)))
 		parse_texture_path(line + 3, &map->no, map);
 	else if (!(ft_strncmp(line, "SO ", 3)))
 		parse_texture_path(line + 3, &map->so, map);
@@ -56,43 +53,38 @@ void	ft_getmap_values(char *line, t_type *map)
 		parse_texture_path(line + 3, &map->we, map);
 	else if (!(ft_strncmp(line, "EA ", 3)))
 		parse_texture_path(line + 3, &map->ea, map);
-	else if (!(ft_strncmp(line, "S ", 2)))
-		parse_texture_path(line + 2, &map->s, map);
 	else if (!(ft_strncmp(line, "F ", 2)))
-		parse_texture_path(line + 2, &map->f, map);
+		parse_color_rgb(line + 2, &map->f_rgb, map);
 	else if (!(ft_strncmp(line, "C ", 2)))
-		parse_texture_path(line + 2, &map->c, map);
+		parse_color_rgb(line + 2, &map->c_rgb, map);
 	else if (line[0] != '\0')
 		ft_exit("Unkown identifier(s) in file\n", map);
 }
 
-void	ft_set_resolution(char *str, int *target, t_type *map)
+void	parse_color_rgb(char *str, int *target, t_type *map)
 {
+	char	**split;
 	int		i;
-	char	**splited;
+	int		r;
+	int		g;
+	int		b;
 
+	split = ft_split(str, ',');
 	i = 0;
-	if (ft_check_str(str, "0123456789 "))
-		ft_exit("Not a valid resolution!\n", map);
-	if (target[2] != 0)
-		ft_exit("Resolution already set!\n", map);
-	splited = ft_split(str, ' ');
-	while (splited[i] != NULL)
+	while (split[i])
 		i++;
-	if (i != 2)
-		ft_exit("Resolution not gud :(\n", map);
+	if (i != 3)
+		ft_exit("Invalid RGB format\n", map);
+	r = ft_atoi(split[0]);
+	g = ft_atoi(split[1]);
+	b = ft_atoi(split[2]);
+	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
+		ft_exit("RGB values must be 0–255\n", map);
+	*target = (r << 16) | (g << 8) | b;
 	i = 0;
-	while (splited[i] != NULL)
-		free(splited[i++]);
-	free(splited);
-	target[0] = ft_atoi(str);
-	str = ft_strchr(str, ' ');
-	target[1] = ft_atoi(str);
-	if (target[0] < 100)
-		target[0] = 100;
-	if (target[1] < 100)
-		target[1] = 100;
-	target[2] = 1;
+	while (split[i])
+		free(split[i++]);
+	free(split);
 }
 
 void	parse_texture_path(char *str, char **target, t_type *map)

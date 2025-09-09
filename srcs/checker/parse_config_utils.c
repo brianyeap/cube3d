@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 15:43:47 by brian             #+#    #+#             */
-/*   Updated: 2025/09/05 18:46:10 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/09 16:02:47 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	ft_check_struct(t_type *map)
 {
-	if ((map->res[2] == 0) || ((!map->f) || (!map->c)))
-		ft_exit("The setup file lacks informations\n", map);
+	if (map->f_rgb < 0 || map->c_rgb < 0)
+		ft_exit("Floor or ceiling color missing\n", map);
 	if (map->no[0] == 0)
 		ft_exit("North texture missing\n", map);
 	if (map->so[0] == 0)
@@ -24,8 +24,6 @@ void	ft_check_struct(t_type *map)
 		ft_exit("East texture missing\n", map);
 	if (map->we[0] == 0)
 		ft_exit("West texture missing\n", map);
-	if (map->s[0] == 0)
-		ft_exit("Sprite texture missing\n", map);
 }
 
 void	ft_init_t_type(t_type *map)
@@ -34,9 +32,8 @@ void	ft_init_t_type(t_type *map)
 	map->so = NULL;
 	map->we = NULL;
 	map->ea = NULL;
-	map->s = NULL;
-	map->c = NULL;
-	map->f = NULL;
+	map->c_rgb = -1;
+	map->f_rgb = -1;
 	map->height = 0;
 	map->width = 0;
 	map->valid = 1;
@@ -85,7 +82,7 @@ int	check_ending(char *str, char *end)
 
 void	ft_exit(char *str, t_type *map)
 {
-	ft_putstr(RED"Cub3d Exit - Error: ");
+	ft_putstr(RED"Error\n");
 	ft_putstr(str);
 	ft_putstr(RST"\n");
 	free(map);

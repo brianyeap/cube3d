@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 18:22:12 by brian             #+#    #+#             */
-/*   Updated: 2025/09/05 18:49:13 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/09 16:04:19 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,9 @@
 #ifndef M_PI
 # define M_PI 3.14159265358979323846
 #endif
+
+# define WIN_W 1025
+# define WIN_H 512
 
 # define MAX_KEYS 10
 
@@ -96,9 +99,8 @@ typedef struct s_type
 	char		*so;
 	char		*we;
 	char		*ea;
-	char		*s;
-	char		*f;
-	char		*c;
+	int			f_rgb;
+	int			c_rgb;
 }				t_type;
 
 // Cleanups
@@ -107,7 +109,7 @@ void		exit_cube(t_brain *brain, char *msg, int exit_now);
 // Checker
 void		ft_init_t_type(t_type *map);
 void		ft_getmap_values(char *line, t_type *map);
-void		ft_set_resolution(char *str, int *target, t_type *map);
+void		parse_color_rgb(char *str, int *target, t_type *map);
 char		*ft_check_str(char *str, char *chrs);
 void		parse_texture_path(char *str, char **target, t_type *map);
 t_type		*ft_getmap_config(char *file);

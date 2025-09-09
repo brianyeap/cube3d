@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 03:46:46 by brian             #+#    #+#             */
-/*   Updated: 2025/09/09 14:52:11 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/09 16:05:24 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,11 @@ void	get_map(t_brain *b, char *map_path)
 			break ;
 		ret = get_next_line(file, &line);
 	}
+	if (!b->player)
+	{
+		printf("Error\nNo player position detected in map.\n");
+		exit_cube(b, "Failed to initialize player", 0);
+	}
 	free_player_close_file(player, file);
 }
 
@@ -53,9 +58,6 @@ void	free_map_check(t_type *map)
 	free(map->so);
 	free(map->we);
 	free(map->ea);
-	free(map->s);
-	free(map->f);
-	free(map->c);
 	free(map);
 }
 
@@ -74,3 +76,4 @@ int	open_map(t_brain *b, char *map_path, t_type *map)
 	free_map_check(map);
 	return (1);
 }
+
