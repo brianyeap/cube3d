@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 18:22:12 by brian             #+#    #+#             */
-/*   Updated: 2025/09/09 16:04:19 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/09 21:01:45 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@
 
 typedef struct s_sprite			t_sprite;
 typedef struct s_spr_list		t_spr_list;
+typedef struct s_map            t_map;
+typedef struct s_player_detect  t_player_detect;
 
 typedef struct s_rcboot
 {
@@ -105,6 +107,7 @@ typedef struct s_type
 
 // Cleanups
 void		exit_cube(t_brain *brain, char *msg, int exit_now);
+void		free_map_check(t_type *map);
 
 // Checker
 void		ft_init_t_type(t_type *map);
@@ -119,6 +122,8 @@ int			get_grid(t_map *m, int x, int y, int need_rescale);
 t_fpoint	to_grid(int x, int y, t_map *m);
 void		init_textures(t_brain *b, t_type *map);
 int			open_map(t_brain *b, char *map_path, t_type *map);
+void		init_and_free_player(t_brain *b, int x, char g, t_player_detect *p);
+void		info_and_exit(t_brain *b, char *infoMsg, char *exitMsg);
 
 // Player
 int			init_player(t_brain *b, int pos_x, char angle);
