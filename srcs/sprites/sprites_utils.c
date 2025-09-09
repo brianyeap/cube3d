@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 19:04:34 by brian             #+#    #+#             */
-/*   Updated: 2025/08/27 20:33:10 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/05 17:50:49 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,16 +62,3 @@ void	sort_sprites(t_fpoint *pos, t_spr_list *lst_sprt)
 		i++;
 	}
 }
-
-// void	update_sprite(t_brain *b)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	sort_sprites(b->player->position, b->map->sprites);
-// 	while (i < b->map->sprites->length)
-// 	{
-// 		draw_sprite(b, b->map->sprites->list[i], 0);
-// 		i++;
-// 	}
-// }

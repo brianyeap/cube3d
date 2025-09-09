@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 18:22:12 by brian             #+#    #+#             */
-/*   Updated: 2025/08/29 16:02:00 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/05 18:49:13 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@
 # include "canvas.h"
 # include "player.h"
 # include "map.h"
-# include "../debug/debug.h"
+# include "debug.h"
+# include "rc_boot.h"
 
 # define RST	"\033[0m"
 # define RED    "\033[0;31m"
@@ -37,6 +38,42 @@
 # define GREY   "\033[0;90m"
 # define PURP   "\033[0;94m"
 
+// Key codes for Mac
+# define KEY_ESC 53
+# define KEY_UP 13
+# define KEY_DOWN 1
+# define KEY_LEFT 0
+# define KEY_RIGHT 2
+
+#ifndef M_PI
+# define M_PI 3.14159265358979323846
+#endif
+
+# define MAX_KEYS 10
+
+typedef struct s_sprite			t_sprite;
+typedef struct s_spr_list		t_spr_list;
+
+typedef struct s_rcboot
+{
+	void		*img;
+	char		*data;
+	int			bpp;
+	int			stride;
+	int			endian;
+
+	float		px;
+	float		py;
+	float		pa;       // angle
+	float		pdx;      // derived from angle
+	float		pdy;      // derived from angle
+	int			tile;    // tile size
+
+	t_map		*world;    // points to b->map
+	int			w;
+	int			h;
+}	t_rcboot;
+
 typedef struct s_brain
 {
 	int			initialized;
@@ -44,6 +81,7 @@ typedef struct s_brain
 	t_map		*map;
 	t_player	*player;
 	int			*keys;
+	t_rcboot	*rc;
 }				t_brain;
 
 typedef struct s_type
@@ -77,7 +115,6 @@ t_type		*ft_getmap_config(char *file);
 // Map
 int			get_grid(t_map *m, int x, int y, int need_rescale);
 t_fpoint	to_grid(int x, int y, t_map *m);
-int			init_map(t_ctx *ctx, void *brain);
 void		init_textures(t_brain *b, t_type *map);
 int			open_map(t_brain *b, char *map_path, t_type *map);
 
@@ -96,8 +133,6 @@ void		ft_exit(char *str, t_type *map);
 void		ft_check_struct(t_type *map);
 int			check_surround(t_map *m, t_point *pos);
 
-// Canvas
-void		init_buff(t_ctx *ctx, t_buff **buff, int width, int height);
 
 // Keys
 void		init_keys(t_brain *b);
@@ -111,5 +146,18 @@ void		sort_sprites(t_fpoint *pos, t_spr_list *lst_sprt);
 void		add_spr_to_list(t_spr_list *s_list, t_sprite *s);
 t_sprite	*init_sprite(t_map *m, t_fpoint pos, int type);
 
+int			key_press(int key, void *param);
+int			key_release(int key, void *param);
+
+// Boot raycaster (temporary smoke test renderer)
+int			rc_boot_init(t_brain *b);
+int			rc_boot_loop(t_brain *b);
+int			rc_boot_keydown(int key, t_brain *b);
+
+int			add_key_pressed(t_brain *b, int key);
+int			del_key_pressed(t_brain *b, int key);
+int			key_press(int key, void *param);
+
+void		rc_boot_attach_world(t_brain *b);
 
 #endif

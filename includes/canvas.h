@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 16:01:30 by brian             #+#    #+#             */
-/*   Updated: 2025/08/19 19:08:05 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/05 17:46:05 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,22 +48,11 @@ typedef struct s_ctx
 {
 	int			width;
 	int			height;
-	int			color;
-	int			line_width;
 	void		*mlx_ptr;
 	void		*win_ptr;
-	t_buff		*buff;
-	t_buff		*cur_buff;
-	t_fpoint	divided;
-	float		col_step;
-	void		(*line)(t_point, t_point, struct s_ctx *);
-	void		(*rect)(t_point, t_point, int, struct s_ctx *);
-	void		(*circle)(t_fpoint, int, int, struct s_ctx *);
-	void		(*clear)(int, struct s_ctx *);
 }				t_ctx;
 
 // Points
-t_point		new_point(int x, int y);
 t_fpoint	new_fpoint(float x, float y);
 float		calc_dist(t_fpoint p1, t_fpoint p2);
 

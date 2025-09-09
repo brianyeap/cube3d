@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 16:30:36 by brian             #+#    #+#             */
-/*   Updated: 2025/08/19 18:57:08 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/05 18:16:48 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ typedef struct s_map
 	int			bloc_size;
 	float		scale;
 	t_fpoint	disp;
-	int			mini_map_width;
 	int			sprites_count;
 	t_spr_list	*sprites;
 	t_buff		*w_n;
@@ -72,6 +71,6 @@ typedef struct s_player_detect
 t_player_detect		*add_map_row(t_map *m, char *line);
 t_player_detect		*chr_trt(char *line, t_map *m);
 int					realloc_map(t_map *m, char *line);
-int					init_map(t_ctx *ctx, void *brain);
+int					init_map(void *brain);
 
 #endif
