@@ -2,11 +2,9 @@ EA ./assets/textures/walls/stone_bricks/1.xpm
 SO ./assets/textures/walls/stone_bricks/2.xpm
 NO ./assets/textures/walls/stone_bricks/3.xpm
 WE ./assets/textures/walls/stone_bricks/4.xpm
-S ./assets/sprites/barrel.xpm
 
-R 1280 800
-F ./assets/textures/floor/sand.xpm
-C ./assets/sky/mountains/mountains.xpm
+F 220,100,0
+C 225,30,0
 
 11111111111111111111111111111
 10000000000000000000000000001
@@ -14,7 +12,7 @@ C ./assets/sky/mountains/mountains.xpm
 10000000000000000000000000001
 10000000000000000000000000001
 10000000000000000000000000001
-100000000000E0000000000000001
+1000000000000E000000000000001
 10000000000000000000000000001
 10000000000000000000000000001
 10000000000000000000000000001

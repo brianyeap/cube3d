@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 03:46:46 by brian             #+#    #+#             */
-/*   Updated: 2025/09/09 14:52:11 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/09 18:00:16 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,27 +36,30 @@ void	get_map(t_brain *b, char *map_path)
 	{
 		player = add_map_row(b->map, line);
 		if (player)
-		{
-			init_player(b, player->pos_x, player->direction);
-			free(player);
-		}
+			init_and_free_player(b, player->pos_x, player->direction, player);
 		if (!ret)
 			break ;
 		ret = get_next_line(file, &line);
 	}
+	if (!b->player)
+		info_and_exit(b, "No player position detected in map.",
+			"No player found");
 	free_player_close_file(player, file);
 }
 
-void	free_map_check(t_type *map)
+void	init_and_free_player(t_brain *b, int x, char g, t_player_detect *p)
 {
-	free(map->no);
-	free(map->so);
-	free(map->we);
-	free(map->ea);
-	free(map->s);
-	free(map->f);
-	free(map->c);
-	free(map);
+	if (b->player)
+		info_and_exit(b, "Multiple player positions detected in map.",
+			"Multiple players found");
+	init_player(b, x, g);
+	free(p);
+}
+
+void	info_and_exit(t_brain *b, char *infoMsg, char *exitMsg)
+{
+	ft_printf("%s\n", infoMsg);
+	exit_cube(b, exitMsg, 0);
 }
 
 int	open_map(t_brain *b, char *map_path, t_type *map)
@@ -74,3 +77,4 @@ int	open_map(t_brain *b, char *map_path, t_type *map)
 	free_map_check(map);
 	return (1);
 }
+

@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 17:28:21 by brian             #+#    #+#             */
-/*   Updated: 2025/09/05 23:58:59 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/09 17:57:06 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,13 @@ void	exit_cube(t_brain *brain, char *msg, int exit_now)
 	ft_putstr(YELO"Clean Up OK\n"RST);
 	ft_putstr(BLUE"Exit Done\n"RST);
 	exit(0);
+}
+
+void	free_map_check(t_type *map)
+{
+	free(map->no);
+	free(map->so);
+	free(map->we);
+	free(map->ea);
+	free(map);
 }
