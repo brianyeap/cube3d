@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 02:22:22 by brian             #+#    #+#             */
-/*   Updated: 2025/08/29 18:42:08 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/09 15:03:33 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,9 @@ int	check_map(t_map *m)
 		{
 			if (check_surround(m, &pos) == 0)
 			{
-				printf(RED"Map Invalid at [%d,%d]\n"RST, pos.x, pos.y);
+				ft_printf(RED"Map Invalid !\n"RST);
+				ft_printf(RED"X: [%d]\n"RST, pos.x);
+				ft_printf(RED"Y: [%d]\n"RST, pos.y);
 				return (0);
 			}
 			pos.y++;

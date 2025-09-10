@@ -6,13 +6,11 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 19:18:38 by brian             #+#    #+#             */
-/*   Updated: 2025/08/19 19:27:16 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/09 14:53:59 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cube3d.h"
-
-// Find out about these functions
 
 void	add_spr_to_list(t_spr_list *s_list, t_sprite *s)
 {
@@ -24,7 +22,7 @@ void	add_spr_to_list(t_spr_list *s_list, t_sprite *s)
 	ret = malloc((s_list->length + 1) * sizeof(t_sprite *));
 	if (s_list->list != NULL)
 		while (i < s_list->length)
-		{
+	{
 			ret[i] = s_list->list[i];
 			i++;
 		}

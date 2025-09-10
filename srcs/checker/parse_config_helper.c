@@ -1,28 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   points.c                                           :+:      :+:    :+:   */
+/*   parse_config_helper.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/11 22:34:09 by brian             #+#    #+#             */
-/*   Updated: 2025/09/05 17:46:01 by brian            ###   ########.fr       */
+/*   Created: 2025/09/10 16:17:22 by brian             #+#    #+#             */
+/*   Updated: 2025/09/10 16:19:34 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/canvas.h"
-#include <math.h>
+#include "../includes/cube3d.h"
 
-t_fpoint	new_fpoint(float x, float y)
+int	ft_is_cub_extension(const char *filename)
 {
-	t_fpoint	new;
+	int	len;
 
-	new.x = x;
-	new.y = y;
-	return (new);
+	if (!filename)
+		return (0);
+	len = strlen(filename);
+	if (len < 4)
+		return (0);
+	return (ft_strcmp(filename + (len - 4), ".cub") == 0);
 }
 
-float	calc_dist(t_fpoint p1, t_fpoint p2)
+void	ck_struct_and_close_fd(t_type *map, int fd, char *line)
 {
-	return (sqrt(pow((p2.x - p1.x), 2) + pow((p2.y - p1.y), 2)));
+	ft_check_struct(map);
+	free(line);
+	close(fd);
 }
+

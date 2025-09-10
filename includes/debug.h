@@ -1,28 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   points.c                                           :+:      :+:    :+:   */
+/*   debug.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/11 22:34:09 by brian             #+#    #+#             */
-/*   Updated: 2025/09/05 17:46:01 by brian            ###   ########.fr       */
+/*   Created: 2025/08/19 18:47:32 by brian             #+#    #+#             */
+/*   Updated: 2025/09/05 18:22:47 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/canvas.h"
-#include <math.h>
+#ifndef DEBUG_H
+# define DEBUG_H
 
-t_fpoint	new_fpoint(float x, float y)
-{
-	t_fpoint	new;
+typedef struct s_map	t_map;
 
-	new.x = x;
-	new.y = y;
-	return (new);
-}
+char	int_to_tile(int v);
+int		check_map(t_map *m);
+void	debug_print_map_pretty(t_map *m);
 
-float	calc_dist(t_fpoint p1, t_fpoint p2)
-{
-	return (sqrt(pow((p2.x - p1.x), 2) + pow((p2.y - p1.y), 2)));
-}
+#endif

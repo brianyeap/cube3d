@@ -5,6 +5,9 @@
 		"string.h": "c",
 		"libft.h": "c",
 		"ft_printf.h": "c",
-		"get_next_line.h": "c"
+		"get_next_line.h": "c",
+		"rc_boot.h": "c",
+		"queue": "c",
+		"stack": "c"
 	}
 }

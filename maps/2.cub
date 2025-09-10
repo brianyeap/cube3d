@@ -1,30 +1,24 @@
-EA ./assets/textures/walls/stone_bricks/1.xpm
+EA ./assets/walls/1.xpm
+SO ./assets/walls/2.xpm
+NO ./assets/walls/3.xpm
+WE ./assets/walls/4.xpm
 
-SO ./assets/textures/walls/stone_bricks/2.xpm
-
-NO ./assets/textures/walls/stone_bricks/3.xpm
-
-WE ./assets/textures/walls/stone_bricks/4.xpm
-
-S ./assets/sprites/barrel.xpm
-
-R 1280 800
-F ./assets/textures/floor/sand.xpm
-C ./assets/sky/mountains/mountains.xpm
+F 220,100,0
+C 225,30,0
 
       111
-     14S41
+     10S01
     1000001
     1000001
     1000001
-    1300031
-     14041
+    1000001
      10001
-     12021
+     10001
+     10001
      10001                                1111111
- 111114041111111111111111111           1110000000111
+ 111110001111111111111111111           1110000000111
 10000000000000000000000000001        11000000000000011
-10040000000000000000000000111       1000000000000000001
+10000000000000000000000000111       1000000000000000001
 10000000000000000000000000000111111100000000000000000001
  11100000000000011111100000000000000000000000000000000001
     1000000000001   1000000000000000000000000000000000001

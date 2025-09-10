@@ -6,18 +6,19 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 17:48:01 by brian             #+#    #+#             */
-/*   Updated: 2025/08/29 16:37:34 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/10 17:53:53 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cube3d.h"
+#include "map.h"
 
-int	init_map(t_ctx *ctx, void *brain)
+int	init_map(void *brain)
 {
 	t_brain	*b;
 
 	b = (t_brain *)brain;
-	b->map = ch_m(malloc(sizeof(t_map)), brain, "Malloc Error for Map");
+	b->map = ch_m(malloc(sizeof(t_map)), brain,
+			"\n\nError\nMalloc Error for Map");
 	b->map->height = 0;
 	b->map->width = 0;
 	b->map->grid = NULL;
@@ -29,14 +30,13 @@ int	init_map(t_ctx *ctx, void *brain)
 	b->map->w_w = NULL;
 	b->map->floor = NULL;
 	b->map->sprites = ch_m(malloc(sizeof(t_spr_list)), brain,
-			"malloc fail for sprite list");
+			"\n\nError\nmalloc fail for sprite list");
 	b->map->sprites->column = ch_m(malloc(b->ctx->width * sizeof(float)), brain,
-			"malloc failed for distance array");
+			"\n\nError\nmalloc failed for distance array");
 	b->map->sprites->length = 0;
 	b->map->sprites->list = NULL;
 	b->map->skybox = NULL;
 	b->map->brain = b;
-	init_buff(ctx, &b->map->frame, ctx->width, ctx->height);
 	return (1);
 }
 
@@ -47,8 +47,6 @@ void	init_textures(t_brain *b, t_type *map)
 	init_texture(b, map->ea, &b->map->w_e);
 	init_texture(b, map->so, &b->map->w_s);
 	init_texture(b, map->we, &b->map->w_w);
-	init_texture(b, map->f, &b->map->floor);
-	init_texture(b, map->c, &b->map->skybox);
 }
 
 int	realloc_map(t_map *m, char *line)
@@ -77,30 +75,30 @@ int	realloc_map(t_map *m, char *line)
 	return (1);
 }
 
-t_player_detect	*chr_trt(char *line, t_map *m)
+t_player_detect	*chr_trt(char *line)
 {
 	t_player_detect	*player;
 	int				i;
-	int				real;
 
 	i = 0;
-	real = 0;
 	player = NULL;
 	while (line[i])
 	{
 		if (line[i] == ' ')
 			line[i] = '0' - 1;
-		if (line[i] == 'N' || line[i] == 'E'
+		else if (line[i] == 'N' || line[i] == 'E'
 			|| line[i] == 'S' || line[i] == 'W')
 		{
 			player = malloc(sizeof(t_player_detect));
+			if (!player)
+				exit_cube(NULL, "Error: malloc failed", 0);
 			player->pos_x = i;
 			player->direction = line[i];
 		}
-		real = line[i] - '0';
-		if (real >= 2 && real <= 4) // Might have to change depends on future sprites
-			add_spr_to_list(m->sprites,
-				init_sprite(m, new_fpoint(i, m->height), real));
+		else if (line[i] != '0' && line[i] != '1')
+		{
+			exit_cube(NULL, "Error: invalid character in map", 0);
+		}
 		i++;
 	}
 	return (player);
@@ -110,7 +108,7 @@ t_player_detect	*add_map_row(t_map *m, char *line)
 {
 	t_player_detect	*player;
 
-	player = chr_trt(line, m);
+	player = chr_trt(line);
 	realloc_map(m, line);
 	return (player);
 }

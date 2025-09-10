@@ -1,28 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   points.c                                           :+:      :+:    :+:   */
+/*   rc_boot_math.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/11 22:34:09 by brian             #+#    #+#             */
-/*   Updated: 2025/09/05 17:46:01 by brian            ###   ########.fr       */
+/*   Created: 2025/09/05 14:36:13 by brian             #+#    #+#             */
+/*   Updated: 2025/09/09 14:53:23 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/canvas.h"
-#include <math.h>
+#include "cube3d.h"
+#include "rc_boot.h"
 
-t_fpoint	new_fpoint(float x, float y)
+float	distf(float ax, float ay, float bx, float by)
 {
-	t_fpoint	new;
+	float	dx;
+	float	dy;
 
-	new.x = x;
-	new.y = y;
-	return (new);
+	dx = ax - bx;
+	dy = ay - by;
+	return (sqrtf(dx * dx + dy * dy));
 }
 
-float	calc_dist(t_fpoint p1, t_fpoint p2)
+float	fixed_dist(t_brain *b, float rx, float ry, float ray_ang)
 {
-	return (sqrt(pow((p2.x - p1.x), 2) + pow((p2.y - p1.y), 2)));
+	float	d;
+
+	d = distf(b->rc->px, b->rc->py, rx, ry);
+	return (d * cosf(ray_ang - b->rc->pa));
 }
