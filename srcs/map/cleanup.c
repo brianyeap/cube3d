@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 17:28:21 by brian             #+#    #+#             */
-/*   Updated: 2025/09/09 17:57:06 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/10 20:10:52 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,8 @@ void	clean_up(t_brain *b)
 
 void	exit_cube(t_brain *brain, char *msg, int exit_now)
 {
-	static t_brain	*b;
+	static t_brain	*b = NULL;
 
-	b = NULL;
 	if (b == NULL && brain != NULL)
 	{
 		b = brain;
@@ -43,6 +42,8 @@ void	exit_cube(t_brain *brain, char *msg, int exit_now)
 
 void	free_map_check(t_type *map)
 {
+	if (!map)
+		return ;
 	free(map->no);
 	free(map->so);
 	free(map->we);
