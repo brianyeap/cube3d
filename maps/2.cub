@@ -6,8 +6,8 @@ NO ./assets/textures/walls/stone_bricks/3.xpm
 
 WE ./assets/textures/walls/stone_bricks/4.xpm
 
-F ./assets/textures/floor/sand.xpm
-C ./assets/sky/mountains/mountains.xpm
+F 220,100,0
+C 225,30,0
 
       111
      10S01

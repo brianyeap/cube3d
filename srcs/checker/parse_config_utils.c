@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 15:43:47 by brian             #+#    #+#             */
-/*   Updated: 2025/09/09 16:02:47 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/09 23:08:06 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	ft_check_struct(t_type *map)
 {
+	if (!map->no || !map->so || !map->we || !map->ea)
+		ft_exit("Missing texture identifier(s): need NO, SO, WE, EA\n", map);
 	if (map->f_rgb < 0 || map->c_rgb < 0)
 		ft_exit("Floor or ceiling color missing\n", map);
 	if (map->no[0] == 0)
