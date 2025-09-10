@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 18:22:12 by brian             #+#    #+#             */
-/*   Updated: 2025/09/09 21:01:45 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/10 16:22:01 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@
 
 typedef struct s_sprite			t_sprite;
 typedef struct s_spr_list		t_spr_list;
-typedef struct s_map            t_map;
-typedef struct s_player_detect  t_player_detect;
+typedef struct s_map			t_map;
+typedef struct s_player_detect	t_player_detect;
 
 typedef struct s_rcboot
 {
@@ -69,12 +69,11 @@ typedef struct s_rcboot
 
 	float		px;
 	float		py;
-	float		pa;       // angle
-	float		pdx;      // derived from angle
-	float		pdy;      // derived from angle
-	int			tile;    // tile size
-
-	t_map		*world;    // points to b->map
+	float		pa;			// angle
+	float		pdx;		// derived from angle
+	float		pdy;		// derived from angle
+	int			tile;		// tile size
+	t_map		*world;		// points to b->map
 	int			w;
 	int			h;
 }	t_rcboot;
@@ -140,6 +139,9 @@ void		ft_exit(char *str, t_type *map);
 void		ft_check_struct(t_type *map);
 int			check_surround(t_map *m, t_point *pos);
 
+// Parse Config Helper
+int			ft_is_cub_extension(const char *filename);
+void		ck_struct_and_close_fd(t_type *map, int fd, char *line);
 
 // Keys
 void		init_keys(t_brain *b);

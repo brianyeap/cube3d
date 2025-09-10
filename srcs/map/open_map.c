@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 03:46:46 by brian             #+#    #+#             */
-/*   Updated: 2025/09/09 18:00:16 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/10 16:28:33 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	get_map(t_brain *b, char *map_path)
 	}
 	if (!b->player)
 		info_and_exit(b, "No player position detected in map.",
-			"No player found");
+			"\n\nError\nNo player found");
 	free_player_close_file(player, file);
 }
 
@@ -51,7 +51,7 @@ void	init_and_free_player(t_brain *b, int x, char g, t_player_detect *p)
 {
 	if (b->player)
 		info_and_exit(b, "Multiple player positions detected in map.",
-			"Multiple players found");
+			"\n\nError\nMultiple players found");
 	init_player(b, x, g);
 	free(p);
 }
