@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 19:01:11 by brian             #+#    #+#             */
-/*   Updated: 2025/08/18 19:15:29 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/10 16:29:53 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,5 @@ void	init_texture(t_brain *b, char *path, t_buff **t)
 		ft_printf(GRN" - OK\n"RST);
 	}
 	else
-		exit_cube(NULL, "Failed to malloc texture", 0);
+		exit_cube(NULL, "\n\nError\nFailed to malloc texture", 0);
 }

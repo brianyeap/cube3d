@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 17:48:01 by brian             #+#    #+#             */
-/*   Updated: 2025/09/09 16:05:43 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/10 16:32:22 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ int	init_map(void *brain)
 	t_brain	*b;
 
 	b = (t_brain *)brain;
-	b->map = ch_m(malloc(sizeof(t_map)), brain, "Malloc Error for Map");
+	b->map = ch_m(malloc(sizeof(t_map)), brain,
+			"\n\nError\nMalloc Error for Map");
 	b->map->height = 0;
 	b->map->width = 0;
 	b->map->grid = NULL;
@@ -29,9 +30,9 @@ int	init_map(void *brain)
 	b->map->w_w = NULL;
 	b->map->floor = NULL;
 	b->map->sprites = ch_m(malloc(sizeof(t_spr_list)), brain,
-			"malloc fail for sprite list");
+			"\n\nError\nmalloc fail for sprite list");
 	b->map->sprites->column = ch_m(malloc(b->ctx->width * sizeof(float)), brain,
-			"malloc failed for distance array");
+			"\n\nError\nmalloc failed for distance array");
 	b->map->sprites->length = 0;
 	b->map->sprites->list = NULL;
 	b->map->skybox = NULL;

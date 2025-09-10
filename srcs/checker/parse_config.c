@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 15:43:47 by brian             #+#    #+#             */
-/*   Updated: 2025/09/09 16:03:44 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/10 16:27:06 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ t_type	*ft_getmap_config(char *file)
 	char	*line;
 	t_type	*map;
 
+	if (!ft_is_cub_extension(file))
+		exit_cube(NULL, "\n\nError\nPlease provide a \'.cub\' file\n", 0);
 	map = malloc(sizeof(t_type));
 	fd = open(file, O_RDONLY);
 	if (fd > 0)
@@ -32,9 +34,7 @@ t_type	*ft_getmap_config(char *file)
 			free(line);
 			ret = get_next_line(fd, &line);
 		}
-		ft_check_struct(map);
-		free(line);
-		close(fd);
+		ck_struct_and_close_fd(map, fd, line);
 		return (map);
 	}
 	else
