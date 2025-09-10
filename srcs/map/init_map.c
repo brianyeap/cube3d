@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 17:48:01 by brian             #+#    #+#             */
-/*   Updated: 2025/09/10 16:32:22 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/10 17:53:53 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,30 +75,30 @@ int	realloc_map(t_map *m, char *line)
 	return (1);
 }
 
-t_player_detect	*chr_trt(char *line, t_map *m)
+t_player_detect	*chr_trt(char *line)
 {
 	t_player_detect	*player;
 	int				i;
-	int				real;
 
 	i = 0;
-	real = 0;
 	player = NULL;
 	while (line[i])
 	{
 		if (line[i] == ' ')
 			line[i] = '0' - 1;
-		if (line[i] == 'N' || line[i] == 'E'
+		else if (line[i] == 'N' || line[i] == 'E'
 			|| line[i] == 'S' || line[i] == 'W')
 		{
 			player = malloc(sizeof(t_player_detect));
+			if (!player)
+				exit_cube(NULL, "Error: malloc failed", 0);
 			player->pos_x = i;
 			player->direction = line[i];
 		}
-		real = line[i] - '0';
-		if (real == 2)
-			add_spr_to_list(m->sprites,
-				init_sprite(m, new_fpoint(i, m->height), real));
+		else if (line[i] != '0' && line[i] != '1')
+		{
+			exit_cube(NULL, "Error: invalid character in map", 0);
+		}
 		i++;
 	}
 	return (player);
@@ -108,7 +108,7 @@ t_player_detect	*add_map_row(t_map *m, char *line)
 {
 	t_player_detect	*player;
 
-	player = chr_trt(line, m);
+	player = chr_trt(line);
 	realloc_map(m, line);
 	return (player);
 }

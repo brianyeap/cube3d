@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 03:46:46 by brian             #+#    #+#             */
-/*   Updated: 2025/09/10 16:28:33 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/10 17:04:01 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	get_map(t_brain *b, char *map_path)
 	int				file;
 	char			*line;
 
+	player = NULL;
 	file = open(map_path, O_RDONLY);
 	ret = get_next_line(file, &line);
 	while (ret && ((ft_strmultichr(line, " 01SNEW")) != 1))
@@ -42,13 +43,14 @@ void	get_map(t_brain *b, char *map_path)
 		ret = get_next_line(file, &line);
 	}
 	if (!b->player)
-		info_and_exit(b, "No player position detected in map.",
-			"\n\nError\nNo player found");
+		info_and_exit(b, "No player Found!", "\n\nError\nNo player found");
 	free_player_close_file(player, file);
 }
 
 void	init_and_free_player(t_brain *b, int x, char g, t_player_detect *p)
 {
+	if (!p)
+		return ;
 	if (b->player)
 		info_and_exit(b, "Multiple player positions detected in map.",
 			"\n\nError\nMultiple players found");

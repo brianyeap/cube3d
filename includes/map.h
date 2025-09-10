@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 16:30:36 by brian             #+#    #+#             */
-/*   Updated: 2025/09/09 20:46:41 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/10 16:53:24 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ typedef struct s_player_detect
 
 
 t_player_detect		*add_map_row(t_map *m, char *line);
-t_player_detect		*chr_trt(char *line, t_map *m);
+t_player_detect		*chr_trt(char *line);
 int					realloc_map(t_map *m, char *line);
 int					init_map(void *brain);
 
