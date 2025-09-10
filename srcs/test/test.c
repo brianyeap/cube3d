@@ -6,7 +6,7 @@
 /*   By: jow <jow@student.42kl.edu.my>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 00:10:27 by jow               #+#    #+#             */
-/*   Updated: 2025/09/06 00:24:57 by jow              ###   ########.fr       */
+/*   Updated: 2025/09/11 03:25:11 by jow              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,18 +32,41 @@
 
 typedef struct s_dda
 {
-    double delta_dist_x;
-    double delta_dist_y;
-    double side_dist_x;
-    double side_dist_y;
-    int step_x;
-    int step_y;
-    int map_x;
-    int map_y;
-    int side; // 0 if NS wall hit, 1 if EW wall hit
+    /* Frame-constant values */
+    double TILE;
+    double fov;
+    double posX; /* player position in tiles */
+    double posY;
+    double dirX; /* normalized direction */
+    double dirY;
+    double planeLen; /* half-width of camera plane */
+    double planeX;   /* camera plane vector */
+    double planeY;
+    /* Per-column (ray) values */
+    double cameraX;
+    double rayDirX;
+    double rayDirY;
+    int mapX;
+    int mapY;
+    double sideDistX;
+    double sideDistY;
+    double deltaDistX;
+    double deltaDistY;
+    int stepX;
+    int stepY;
+    int side; /* 0 NS, 1 EW */
     int hit;
-    double perp_wall_dist;
-    double wall_x; // exact position where wall was hit
+    int outOfBounds;
+    double perpWallDist;
+    int lineHeight;
+    int drawStart0;
+    int drawEnd0;
+    int drawStart;
+    int drawEnd;
+    double wallX;
+    int texX;
+    double step;
+    double texPos;
 } t_dda;
 
 typedef struct s_brain
@@ -82,31 +105,6 @@ float calcDist(const float ax, const float ay, const float bx, const float by)
 {
     return (sqrt((ax - bx) * (ax - bx) + (ay - by) * (ay - by)));
 }
-
-/*
-- Axes:
-    x increases to the right
-    y increases downwards
-- Angles:
-    > 0 radians
-        - dx = cos(0) = 1
-        - dy = sin(0) = 0
-        - Facing right (east)
-    > π/2 radians 90deg = down (south)
-        - dx = cos(pi/2) = 0
-        - dy = sin(pi/2) = 1
-        - Facing down (south)
-    > π radians 180deg = left (west)
-        - dx = cos(pi) = -1
-        - dy = sin(pi) = 0
-        - Facing left (west)
-    > 3π/2 radians 270deg = up (north)
-        - dx = cos(3pi/2) = 0
-        - dy = sin(3pi/2) = -1
-        - Facing up (north)
-- Why use cos and sin?
-    - sin cos mapping uses the unit circle to turn an angle into a direction vector
-*/
 
 int close_window(void *param)
 {
@@ -158,8 +156,6 @@ int on_keypress(int keycode, void *param)
         brain->player_dx = cos(brain->player_angle) * 5;
         brain->player_dy = sin(brain->player_angle) * 5;
     }
-    // draw_map(brain);
-    // draw_square(brain->player_x, brain->player_y, 10, 0xFF0000, brain);
     return (0);
 }
 
@@ -255,7 +251,7 @@ int touch(float x, float y, t_brain *brain)
     return (brain->map[map_y * 8 + map_x] == 1); // Hit wall
 }
 
-// Add this helper function for corrected distance calculation
+// corrected distance calculation
 float fixed_dist(float player_x, float player_y, float ray_x, float ray_y, float ray_angle, t_brain *brain)
 {
     float dist = calcDist(player_x, player_y, ray_x, ray_y);
@@ -264,97 +260,171 @@ float fixed_dist(float player_x, float player_y, float ray_x, float ray_y, float
 
 int get_texture_pixel(t_brain *brain, int tex_x, int tex_y)
 {
-    int index;
-    int color;
-
     if (!brain->wall_data || tex_x < 0 || tex_x >= brain->wall_width ||
         tex_y < 0 || tex_y >= brain->wall_height)
-        return (0xFFFFFF); // Return white if no texture or out of bounds
+        return 0xFFFFFF;
+    int bytes = brain->wall_bpp / 8;
+    if (bytes < 3)
+        return 0xFFFFFF;
+    int index = tex_y * brain->wall_size_line + tex_x * bytes;
+    unsigned char b = (unsigned char)brain->wall_data[index + 0];
+    unsigned char g = (unsigned char)brain->wall_data[index + 1];
+    unsigned char r = (unsigned char)brain->wall_data[index + 2];
+    return (r << 16) | (g << 8) | b; // 0xRRGGBB
+}
 
-    index = (tex_y * brain->wall_size_line) + (tex_x * (brain->wall_bpp / 8));
+void    perform_dda(t_brain *brain)
+{
+    t_dda *dda = &brain->dda;
 
-    if (brain->wall_endian == 1) // Big endian
+    if (dda->sideDistX < dda->sideDistY)
     {
-        color = (brain->wall_data[index + 0] << 24) |
-                (brain->wall_data[index + 1] << 16) |
-                (brain->wall_data[index + 2] << 8) |
-                (brain->wall_data[index + 3]);
+        dda->sideDistX += dda->deltaDistX;
+        dda->mapX += dda->stepX;     
+        dda->side = 0;
     }
-    else // Little endian
+    else
     {
-        color = (brain->wall_data[index + 3] << 24) |
-                (brain->wall_data[index + 2] << 16) |
-                (brain->wall_data[index + 1] << 8) |
-                (brain->wall_data[index + 0]);
+        dda->sideDistY += dda->deltaDistY;
+        dda->mapY += dda->stepY;
+        dda->side = 1;
     }
+    if (dda->mapX < 0 || dda->mapX >= 8 || dda->mapY < 0 || dda->mapY >= 8)
+    {
+        dda->outOfBounds = 1;
+        dda->hit = 1;
+    }
+    else if (brain->map[dda->mapY * 8 + dda->mapX] > 0)
+        dda->hit = 1;
+}
 
-    return (color & 0xFFFFFF); // Remove alpha channel
+void    calculate_step(t_brain *brain)
+{
+    t_dda *dda = &brain->dda;
+    
+    if (dda->rayDirX < 0)
+    {
+        dda->stepX = -1;
+        dda->sideDistX = (dda->posX - dda->mapX) * dda->deltaDistX;
+    }
+    else
+    {
+        dda->stepX = 1;
+        dda->sideDistX = (dda->mapX + 1.0 - dda->posX) * dda->deltaDistX;
+    }
+    if (dda->rayDirY < 0)
+    {
+        dda->stepY = -1;
+        dda->sideDistY = (dda->posY - dda->mapY) * dda->deltaDistY;
+    }
+    else
+    {
+        dda->stepY = 1;
+        dda->sideDistY = (dda->mapY + 1.0 - dda->posY) * dda->deltaDistY;
+    }
+}
+
+void    ray_setup(t_brain *brain, int x)
+{
+    t_dda *dda = &brain->dda;
+    dda->cameraX = 2.0 * x / (double)WIDTH - 1.0;
+    dda->rayDirX = dda->dirX + dda->planeX * dda->cameraX;
+    dda->rayDirY = dda->dirY + dda->planeY * dda->cameraX;
+    dda->mapX = (int)dda->posX;
+    dda->mapY = (int)dda->posY;
+    dda->deltaDistX = (dda->rayDirX == 0.0) ? 1e30 : fabs(1.0 / dda->rayDirX);
+    dda->deltaDistY = (dda->rayDirY == 0.0) ? 1e30 : fabs(1.0 / dda->rayDirY);
+    
+}
+
+static void init_dda(t_brain *brain)
+{
+    t_dda *dda = &brain->dda;
+    dda->TILE = 64.0;
+    dda->fov = M_PI / 3.0; /* 60 deg */
+    dda->posX = brain->player_x / dda->TILE;
+    dda->posY = brain->player_y / dda->TILE;
+    dda->dirX = cos(brain->player_angle);
+    dda->dirY = sin(brain->player_angle);
+    dda->planeLen = tan(dda->fov / 2.0);
+    dda->planeX = -dda->dirY * dda->planeLen;
+    dda->planeY = dda->dirX * dda->planeLen;
 }
 
 void draw_line(t_brain *brain)
 {
-    float fov = M_PI / 3; // 60 degree field of view
-    float angle_step = fov / WIDTH;
-    float start_angle = brain->player_angle - fov / 2;
-    int i;
-    int steps;
-
-    i = 0;
-    while (i < WIDTH)
+    t_dda *dda = &brain->dda;
+    int safety;
+    
+    init_dda(brain);
+    for (int x = 0; x < WIDTH; x++)
     {
-        float ray_angle = start_angle + (i * angle_step);
-        float ray_dx = cos(ray_angle);
-        float ray_dy = sin(ray_angle);
-        float ray_x = brain->player_x;
-        float ray_y = brain->player_y;
-        steps = 0;
-
-        // Cast ray until it hits a wall
-        while (!touch(ray_x, ray_y, brain) && steps < 1000)
+        ray_setup(brain, x);
+        calculate_step(brain);
+        dda->hit = 0;
+        dda->outOfBounds = 0;
+        safety = 0;
+        while (!dda->hit && safety++ < 2048)
+            perform_dda(brain);
+        if (dda->outOfBounds)
         {
-            if (DEBUG)
-                ft_put_pixel((int)ray_x, (int)ray_y, 0xFF0000, brain);
-            ray_x += ray_dx;
-            ray_y += ray_dy;
-            steps++;
+            int mid = HEIGHT / 2;
+            for (int y = 0; y < mid; y++)
+                ft_put_pixel(x, y, 0x87CEEB, brain);
+            for (int y = mid; y < HEIGHT; y++)
+                ft_put_pixel(x, y, 0x2E2E2E, brain);
+            continue;
         }
-
-        if (!DEBUG)
+        if (dda->side == 0)
+            dda->perpWallDist = (dda->mapX - dda->posX + (1 - dda->stepX) / 2.0) / (dda->rayDirX == 0.0 ? 1e-9 : dda->rayDirX);
+        else
+            dda->perpWallDist = (dda->mapY - dda->posY + (1 - dda->stepY) / 2.0) / (dda->rayDirY == 0.0 ? 1e-9 : dda->rayDirY);
+        if (dda->perpWallDist < 1e-6)
+            dda->perpWallDist = 1e-6;
+        dda->lineHeight = (int)(HEIGHT / dda->perpWallDist);
+        if (dda->lineHeight < 1)
+            dda->lineHeight = 1;
+        dda->drawStart0 = (int)(HEIGHT / 2 - dda->lineHeight / 2);
+        dda->drawEnd0 = dda->drawStart0 + dda->lineHeight;
+        dda->drawStart = dda->drawStart0 < 0 ? 0 : dda->drawStart0;
+        dda->drawEnd = dda->drawEnd0 > HEIGHT ? HEIGHT : dda->drawEnd0;
+        if (dda->side == 0)
+            dda->wallX = dda->posY + dda->perpWallDist * dda->rayDirY;
+        else
+            dda->wallX = dda->posX + dda->perpWallDist * dda->rayDirX;
+        dda->wallX -= floor(dda->wallX);
+        dda->texX = brain->wall_width ? (int)(dda->wallX * (double)brain->wall_width) : 0;
+        if (dda->side == 0 && dda->rayDirX > 0)
+            dda->texX = brain->wall_width - dda->texX - 1;
+        if (dda->side == 1 && dda->rayDirY < 0)
+            dda->texX = brain->wall_width - dda->texX - 1;
+        if (dda->texX < 0)
+            dda->texX = 0;
+        if (dda->texX >= brain->wall_width)
+            dda->texX = brain->wall_width - 1;
+        for (int y = 0; y < dda->drawStart; y++)
+            ft_put_pixel(x, y, 0x87CEEB, brain);
+        dda->step = (brain->wall_height > 0) ? ((double)brain->wall_height / (double)dda->lineHeight) : 0.0;
+        dda->texPos = (double)(dda->drawStart - dda->drawStart0) * dda->step;
+        for (int y = dda->drawStart; y < dda->drawEnd; y++)
         {
-            // Calculate wall hit position
-            float dist = fixed_dist(brain->player_x, brain->player_y, ray_x, ray_y, ray_angle, brain);
-            float wall_height = (64.0 / dist) * (WIDTH / 2);
-            int start_y = (HEIGHT - wall_height) / 2;
-            int end_y = start_y + wall_height;
-
-            // Calculate texture X coordinate
-            float wall_hit_x = ray_x - floor(ray_x / 64) * 64; // Position within the 64x64 tile
-            float wall_hit_y = ray_y - floor(ray_y / 64) * 64;
-
-            // Determine which side of the wall was hit to get correct texture coordinate
-            int tex_x;
-            if (fabs(ray_dx) > fabs(ray_dy)) // Hit vertical wall
-                tex_x = (int)(wall_hit_y * brain->wall_width / 64);
-            else // Hit horizontal wall
-                tex_x = (int)(wall_hit_x * brain->wall_width / 64);
-
-            if (start_y < 0)
-                start_y = 0;
-            if (end_y > HEIGHT)
-                end_y = HEIGHT;
-            // Draw the textured wall column
-            for (int y = start_y; y < end_y && y >= 0 && y < HEIGHT; y++)
-            {
-                // Calculate texture Y coordinate
-                float tex_y_ratio = (float)(y - start_y) / wall_height;
-                int tex_y = (int)(tex_y_ratio * brain->wall_height);
-
-                // Get the color from texture
-                int color = get_texture_pixel(brain, tex_x, tex_y);
-                ft_put_pixel(i, y, color, brain);
-            }
+            int texY = (int)dda->texPos;
+            if (texY < 0)
+                texY = 0;
+            if (brain->wall_height && texY >= brain->wall_height)
+                texY = brain->wall_height - 1;
+            int color = get_texture_pixel(brain, dda->texX, texY);
+            ft_put_pixel(x, y, color, brain);
+            dda->texPos += dda->step;
         }
-        i++;
+        for (int y = dda->drawEnd; y < HEIGHT; y++)
+            ft_put_pixel(x, y, 0x2E2E2E, brain);
+        if (DEBUG)
+        {
+            int rx = dda->mapX * (int)dda->TILE + (int)dda->TILE / 2;
+            int ry = dda->mapY * (int)dda->TILE + (int)dda->TILE / 2;
+            ft_put_pixel(rx, ry, 0xFF0000, brain);
+        }
     }
 }
 
@@ -381,14 +451,17 @@ void init_game(t_brain *brain)
 
     brain->wall_height = 64;
     brain->wall_width = 64;
-    brain->wall_texture = mlx_xpm_file_to_image(brain->mlx_ptr, "wall.xpm", &brain->wall_width, &brain->wall_height);
-    brain->wall_data = mlx_get_data_addr(brain->wall_texture, &brain->wall_bpp, &brain->wall_size_line, &brain->wall_endian);
+    brain->wall_texture = mlx_xpm_file_to_image(brain->mlx_ptr, "mossy.xpm", &brain->wall_width, &brain->wall_height);
+    if (brain->wall_texture)
+        brain->wall_data = mlx_get_data_addr(brain->wall_texture, &brain->wall_bpp, &brain->wall_size_line, &brain->wall_endian);
+    else
+        brain->wall_data = NULL;
     mlx_put_image_to_window(brain->mlx_ptr, brain->win_ptr, brain->img_ptr, 0, 0);
 }
 
 int main(int ac, char **av)
 {
-    t_brain brain;
+    t_brain brain = (t_brain){0};
     int map_data[64] = {
         1, 1, 1, 1, 1, 1, 1, 1,
         1, 0, 1, 0, 0, 0, 0, 1,
@@ -403,9 +476,9 @@ int main(int ac, char **av)
 
     brain.player_x = 200;
     brain.player_y = 200;
+    brain.player_angle = 0;
     brain.player_dx = cos(brain.player_angle) * 5;
     brain.player_dy = sin(brain.player_angle) * 5;
-    brain.player_angle = 0;
 
     // Copy map data to the struct
     for (int i = 0; i < 64; i++)
