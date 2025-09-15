@@ -6,12 +6,13 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 19:40:21 by brian             #+#    #+#             */
-/*   Updated: 2025/09/05 17:20:13 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/15 21:27:34 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cube3d.h"
 
+// -For continuous key press handling
 int	key_press(int key, void *param)
 {
 	t_brain	*b;

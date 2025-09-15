@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 17:48:01 by brian             #+#    #+#             */
-/*   Updated: 2025/09/10 17:53:53 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/15 21:27:43 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int	init_map(void *brain)
 	b->map->height = 0;
 	b->map->width = 0;
 	b->map->grid = NULL;
-	b->map->scale = 1;
 	b->map->bloc_size = 64;
 	b->map->w_n = NULL;
 	b->map->w_e = NULL;
@@ -35,7 +34,6 @@ int	init_map(void *brain)
 			"\n\nError\nmalloc failed for distance array");
 	b->map->sprites->length = 0;
 	b->map->sprites->list = NULL;
-	b->map->skybox = NULL;
 	b->map->brain = b;
 	return (1);
 }
@@ -43,7 +41,7 @@ int	init_map(void *brain)
 void	init_textures(t_brain *b, t_type *map)
 {
 	ft_putstr(CYAN"Init Textures\n");
-	init_texture(b, map->no, &b->map->w_n);
+	init_texture(b, map->no, &b->map->w_n);  // -Waiting joe
 	init_texture(b, map->ea, &b->map->w_e);
 	init_texture(b, map->so, &b->map->w_s);
 	init_texture(b, map->we, &b->map->w_w);
@@ -57,7 +55,7 @@ int	realloc_map(t_map *m, char *line)
 
 	len = ft_strlen(line);
 	if (len > m->width)
-		m->width = len;
+		m->width = len; // set width
 	y = 0;
 	grid = ft_calloc(m->height + 1, sizeof(t_map_line *));
 	while (y < m->height)
@@ -67,7 +65,7 @@ int	realloc_map(t_map *m, char *line)
 	}
 	grid[y] = malloc(sizeof(t_map_line));
 	grid[y]->length = len;
-	grid[y]->line = ft_str_to_int_tab(line);
+	grid[y]->line = ft_str_to_int_tab(line); // turn the  string into an int array
 	free(line);
 	free(m->grid);
 	m->grid = grid;
@@ -85,15 +83,15 @@ t_player_detect	*chr_trt(char *line)
 	while (line[i])
 	{
 		if (line[i] == ' ')
-			line[i] = '0' - 1;
+			line[i] = '0' - 1; // mark spaces as -1
 		else if (line[i] == 'N' || line[i] == 'E'
 			|| line[i] == 'S' || line[i] == 'W')
 		{
 			player = malloc(sizeof(t_player_detect));
 			if (!player)
-				exit_cube(NULL, "Error: malloc failed", 0);
-			player->pos_x = i;
-			player->direction = line[i];
+				exit_cube(NULL, "Error: malloc failed for player", 0);
+			player->pos_x = i; // x position
+			player->direction = line[i]; // direction
 		}
 		else if (line[i] != '0' && line[i] != '1')
 		{

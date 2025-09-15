@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 17:54:50 by brian             #+#    #+#             */
-/*   Updated: 2025/09/10 16:30:31 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/15 21:26:12 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	init_player(t_brain *b, int pos_x, char angle)
 		exit_cube(NULL, "\n\nError\nFailed to malloc player pos", 0);
 	b->player->position->x = ((pos_x + 1) * b->map->bloc_size)
 		- (b->map->bloc_size / 2);
-	b->player->position->y = (b->map->height * b->map->bloc_size)
+	b->player->position->y = (b->map->height * b->map->bloc_size) // -Because Height is where the current line is
 		- (b->map->bloc_size / 2);
 	b->player->angle = get_player_angle(angle);
 	ft_putstr(GRN"OK\n");
@@ -34,7 +34,7 @@ int	init_player(t_brain *b, int pos_x, char angle)
 float	get_player_angle(char dir)
 {
 	if (dir == 'N')
-		return (2 * PI * 0.75);
+		return (2 * PI * 0.75);  // = 270 degrees
 	if (dir == 'E')
 		return (0);
 	if (dir == 'S')
