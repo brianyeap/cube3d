@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 18:22:12 by brian             #+#    #+#             */
-/*   Updated: 2025/09/10 16:22:01 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/15 16:06:34 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,7 @@ typedef struct s_type
 	int			fd;
 	int			height;
 	int			width;
-	int			valid;
-	int			res[3];
+	int			res[2];
 	char		*line;
 	char		*no;
 	char		*so;
@@ -117,7 +116,7 @@ void		parse_texture_path(char *str, char **target, t_type *map);
 t_type		*ft_getmap_config(char *file);
 
 // Map
-int			get_grid(t_map *m, int x, int y, int need_rescale);
+int			get_grid(t_map *m, int x, int y);
 t_fpoint	to_grid(int x, int y, t_map *m);
 void		init_textures(t_brain *b, t_type *map);
 int			open_map(t_brain *b, char *map_path, t_type *map);

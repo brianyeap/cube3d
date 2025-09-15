@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 15:43:47 by brian             #+#    #+#             */
-/*   Updated: 2025/09/09 23:08:06 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/15 16:06:15 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,8 @@ void	ft_init_t_type(t_type *map)
 	map->f_rgb = -1;
 	map->height = 0;
 	map->width = 0;
-	map->valid = 1;
-	map->res[0] = 0;
-	map->res[1] = 0;
-	map->res[2] = 0;
+	map->res[0] = WIN_W;
+	map->res[1] = WIN_H;
 }
 
 int	ft_strmultichr(char *str, char *chrlst)
