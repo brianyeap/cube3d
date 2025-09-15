@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 02:22:22 by brian             #+#    #+#             */
-/*   Updated: 2025/09/15 21:27:22 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/15 21:30:17 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	check_surround(t_map *m, t_point *pos)
 
 	cur = get_grid(m, pos->x, pos->y);
 	verif = get_grid(m, pos->x, pos->y - 1);
-	if ((cur == 0 && verif == -1) || (cur == -1 && verif != 1 && verif != -1)) // -if crnt 0 and above is void, current -1 and above not floor
+	if ((cur == 0 && verif == -1) || (cur == -1 && verif != 1 && verif != -1))
 		return (0);
 	verif = get_grid(m, pos->x, pos->y + 1);
 	if ((cur == 0 && verif == -1) || (cur == -1 && verif != 1 && verif != -1))

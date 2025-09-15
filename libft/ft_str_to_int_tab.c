@@ -6,13 +6,12 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 16:37:13 by brian             #+#    #+#             */
-/*   Updated: 2025/09/15 21:26:38 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/15 21:29:37 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-// -turn the  string into an int array
 int	*ft_str_to_int_tab(const char *s1)
 {
 	int		*dup;

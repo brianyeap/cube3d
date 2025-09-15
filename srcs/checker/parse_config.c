@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 15:43:47 by brian             #+#    #+#             */
-/*   Updated: 2025/09/15 21:27:31 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/15 21:30:36 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,14 @@ t_type	*ft_getmap_config(char *file)
 	if (fd > 0)
 	{
 		ft_init_t_type(map);
-		ret = get_next_line(fd, &line); // -read the first line
-		while (ret && ((ft_strmultichr(line, " 012SNEW")) != 1)) // map config linesx
+		ret = get_next_line(fd, &line);
+		while (ret && ((ft_strmultichr(line, " 012SNEW")) != 1))
 		{
-			ft_getmap_values(line, map); // assign the textures and colors
+			ft_getmap_values(line, map);
 			free(line);
-			ret = get_next_line(fd, &line); // read the next line
+			ret = get_next_line(fd, &line);
 		}
-		ck_struct_and_close_fd(map, fd, line);  // check if all config values are set and close fd
+		ck_struct_and_close_fd(map, fd, line);
 		return (map);
 	}
 	else
@@ -77,7 +77,7 @@ void	parse_color_rgb(char *str, int *target, t_type *map)
 	b = ft_atoi(split[2]);
 	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
 		ft_exit("RGB values must be 0–255\n", map);
-	*target = (r << 16) | (g << 8) | b; // bit packing RGB into an int
+	*target = (r << 16) | (g << 8) | b;
 	i = 0;
 	while (split[i])
 		free(split[i++]);

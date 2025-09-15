@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 03:46:46 by brian             #+#    #+#             */
-/*   Updated: 2025/09/15 21:27:50 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/15 21:31:40 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,19 +28,19 @@ void	get_map(t_brain *b, char *map_path)
 	player = NULL;
 	file = open(map_path, O_RDONLY);
 	ret = get_next_line(file, &line);
-	while (ret && ((ft_strmultichr(line, " 01SNEW")) != 1)) // -skip over config lines
+	while (ret && ((ft_strmultichr(line, " 01SNEW")) != 1))
 	{
 		free(line);
 		ret = get_next_line(file, &line);
 	}
-	while (ret != -1) // map lines
+	while (ret != -1)
 	{
 		player = add_map_row(b->map, line);
 		if (player)
 			init_and_free_player(b, player->pos_x, player->direction, player);
 		if (!ret)
 			break ;
-		ret = get_next_line(file, &line);  // new line
+		ret = get_next_line(file, &line);
 	}
 	if (!b->player)
 		info_and_exit(b, "No player Found!", "\n\nError\nNo player found");
@@ -67,9 +67,9 @@ void	info_and_exit(t_brain *b, char *infoMsg, char *exitMsg)
 int	open_map(t_brain *b, char *map_path, t_type *map)
 {
 	init_map(b);
-	init_textures(b, map); // waiting joe
+	init_textures(b, map);
 	get_map(b, map_path);
-	sort_sprites(b->player->position, b->map->sprites);  /// wait joe
+	sort_sprites(b->player->position, b->map->sprites);
 	ft_printf(CYAN"	-> Width: [%d]\n", b->map->width);
 	ft_printf(CYAN"	-> Height:[%d]\n\n"RST, b->map->height);
 	b->map->px_width = b->map->width * b->map->bloc_size;

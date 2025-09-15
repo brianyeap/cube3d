@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 02:24:15 by brian             #+#    #+#             */
-/*   Updated: 2025/09/15 21:27:47 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/15 21:31:24 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ int	get_grid(t_map *m, int x, int y)
 {
 	int			val;
 
-	if (x >= 0 && y >= 0) // -only non negative
+	if (x >= 0 && y >= 0)
 	{
-		if (y < m->height && x < m->grid[y]->length) // check if map is within bound
+		if (y < m->height && x < m->grid[y]->length)
 		{
 			val = m->grid[y]->line[x];
 			return (val);

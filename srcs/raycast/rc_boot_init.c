@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 14:23:20 by brian             #+#    #+#             */
-/*   Updated: 2025/09/15 21:27:57 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/15 21:31:52 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	rc_boot_attach_world(t_brain *b)
 	b->rc->py = (float)b->player->position->y;
 	b->rc->pa = (float)b->player->angle;
 	b->rc->pdx = cosf(b->rc->pa) * 5.0f;
-	b->rc->pdy = sinf(b->rc->pa) * 5.0f; // -joe
+	b->rc->pdy = sinf(b->rc->pa) * 5.0f;
 }
 
 void	put_px(t_brain *b, int x, int y, int color)
