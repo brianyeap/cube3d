@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jow <jow@student.42kl.edu.my>              +#+  +:+       +#+        */
+/*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 18:22:12 by brian             #+#    #+#             */
-/*   Updated: 2025/09/23 22:41:14 by jow              ###   ########.fr       */
+/*   Updated: 2025/09/24 00:53:57 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@
 # define KEY_DOWN 1
 # define KEY_LEFT 0
 # define KEY_RIGHT 2
+# define KEY_ARROW_LEFT 123
+# define KEY_ARROW_RIGHT 124
 
 #ifndef M_PI
 # define M_PI 3.14159265358979323846

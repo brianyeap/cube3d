@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rc_boot.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jow <jow@student.42kl.edu.my>              +#+  +:+       +#+        */
+/*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 14:21:51 by brian             #+#    #+#             */
-/*   Updated: 2025/09/24 00:20:30 by jow              ###   ########.fr       */
+/*   Updated: 2025/09/24 00:52:32 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,5 +87,7 @@ int rc_boot_key_up(t_brain *b);
 int rc_boot_key_down(t_brain *b);
 int rc_boot_turn_left(t_brain *b);
 int rc_boot_turn_right(t_brain *b);
+int	rc_boot_move_right(t_brain *b);
+int	rc_boot_move_left(t_brain *b);
 
 #endif /* RC_BOOT_H */

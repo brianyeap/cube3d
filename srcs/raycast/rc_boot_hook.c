@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 14:26:36 by brian             #+#    #+#             */
-/*   Updated: 2025/09/09 14:53:11 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/24 00:54:51 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,12 @@ int	rc_boot_keydown(int key, t_brain *b)
 	else if (key == KEY_DOWN)
 		return (rc_boot_key_down(b));
 	else if (key == KEY_LEFT)
-		return (rc_boot_turn_left(b));
+		return (rc_boot_move_left(b));
 	else if (key == KEY_RIGHT)
+		return (rc_boot_move_right(b));
+	else if (key == KEY_ARROW_LEFT)
+		return (rc_boot_turn_left(b));
+	else if (key == KEY_ARROW_RIGHT)
 		return (rc_boot_turn_right(b));
 	return (0);
 }
