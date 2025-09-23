@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rc_boot_math.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jow <jow@student.42kl.edu.my>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 14:36:13 by brian             #+#    #+#             */
-/*   Updated: 2025/09/09 14:53:23 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/23 23:49:32 by jow              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,13 @@ float	distf(float ax, float ay, float bx, float by)
 	return (sqrtf(dx * dx + dy * dy));
 }
 
-float	fixed_dist(t_brain *b, float rx, float ry, float ray_ang)
+float calcDist(const float ax, const float ay, const float bx, const float by)
 {
-	float	d;
+    return (sqrt((ax - bx) * (ax - bx) + (ay - by) * (ay - by)));
+}
 
-	d = distf(b->rc->px, b->rc->py, rx, ry);
-	return (d * cosf(ray_ang - b->rc->pa));
+float fixed_dist(float player_x, float player_y, float ray_x, float ray_y, float ray_angle, t_brain *b)
+{
+    float dist = calcDist(player_x, player_y, ray_x, ray_y);
+    return (dist * cos(ray_angle - b->rc->pa)); // Fix fisheye effect
 }

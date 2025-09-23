@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   new_sprite.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jow <jow@student.42kl.edu.my>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 19:18:38 by brian             #+#    #+#             */
-/*   Updated: 2025/09/09 14:53:59 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/23 23:25:19 by jow              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,17 +38,17 @@ void	set_spr_texture(t_brain *b, t_sprite *s, int type)
 	if (type == 2)
 	{
 		init_texture(b, "./assets/sprites/barrel.xpm", &s->model);
-		init_texture(b, "./assets/sprites/barrel-shadow.xpm", &s->shadow);
+		//init_texture(b, "./assets/sprites/barrel-shadow.xpm", &s->shadow);
 	}
 	else if (type == 3)
 	{
 		init_texture(b, "./assets/sprites/tree.xpm", &s->model);
-		init_texture(b, "./assets/sprites/tree-shadow.xpm", &s->shadow);
+		//init_texture(b, "./assets/sprites/tree-shadow.xpm", &s->shadow);
 	}
 	else if (type == 4)
 	{
 		init_texture(b, "./assets/sprites/col2.xpm", &s->model);
-		init_texture(b, "./assets/sprites/col2-shadow.xpm", &s->shadow);
+		//init_texture(b, "./assets/sprites/col2-shadow.xpm", &s->shadow);
 	}
 }
 
@@ -66,7 +66,7 @@ t_sprite	*init_sprite(t_map *m, t_fpoint pos, int type)
 	s->pos.x = pos.x * m->bloc_size + m->bloc_size / 2;
 	s->pos.y = pos.y * m->bloc_size + m->bloc_size / 2;
 	s->model = NULL;
-	s->shadow = NULL;
+	//s->shadow = NULL;
 	s->on_screen = 0;
 	set_spr_texture(b, s, type);
 	return (s);

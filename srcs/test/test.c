@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jow <jow@student.42kl.edu.my>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 00:10:27 by jow               #+#    #+#             */
-/*   Updated: 2025/09/22 19:20:59 by jow              ###   ########.fr       */
+/*   Updated: 2025/09/22 22:10:45 by jow              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,9 @@ typedef struct s_dda
     int outOfBounds;
     double perpWallDist;
     int lineHeight;
-    int drawStart0; //unclamped values
+    int drawStart0; // unclamped values
     int drawEnd0;
-    int drawStart; //clamped values
+    int drawStart; // clamped values
     int drawEnd;
     double wallX;
     int texX;
@@ -277,85 +277,85 @@ void perform_dda(t_brain *brain)
 {
     t_dda *dda = &brain->dda;
 
-    if (dda->sideDistX < dda->sideDistY)
+    if (ray->sideDistX < ray->sideDistY)
     {
-        dda->sideDistX += dda->deltaDistX;
-        dda->mapX += dda->stepX;
-        dda->side = 0;
+        ray->sideDistX += ray->deltaDistX;
+        ray->mapX += ray->stepX;
+        ray->side = 0;
     }
     else
     {
-        dda->sideDistY += dda->deltaDistY;
-        dda->mapY += dda->stepY;
-        dda->side = 1;
+        ray->sideDistY += ray->deltaDistY;
+        ray->mapY += ray->stepY;
+        ray->side = 1;
     }
-    //out of bounds check
-    if (dda->mapX < 0 || dda->mapX >= 8 || dda->mapY < 0 || dda->mapY >= 8)
+    // out of bounds check
+    if (ray->mapX < 0 || ray->mapX >= 8 || ray->mapY < 0 || ray->mapY >= 8)
     {
-        dda->outOfBounds = 1;
-        dda->hit = 1;
+        ray->outOfBounds = 1;
+        ray->hit = 1;
     }
     // ray hit wall check
-    else if (brain->map[dda->mapY * 8 + dda->mapX] > 0)
-        dda->hit = 1;
+    else if (brain->map[ray->mapY * 8 + ray->mapX] > 0)
+        ray->hit = 1;
 }
 
 void calculate_step(t_brain *brain)
 {
     t_dda *dda = &brain->dda;
 
-    if (dda->rayDirX < 0)
+    if (ray->rayDirX < 0)
     {
-        dda->stepX = -1;
-        dda->sideDistX = (dda->posX - dda->mapX) * dda->deltaDistX;
+        ray->stepX = -1;
+        ray->sideDistX = (ray->posX - ray->mapX) * ray->deltaDistX;
     }
     else
     {
-        dda->stepX = 1;
-        dda->sideDistX = (dda->mapX + 1.0 - dda->posX) * dda->deltaDistX;
+        ray->stepX = 1;
+        ray->sideDistX = (ray->mapX + 1.0 - ray->posX) * ray->deltaDistX;
     }
-    if (dda->rayDirY < 0)
+    if (ray->rayDirY < 0)
     {
-        dda->stepY = -1;
-        dda->sideDistY = (dda->posY - dda->mapY) * dda->deltaDistY;
+        ray->stepY = -1;
+        ray->sideDistY = (ray->posY - ray->mapY) * ray->deltaDistY;
     }
     else
     {
-        dda->stepY = 1;
-        dda->sideDistY = (dda->mapY + 1.0 - dda->posY) * dda->deltaDistY;
+        ray->stepY = 1;
+        ray->sideDistY = (ray->mapY + 1.0 - ray->posY) * ray->deltaDistY;
     }
 }
 
 void ray_setup(t_brain *brain, int x)
 {
     t_dda *dda = &brain->dda;
-    dda->cameraX = 2.0 * x / (double)WIDTH - 1.0;
-    dda->rayDirX = dda->dirX + dda->planeX * dda->cameraX;
-    dda->rayDirY = dda->dirY + dda->planeY * dda->cameraX;
-    dda->mapX = (int)dda->posX;
-    dda->mapY = (int)dda->posY;
-    if (dda->rayDirX == 0.0)
-        dda->deltaDistX = 1e30;
+    ray->cameraX = 2.0 * x / (double)WIDTH - 1.0;
+    ray->rayDirX = ray->dirX + ray->planeX * ray->cameraX;
+    ray->rayDirY = ray->dirY + ray->planeY * ray->cameraX;
+    ray->mapX = (int)ray->posX;
+    ray->mapY = (int)ray->posY;
+    if (ray->rayDirX == 0.0)
+        ray->deltaDistX = 1e30;
     else
-        dda->deltaDistX = fabs(1.0 / dda->rayDirX);
-    if (dda->rayDirY == 0.0)
-        dda->deltaDistY = 1e30;
+        ray->deltaDistX = fabs(1.0 / ray->rayDirX);
+    if (ray->rayDirY == 0.0)
+        ray->deltaDistY = 1e30;
     else
-        dda->deltaDistY = fabs(1.0 / dda->rayDirY);
+        ray->deltaDistY = fabs(1.0 / ray->rayDirY);
 }
 
 static void init_dda(t_brain *brain)
 {
     t_dda *dda = &brain->dda;
-    dda->TILE = 64.0;
-    dda->fov = M_PI / 3.0; //60 deg
-    dda->posX = brain->player_x / dda->TILE;
-    dda->posY = brain->player_y / dda->TILE;
-    dda->dirX = cos(brain->player_angle);
-    dda->dirY = sin(brain->player_angle);
-    dda->planeLen = tan(dda->fov / 2.0); // half of plane width
-    dda->planeX = -dda->dirY * dda->planeLen;
-    dda->planeY = dda->dirX * dda->planeLen;
+    ray->TILE = 64.0;
+    ray->fov = M_PI / 3.0; // 60 deg
+    ray->posX = brain->player_x / ray->TILE;
+    ray->posY = brain->player_y / ray->TILE;
+    ray->dirX = cos(brain->player_angle);
+    ray->dirY = sin(brain->player_angle);
+    ray->planeLen = tan(ray->fov / 2.0); // half of plane width
+    ray->planeX = -ray->dirY * ray->planeLen;
+    ray->planeY = ray->dirX * ray->planeLen;
 }
 
 void draw_line(t_brain *brain)
@@ -368,12 +368,12 @@ void draw_line(t_brain *brain)
     {
         ray_setup(brain, x);
         calculate_step(brain);
-        dda->hit = 0;
-        dda->outOfBounds = 0;
+        ray->hit = 0;
+        ray->outOfBounds = 0;
         safety = 0;
-        while (!dda->hit && safety++ < 2048)
+        while (!ray->hit && safety++ < 2048)
             perform_dda(brain);
-        if (dda->outOfBounds)
+        if (ray->outOfBounds)
         {
             // printf("Ray out of bounds at column %d\n", x);
             // int mid = HEIGHT / 2;
@@ -384,76 +384,76 @@ void draw_line(t_brain *brain)
             continue;
         }
         // calculate perpendicular wall distance
-        if (dda->side == 0)
+        if (ray->side == 0)
         {
             double denom;
-            if (dda->rayDirX == 0.0)
+            if (ray->rayDirX == 0.0)
                 denom = 1e-9;
             else
-                denom = dda->rayDirX;
-            dda->perpWallDist = (dda->mapX - dda->posX + (1 - dda->stepX) / 2.0) / denom;
+                denom = ray->rayDirX;
+            ray->perpWallDist = (ray->mapX - ray->posX + (1 - ray->stepX) / 2.0) / denom;
         }
         else
         {
             double denom;
-            if (dda->rayDirY == 0.0)
+            if (ray->rayDirY == 0.0)
                 denom = 1e-9;
             else
-                denom = dda->rayDirY;
-            dda->perpWallDist = (dda->mapY - dda->posY + (1 - dda->stepY) / 2.0) / denom;
+                denom = ray->rayDirY;
+            ray->perpWallDist = (ray->mapY - ray->posY + (1 - ray->stepY) / 2.0) / denom;
         }
-        if (dda->perpWallDist < 1e-6)
-            dda->perpWallDist = 1e-6;
-        dda->lineHeight = (int)(HEIGHT / dda->perpWallDist);
-        if (dda->lineHeight < 1)
-            dda->lineHeight = 1;
-        dda->drawStart0 = (int)(HEIGHT / 2 - dda->lineHeight / 2);
-        dda->drawEnd0 = dda->drawStart0 + dda->lineHeight;
-        if (dda->drawStart0 < 0)
-            dda->drawStart = 0;
+        if (ray->perpWallDist < 1e-6)
+            ray->perpWallDist = 1e-6;
+        ray->lineHeight = (int)(HEIGHT / ray->perpWallDist);
+        if (ray->lineHeight < 1)
+            ray->lineHeight = 1;
+        ray->drawStart0 = (int)(HEIGHT / 2 - ray->lineHeight / 2);
+        ray->drawEnd0 = ray->drawStart0 + ray->lineHeight;
+        if (ray->drawStart0 < 0)
+            ray->drawStart = 0;
         else
-            dda->drawStart = dda->drawStart0;
-        if (dda->drawEnd0 > HEIGHT)
-            dda->drawEnd = HEIGHT;
+            ray->drawStart = ray->drawStart0;
+        if (ray->drawEnd0 > HEIGHT)
+            ray->drawEnd = HEIGHT;
         else
-            dda->drawEnd = dda->drawEnd0;
-        if (dda->side == 0)
-            dda->wallX = dda->posY + dda->perpWallDist * dda->rayDirY;
+            ray->drawEnd = ray->drawEnd0;
+        if (ray->side == 0)
+            ray->wallX = ray->posY + ray->perpWallDist * ray->rayDirY;
         else
-            dda->wallX = dda->posX + dda->perpWallDist * dda->rayDirX;
-        dda->wallX -= floor(dda->wallX);
-        dda->texX = (int)(dda->wallX * (double)brain->wall_width);
-        if (dda->side == 0 && dda->rayDirX < 0)
-            dda->texX = brain->wall_width - dda->texX - 1;
-        if (dda->side == 1 && dda->rayDirY > 0)
-            dda->texX = brain->wall_width - dda->texX - 1;
-        if (dda->texX < 0)
-            dda->texX = 0;
-        if (dda->texX >= brain->wall_width)
-            dda->texX = brain->wall_width - 1;
-        //fill sky
+            ray->wallX = ray->posX + ray->perpWallDist * ray->rayDirX;
+        ray->wallX -= floor(ray->wallX);
+        ray->texX = (int)(ray->wallX * (double)brain->wall_width);
+        if (ray->side == 0 && ray->rayDirX < 0)
+            ray->texX = brain->wall_width - ray->texX - 1;
+        if (ray->side == 1 && ray->rayDirY > 0)
+            ray->texX = brain->wall_width - ray->texX - 1;
+        if (ray->texX < 0)
+            ray->texX = 0;
+        if (ray->texX >= brain->wall_width)
+            ray->texX = brain->wall_width - 1;
+        // fill sky
         int y = 0;
-        while (y < dda->drawStart)
+        while (y < ray->drawStart)
             ft_put_pixel(x, y++, 0x87CEEB, brain);
-        dda->step = (double)brain->wall_height / (double)dda->lineHeight;
-        dda->texPos = (double)(dda->drawStart - dda->drawStart0) * dda->step;
-        y = dda->drawStart;
-        while (y < dda->drawEnd)
+        ray->step = (double)brain->wall_height / (double)ray->lineHeight;
+        ray->texPos = (double)(ray->drawStart - ray->drawStart0) * ray->step;
+        y = ray->drawStart;
+        while (y < ray->drawEnd)
         {
-            int texY = (int)dda->texPos;
-            int color = get_texture_pixel(brain, dda->texX, texY);
+            int texY = (int)ray->texPos;
+            int color = get_texture_pixel(brain, ray->texX, texY);
             ft_put_pixel(x, y, color, brain);
-            dda->texPos += dda->step;
+            ray->texPos += ray->step;
             y++;
         }
-        //fill floor
-        y = dda->drawEnd;
+        // fill floor
+        y = ray->drawEnd;
         while (y < HEIGHT)
             ft_put_pixel(x, y++, 0x2E2E2E, brain);
         if (DEBUG)
         {
-            int rx = dda->mapX * (int)dda->TILE + (int)dda->TILE / 2;
-            int ry = dda->mapY * (int)dda->TILE + (int)dda->TILE / 2;
+            int rx = ray->mapX * (int)ray->TILE + (int)ray->TILE / 2;
+            int ry = ray->mapY * (int)ray->TILE + (int)ray->TILE / 2;
             ft_put_pixel(rx, ry, 0xFF0000, brain);
         }
     }

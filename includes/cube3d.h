@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jow <jow@student.42kl.edu.my>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 18:22:12 by brian             #+#    #+#             */
-/*   Updated: 2025/09/15 16:06:34 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/23 22:41:14 by jow              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@
 # define M_PI 3.14159265358979323846
 #endif
 
-# define WIN_W 1025
+# define WIN_W 1024
 # define WIN_H 512
 
 # define MAX_KEYS 10
@@ -72,7 +72,7 @@ typedef struct s_rcboot
 	float		pa;			// angle
 	float		pdx;		// derived from angle
 	float		pdy;		// derived from angle
-	int			tile;		// tile size
+	int			tile;		// tile size (64px)
 	t_map		*world;		// points to b->map
 	int			w;
 	int			h;
@@ -82,10 +82,12 @@ typedef struct s_brain
 {
 	int			initialized;
 	t_ctx		*ctx;
+	t_buff		*buff;
 	t_map		*map;
 	t_player	*player;
 	int			*keys;
 	t_rcboot	*rc;
+	t_ray		*ray;
 }				t_brain;
 
 typedef struct s_type

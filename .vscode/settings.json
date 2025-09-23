@@ -8,6 +8,9 @@
 		"get_next_line.h": "c",
 		"rc_boot.h": "c",
 		"queue": "c",
-		"stack": "c"
+		"stack": "c",
+		"ios": "c",
+		"istream": "c",
+		"locale": "c"
 	}
 }
