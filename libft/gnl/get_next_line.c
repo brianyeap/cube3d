@@ -6,15 +6,15 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 15:14:22 by brian             #+#    #+#             */
-/*   Updated: 2025/08/29 15:46:32 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/25 17:45:46 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-t_gnl		*init_brain(int fd)
+t_gnl	*init_brain(int fd)
 {
-	t_gnl *brain;
+	t_gnl	*brain;
 
 	if ((brain = malloc(sizeof(t_gnl))) != NULL)
 	{
@@ -28,10 +28,10 @@ t_gnl		*init_brain(int fd)
 	return (brain);
 }
 
-t_gnl		*get_brain(t_gnl **b, int fd, char **line)
+t_gnl	*get_brain(t_gnl **b, int fd, char **line)
 {
-	t_gnl *tmp;
-	t_gnl **ptr;
+	t_gnl	*tmp;
+	t_gnl	**ptr;
 
 	if (read(fd, NULL, 0) == -1)
 		return (NULL);
@@ -58,7 +58,7 @@ t_gnl		*get_brain(t_gnl **b, int fd, char **line)
 
 static void	meditate(t_gnl **blist, t_gnl *b, char **line)
 {
-	t_gnl **ptr;
+	t_gnl	**ptr;
 
 	ptr = blist;
 	if (*ptr && (*ptr)->fd != b->fd)
@@ -80,20 +80,19 @@ static void	meditate(t_gnl **blist, t_gnl *b, char **line)
 	free(b);
 }
 
-int			treat_left(t_gnl *b, char **line)
+int	treat_left(t_gnl *b, char **line)
 {
-	char *temp;
-	char *btemp;
+	char	*temp;
+	char	*btemp;
 
-	if ((b->eol = has_eol(b->buff)) >= 0)
+	b->eol = has_eol(b->buff);
+	if (b->eol >= 0)
 	{
 		temp = ft_strnjoin(*line, b->buff, 0, b->eol);
 		free(*line);
 		*line = temp;
-		btemp = ft_strnjoin("",
-							b->buff,
-							b->eol + 1,
-							ft_gnl_strlen(b->buff) - b->eol - 1);
+		btemp = ft_strnjoin("", b->buff,
+				b->eol + 1, ft_gnl_strlen(b->buff) - b->eol - 1);
 		free(b->buff);
 		b->buff = btemp;
 		b->asleft = 1;
@@ -108,9 +107,9 @@ int			treat_left(t_gnl *b, char **line)
 	return (0);
 }
 
-int			get_next_line(int fd, char **line)
+int	get_next_line(int fd, char **line)
 {
-	static	t_gnl	*blist;
+	static t_gnl	*blist;
 	t_gnl			*b;
 
 	*line = NULL;

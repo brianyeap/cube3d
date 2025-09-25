@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 16:30:36 by brian             #+#    #+#             */
-/*   Updated: 2025/09/25 15:54:20 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/25 17:36:55 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ typedef struct s_player_detect
 	int			pos_x;
 	char		direction;
 }				t_player_detect;
-
 
 t_player_detect		*add_map_row(t_map *m, char *line);
 t_player_detect		*chr_trt(char *line);
