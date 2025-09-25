@@ -15,7 +15,7 @@ INCLUDES = -I$(INC_DIR)
 OS := $(shell uname -s)
 
 ifeq ($(OS),Linux)
-	MLX_DIR      = minilibx-linux
+	MLX_DIR      = $(INC_DIR)/minilibx-linux
 	MLX_INC      = -I$(MLX_DIR)
 	MLX_LIB      = $(MLX_DIR)/libmlx.a
 	MLX_LDFLAGS  = -L$(MLX_DIR) -lmlx -lX11 -lXext -lm
