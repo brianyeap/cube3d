@@ -6,7 +6,7 @@
 /*   By: jow <jow@student.42kl.edu.my>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 14:37:35 by brian             #+#    #+#             */
-/*   Updated: 2025/09/24 00:24:09 by jow              ###   ########.fr       */
+/*   Updated: 2025/09/24 12:58:35 by jow              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,7 +158,14 @@ void draw_3d(t_brain *b)
         while (!b->ray->hit && safety++ < 2048)
             perform_dda(b);
         if (b->ray->outOfBounds)
+        {
+            int mid = WIN_H / 2;
+            for (int y = 0; y < mid; y++)
+                put_px(b, x, y, 0x87CEEB);
+            for (int y = mid; y < WIN_H; y++)
+                put_px(b, x, y, 0x2E2E2E);
             continue;
+        }
         // calculate perpendicular wall distance
         if (b->ray->side == 0)
         {

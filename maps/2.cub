@@ -1,6 +1,6 @@
 EA ./assets/walls/1.xpm
 SO ./assets/walls/2.xpm
-NO ./assets/walls/3.xpm
+NO ./assets/walls/north.xpm
 WE ./assets/walls/4.xpm
 
 F 220,100,0

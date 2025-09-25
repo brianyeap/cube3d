@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jow <jow@student.42kl.edu.my>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 03:46:46 by brian             #+#    #+#             */
-/*   Updated: 2025/09/15 21:31:40 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/24 12:33:43 by jow              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	open_map(t_brain *b, char *map_path, t_type *map)
 	init_map(b);
 	init_textures(b, map);
 	get_map(b, map_path);
-	sort_sprites(b->player->position, b->map->sprites);
+	//sort_sprites(b->player->position, b->map->sprites);
 	ft_printf(CYAN"	-> Width: [%d]\n", b->map->width);
 	ft_printf(CYAN"	-> Height:[%d]\n\n"RST, b->map->height);
 	b->map->px_width = b->map->width * b->map->bloc_size;
