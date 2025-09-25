@@ -6,7 +6,7 @@
 /*   By: jow <jow@student.42kl.edu.my>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 03:46:46 by brian             #+#    #+#             */
-/*   Updated: 2025/09/24 12:33:43 by jow              ###   ########.fr       */
+/*   Updated: 2025/09/25 17:15:58 by jow              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	info_and_exit(t_brain *b, char *infoMsg, char *exitMsg)
 
 int	open_map(t_brain *b, char *map_path, t_type *map)
 {
-	init_map(b);
+	init_map(b, map);
 	init_textures(b, map);
 	get_map(b, map_path);
 	//sort_sprites(b->player->position, b->map->sprites);

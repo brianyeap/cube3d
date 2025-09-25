@@ -6,7 +6,7 @@
 /*   By: jow <jow@student.42kl.edu.my>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 14:37:35 by brian             #+#    #+#             */
-/*   Updated: 2025/09/24 12:58:35 by jow              ###   ########.fr       */
+/*   Updated: 2025/09/25 17:11:47 by jow              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,7 +217,7 @@ void draw_3d(t_brain *b)
         // fill sky
         int y = 0;
         while (y < b->ray->drawStart)
-            put_px(b, x, y++, 0x87CEEB);
+            put_px(b, x, y++, b->map->c_rgb);
         b->ray->step = (double)b->rc->tile / (double)b->ray->lineHeight;
         b->ray->texPos = (double)(b->ray->drawStart - b->ray->drawStart0) * b->ray->step;
         y = b->ray->drawStart;
@@ -232,7 +232,7 @@ void draw_3d(t_brain *b)
         // fill floor
         y = b->ray->drawEnd;
         while (y < WIN_H)
-            put_px(b, x, y++, 0x2E2E2E);
+            put_px(b, x, y++, b->map->f_rgb);
         // if (DEBUG)
         // {
         //     int rx = ray->mapX * (int)ray->TILE + (int)ray->TILE / 2;
