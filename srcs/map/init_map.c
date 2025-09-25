@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jow <jow@student.42kl.edu.my>              +#+  +:+       +#+        */
+/*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 17:48:01 by brian             #+#    #+#             */
-/*   Updated: 2025/09/25 17:20:58 by jow              ###   ########.fr       */
+/*   Updated: 2025/09/25 18:05:43 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,8 @@ int	init_map(void *brain, void *og_map)
 	b->map->w_e = NULL;
 	b->map->w_s = NULL;
 	b->map->w_w = NULL;
-	b->map->floor = NULL;
 	b->map->f_rgb = og_map2->f_rgb;
 	b->map->c_rgb = og_map2->c_rgb;
-	b->map->sprites = ch_m(malloc(sizeof(t_spr_list)), brain,
-			"\n\nError\nmalloc fail for sprite list");
-	b->map->sprites->column = ch_m(malloc(b->ctx->width * sizeof(float)), brain,
-			"\n\nError\nmalloc failed for distance array");
-	b->map->sprites->length = 0;
-	b->map->sprites->list = NULL;
 	b->map->brain = b;
 	return (1);
 }

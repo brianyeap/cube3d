@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 16:30:36 by brian             #+#    #+#             */
-/*   Updated: 2025/09/25 18:03:52 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/25 18:06:42 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,8 @@ typedef struct s_map
 	int			width;
 	int			height;
 	int			bloc_size;
-	float		scale;
-	t_fpoint	disp;
 	int			f_rgb;
 	int			c_rgb;
-	int			sprites_count;
-	t_spr_list	*sprites;
 	t_buff		*w_n;
 	t_buff		*w_e;
 	t_buff		*w_s;
