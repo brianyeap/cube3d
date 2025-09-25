@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 17:46:56 by brian             #+#    #+#             */
-/*   Updated: 2025/09/15 21:30:08 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/25 14:39:02 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ void	init_loop(t_brain *b)
 	mlx_hook(b->ctx->win_ptr, 2, (1L << 0), &key_press, b);
 	mlx_hook(b->ctx->win_ptr, 17, (1L << 16), &red_x_exit, b);
 	mlx_key_hook(b->ctx->win_ptr, &key_release, b);
-	mlx_do_key_autorepeaton(b->ctx->mlx_ptr);
 	mlx_loop(b->ctx->mlx_ptr);
 }
 

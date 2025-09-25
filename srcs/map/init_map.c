@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 17:48:01 by brian             #+#    #+#             */
-/*   Updated: 2025/09/15 21:31:13 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/25 15:20:46 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ t_player_detect	*chr_trt(char *line)
 				exit_cube(NULL, "Error: malloc failed for player", 0);
 			player->pos_x = i;
 			player->direction = line[i];
+			line[i] = '0';
 		}
 		else if (line[i] != '0' && line[i] != '1')
 		{
