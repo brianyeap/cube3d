@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 18:22:12 by brian             #+#    #+#             */
-/*   Updated: 2025/09/25 15:54:48 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/25 17:18:35 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <time.h>
 # include <string.h>
 # include <math.h>
-# include "MiniLib/mlx.h"
+# include "mlx.h"
 # include "../libft/libft.h"
 # include "canvas.h"
 # include "player.h"
@@ -38,18 +38,30 @@
 # define GREY   "\033[0;90m"
 # define PURP   "\033[0;94m"
 
-// Key codes for Mac
-# define KEY_ESC 53
-# define KEY_UP 13
-# define KEY_DOWN 1
-# define KEY_LEFT 0
-# define KEY_RIGHT 2
-# define KEY_ARROW_LEFT 123
-# define KEY_ARROW_RIGHT 124
+/* Key codes */
+# ifdef __APPLE__
+#  define KEY_ESC         53
+#  define KEY_UP          13
+#  define KEY_DOWN        1
+#  define KEY_LEFT        0
+#  define KEY_RIGHT       2
+#  define KEY_ARROW_LEFT  123
+#  define KEY_ARROW_RIGHT 124
+# elif defined(__linux__)
+#  define KEY_ESC         65307
+#  define KEY_UP          119
+#  define KEY_DOWN        115
+#  define KEY_LEFT        97
+#  define KEY_RIGHT       100
+#  define KEY_ARROW_LEFT  65361
+#  define KEY_ARROW_RIGHT 65363
+# else
+#  error "Unsupported OS for key codes"
+# endif
 
-#ifndef M_PI
-# define M_PI 3.14159265358979323846
-#endif
+# ifndef M_PI
+#  define M_PI 3.14159265358979323846
+# endif
 
 # define WIN_W 1024
 # define WIN_H 512
