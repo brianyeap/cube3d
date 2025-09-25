@@ -11,15 +11,29 @@ CC       = gcc
 CFLAGS   = -Wall -Wextra -Werror
 INCLUDES = -I$(INC_DIR)
 
-MLX_DIR     = $(INC_DIR)/MiniLib
-MLX_LIB     = $(MLX_DIR)/libmlx.a
-MLX_INC     = -I$(MLX_DIR)
-MLX_LDFLAGS = -L$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit
+# Detect OS
+OS := $(shell uname -s)
+
+ifeq ($(OS),Linux)
+	MLX_DIR      = $(INC_DIR)/minilibx-linux
+	MLX_INC      = -I$(MLX_DIR)
+	MLX_LIB      = $(MLX_DIR)/libmlx.a
+	MLX_LDFLAGS  = -L$(MLX_DIR) -lmlx -lX11 -lXext -lm
+	MLX_MAKE_CFLAGS = "$(filter-out -Werror,$(CFLAGS))"
+else ifeq ($(OS),Darwin)
+	MLX_DIR      = $(INC_DIR)/MiniLib
+	MLX_INC      = -I$(MLX_DIR)
+	MLX_LIB      = $(MLX_DIR)/libmlx.a
+	MLX_LDFLAGS  = -L$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit
+	MLX_MAKE_CFLAGS = "$(filter-out -Werror,$(CFLAGS)) -DGL_SILENCE_DEPRECATION"
+else
+$(error Unsupported OS: $(OS))
+endif
 
 all: $(MLX_LIB) $(NAME)
 
 $(MLX_LIB):
-	$(MAKE) -C $(MLX_DIR) CFLAGS="$(filter-out -Werror,$(CFLAGS)) -DGL_SILENCE_DEPRECATION"
+	$(MAKE) -C $(MLX_DIR) CFLAGS=$(MLX_MAKE_CFLAGS)
 
 $(NAME): $(OFILES) $(MLX_LIB)
 	$(CC) $(CFLAGS) $(INCLUDES) $(MLX_INC) -o $(NAME) $(OFILES) $(MLX_LDFLAGS)

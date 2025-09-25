@@ -11,6 +11,12 @@
 		"stack": "c",
 		"ios": "c",
 		"istream": "c",
-		"locale": "c"
+		"locale": "c",
+		"version": "c",
+		"__hash_table": "c",
+		"__node_handle": "c",
+		"deque": "c",
+		"format": "c",
+		"unordered_map": "c"
 	}
 }
