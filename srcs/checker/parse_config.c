@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   parse_config.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jow <jow@student.42kl.edu.my>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 15:43:47 by brian             #+#    #+#             */
-/*   Updated: 2025/09/15 21:30:36 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/25 17:08:31 by jow              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cube3d.h"
 
-t_type	*ft_getmap_config(char *file)
+t_type *ft_getmap_config(char *file)
 {
-	int		ret;
-	int		fd;
-	char	*line;
-	t_type	*map;
+	int ret;
+	int fd;
+	char *line;
+	t_type *map;
 
 	if (!ft_is_cub_extension(file))
 		exit_cube(NULL, "\n\nError\nPlease provide a \'.cub\' file\n", 0);
@@ -40,7 +40,7 @@ t_type	*ft_getmap_config(char *file)
 		return (NULL);
 }
 
-void	ft_getmap_values(char *line, t_type *map)
+void ft_getmap_values(char *line, t_type *map)
 {
 	if (!(ft_strncmp(line, "NO ", 3)))
 		parse_texture_path(line + 3, &map->no, map);
@@ -58,13 +58,13 @@ void	ft_getmap_values(char *line, t_type *map)
 		ft_exit("Unkown identifier(s) in file\n", map);
 }
 
-void	parse_color_rgb(char *str, int *target, t_type *map)
+void parse_color_rgb(char *str, int *target, t_type *map)
 {
-	char	**split;
-	int		i;
-	int		r;
-	int		g;
-	int		b;
+	char **split;
+	int i;
+	int r;
+	int g;
+	int b;
 
 	split = ft_split(str, ',');
 	i = 0;
@@ -84,9 +84,9 @@ void	parse_color_rgb(char *str, int *target, t_type *map)
 	free(split);
 }
 
-void	parse_texture_path(char *str, char **target, t_type *map)
+void parse_texture_path(char *str, char **target, t_type *map)
 {
-	int	fd;
+	int fd;
 
 	if (check_ending(str, ".xpm"))
 	{
@@ -102,10 +102,10 @@ void	parse_texture_path(char *str, char **target, t_type *map)
 		ft_exit("Please provide a \'.xpm\' file\n", map);
 }
 
-char	*ft_check_str(char *str, char *chrs)
+char *ft_check_str(char *str, char *chrs)
 {
-	int	i;
-	int	flag;
+	int i;
+	int flag;
 
 	i = 0;
 	flag = 0;

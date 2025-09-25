@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jow <jow@student.42kl.edu.my>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 18:22:12 by brian             #+#    #+#             */
-/*   Updated: 2025/09/25 17:18:35 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/25 16:05:11 by jow              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,18 +90,6 @@ typedef struct s_rcboot
 	int			h;
 }	t_rcboot;
 
-typedef struct s_brain
-{
-	int			initialized;
-	t_ctx		*ctx;
-	t_buff		*buff;
-	t_map		*map;
-	t_player	*player;
-	int			*keys;
-	t_rcboot	*rc;
-	t_ray		*ray;
-}				t_brain;
-
 typedef struct s_type
 {
 	int			fd;
@@ -116,6 +104,19 @@ typedef struct s_type
 	int			f_rgb;
 	int			c_rgb;
 }				t_type;
+
+typedef struct s_brain
+{
+	int			initialized;
+	t_ctx		*ctx;
+	t_buff		*buff;
+	t_map		*map;
+	t_player	*player;
+	int			*keys;
+	t_rcboot	*rc;
+	t_ray		*ray;
+	t_type 		*map_cfg;
+}				t_brain;
 
 // Cleanups
 void		exit_cube(t_brain *brain, char *msg, int exit_now);

@@ -3,8 +3,8 @@ SO ./assets/walls/2.xpm
 NO ./assets/walls/north.xpm
 WE ./assets/walls/4.xpm
 
-F 220,100,0
-C 225,30,0
+F 14, 99, 14
+C 92, 133, 255
 
       111
      10S01
