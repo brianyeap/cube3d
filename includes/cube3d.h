@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 18:22:12 by brian             #+#    #+#             */
-/*   Updated: 2025/09/24 00:53:57 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/25 15:54:48 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,6 @@
 
 # define MAX_KEYS 10
 
-typedef struct s_sprite			t_sprite;
-typedef struct s_spr_list		t_spr_list;
 typedef struct s_map			t_map;
 typedef struct s_player_detect	t_player_detect;
 
@@ -152,11 +150,6 @@ void		init_keys(t_brain *b);
 // Utilities
 int			ft_strmultichr(char *str, char *chrlst);
 int			check_ending(char *str, char *end);
-void		sort_sprites(t_fpoint *pos, t_spr_list *lst_sprt);
-
-// Sprites
-void		add_spr_to_list(t_spr_list *s_list, t_sprite *s);
-t_sprite	*init_sprite(t_map *m, t_fpoint pos, int type);
 
 int			key_press(int key, void *param);
 int			key_release(int key, void *param);

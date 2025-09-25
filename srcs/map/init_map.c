@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 17:48:01 by brian             #+#    #+#             */
-/*   Updated: 2025/09/25 15:20:46 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/25 16:03:00 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,6 @@ int	init_map(void *brain)
 	b->map->w_e = NULL;
 	b->map->w_s = NULL;
 	b->map->w_w = NULL;
-	b->map->floor = NULL;
-	b->map->sprites = ch_m(malloc(sizeof(t_spr_list)), brain,
-			"\n\nError\nmalloc fail for sprite list");
-	b->map->sprites->column = ch_m(malloc(b->ctx->width * sizeof(float)), brain,
-			"\n\nError\nmalloc failed for distance array");
-	b->map->sprites->length = 0;
-	b->map->sprites->list = NULL;
 	b->map->brain = b;
 	return (1);
 }
@@ -95,9 +88,7 @@ t_player_detect	*chr_trt(char *line)
 			line[i] = '0';
 		}
 		else if (line[i] != '0' && line[i] != '1')
-		{
 			exit_cube(NULL, "Error: invalid character in map", 0);
-		}
 		i++;
 	}
 	return (player);
