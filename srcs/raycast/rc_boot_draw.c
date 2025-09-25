@@ -6,7 +6,7 @@
 /*   By: jow <jow@student.42kl.edu.my>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 14:37:35 by brian             #+#    #+#             */
-/*   Updated: 2025/09/25 17:11:47 by jow              ###   ########.fr       */
+/*   Updated: 2025/09/25 17:35:44 by jow              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ int get_texture_pixel(t_brain *b, int tex_x, int tex_y)
 {
     t_buff *tex = NULL;
 
-    // Select wall texture based on ray side and direction
     if (b->ray->side == 0) // Vertical wall (east/west)
     {
         if (b->ray->rayDirX > 0)
@@ -161,9 +160,9 @@ void draw_3d(t_brain *b)
         {
             int mid = WIN_H / 2;
             for (int y = 0; y < mid; y++)
-                put_px(b, x, y, 0x87CEEB);
+                put_px(b, x, y, b->map->c_rgb);
             for (int y = mid; y < WIN_H; y++)
-                put_px(b, x, y, 0x2E2E2E);
+                put_px(b, x, y, b->map->f_rgb);
             continue;
         }
         // calculate perpendicular wall distance

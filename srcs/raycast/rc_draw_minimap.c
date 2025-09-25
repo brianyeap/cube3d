@@ -6,7 +6,7 @@
 /*   By: jow <jow@student.42kl.edu.my>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 13:17:10 by jow               #+#    #+#             */
-/*   Updated: 2025/09/24 13:31:25 by jow              ###   ########.fr       */
+/*   Updated: 2025/09/25 17:32:13 by jow              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void draw_minimap(t_brain *b)
     int j;
     int map_width = b->map->width;
     int map_height = b->map->height;
-    int minimap_size = 80; // Fixed 15x15 pixel minimap
+    int minimap_size = 160; // Fixed 15x15 pixel minimap
     int start_x = 10;      // Minimap top-left corner X
     int start_y = 10;      // Minimap top-left corner Y
 
@@ -69,7 +69,7 @@ void draw_minimap(t_brain *b)
 
 void draw_miniplayer(t_brain *b)
 {
-    int minimap_size = 15;
+    int minimap_size = 160;
     int start_x = 10;
     int start_y = 10;
     int map_width = b->map->width;

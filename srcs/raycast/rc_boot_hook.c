@@ -6,7 +6,7 @@
 /*   By: jow <jow@student.42kl.edu.my>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 14:26:36 by brian             #+#    #+#             */
-/*   Updated: 2025/09/25 14:36:31 by jow              ###   ########.fr       */
+/*   Updated: 2025/09/25 17:30:51 by jow              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	rc_boot_loop(t_brain *b)
 {
 	clear_img(b);
 	draw_3d(b);
-	//rc_draw_minimap(b);
+	rc_draw_minimap(b);
 	mlx_put_image_to_window(b->ctx->mlx_ptr, b->ctx->win_ptr, b->rc->img, 0, 0);
 	return (0);
 }
