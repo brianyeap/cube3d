@@ -99,9 +99,7 @@ t_player_detect	*chr_trt(char *line)
 			line[i] = '0';
 		}
 		else if (line[i] != '0' && line[i] != '1')
-		{
 			exit_cube(NULL, "Error: invalid character in map", 0);
-		}
 		i++;
 	}
 	return (player);

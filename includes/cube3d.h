@@ -20,7 +20,7 @@
 # include <time.h>
 # include <string.h>
 # include <math.h>
-# include "MiniLib/mlx.h"
+# include "mlx.h"
 # include "../libft/libft.h"
 # include "canvas.h"
 # include "player.h"
@@ -38,26 +38,36 @@
 # define GREY   "\033[0;90m"
 # define PURP   "\033[0;94m"
 
-// Key codes for Mac
-# define KEY_ESC 53
-# define KEY_UP 13
-# define KEY_DOWN 1
-# define KEY_LEFT 0
-# define KEY_RIGHT 2
-# define KEY_ARROW_LEFT 123
-# define KEY_ARROW_RIGHT 124
+/* Key codes */
+# ifdef __APPLE__
+#  define KEY_ESC         53
+#  define KEY_UP          13
+#  define KEY_DOWN        1
+#  define KEY_LEFT        0
+#  define KEY_RIGHT       2
+#  define KEY_ARROW_LEFT  123
+#  define KEY_ARROW_RIGHT 124
+# elif defined(__linux__)
+#  define KEY_ESC         65307
+#  define KEY_UP          119
+#  define KEY_DOWN        115
+#  define KEY_LEFT        97
+#  define KEY_RIGHT       100
+#  define KEY_ARROW_LEFT  65361
+#  define KEY_ARROW_RIGHT 65363
+# else
+#  error "Unsupported OS for key codes"
+# endif
 
-#ifndef M_PI
-# define M_PI 3.14159265358979323846
-#endif
+# ifndef M_PI
+#  define M_PI 3.14159265358979323846
+# endif
 
 # define WIN_W 1024
 # define WIN_H 512
 
 # define MAX_KEYS 10
 
-typedef struct s_sprite			t_sprite;
-typedef struct s_spr_list		t_spr_list;
 typedef struct s_map			t_map;
 typedef struct s_player_detect	t_player_detect;
 
@@ -153,11 +163,6 @@ void		init_keys(t_brain *b);
 // Utilities
 int			ft_strmultichr(char *str, char *chrlst);
 int			check_ending(char *str, char *end);
-void		sort_sprites(t_fpoint *pos, t_spr_list *lst_sprt);
-
-// Sprites
-void		add_spr_to_list(t_spr_list *s_list, t_sprite *s);
-t_sprite	*init_sprite(t_map *m, t_fpoint pos, int type);
 
 int			key_press(int key, void *param);
 int			key_release(int key, void *param);
