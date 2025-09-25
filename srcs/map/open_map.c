@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 03:46:46 by brian             #+#    #+#             */
-/*   Updated: 2025/09/25 15:45:23 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/25 17:15:58 by jow              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	info_and_exit(t_brain *b, char *infoMsg, char *exitMsg)
 
 int	open_map(t_brain *b, char *map_path, t_type *map)
 {
-	init_map(b);
+	init_map(b, map);
 	init_textures(b, map);
 	get_map(b, map_path);
 	ft_printf(CYAN"	-> Width: [%d]\n", b->map->width);
