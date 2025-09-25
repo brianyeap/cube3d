@@ -6,7 +6,7 @@
 /*   By: jow <jow@student.42kl.edu.my>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 19:18:38 by brian             #+#    #+#             */
-/*   Updated: 2025/09/23 23:25:19 by jow              ###   ########.fr       */
+/*   Updated: 2025/09/24 12:32:44 by jow              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ t_sprite	*init_sprite(t_map *m, t_fpoint pos, int type)
 	t_sprite	*s;
 	t_brain		*b;
 
+	printf("im used\n");
 	ft_printf("Init Sprite\n");
 	b = (t_brain *)m->brain;
 	if (!(s = malloc(sizeof(t_sprite))))

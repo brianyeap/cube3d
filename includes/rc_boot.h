@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rc_boot.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jow <jow@student.42kl.edu.my>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 14:21:51 by brian             #+#    #+#             */
-/*   Updated: 2025/09/24 00:52:32 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/24 13:23:23 by jow              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef struct s_brain t_brain;
 void put_px(t_brain *b, int x, int y, int color);
 void clear_img(t_brain *b);
 void draw_3d(t_brain *b);
+void rc_draw_minimap(t_brain *b);
 
 // rc boot hook
 int rc_boot_loop(t_brain *b);
