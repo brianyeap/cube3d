@@ -6,7 +6,7 @@
 /*   By: jow <jow@student.42kl.edu.my>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 13:17:10 by jow               #+#    #+#             */
-/*   Updated: 2025/09/25 17:32:13 by jow              ###   ########.fr       */
+/*   Updated: 2025/09/25 17:50:25 by jow              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ void draw_minimap(t_brain *b)
     int j;
     int map_width = b->map->width;
     int map_height = b->map->height;
-    int minimap_size = 160; // Fixed 15x15 pixel minimap
-    int start_x = 10;      // Minimap top-left corner X
-    int start_y = 10;      // Minimap top-left corner Y
+    int minimap_size = 180;
+    int start_x = 10;
+    int start_y = 10;
 
     // Calculate scale factors
     float scale_x = (float)minimap_size / (float)map_width;
@@ -38,11 +38,12 @@ void draw_minimap(t_brain *b)
             int cell = cell_at(b, x, y);
             int color;
 
-            if (cell == 1)        // Wall
-                color = 0x000000; // black
-            else
-                color = 0xFFFFFF; // white
-
+            if (cell == 1 || cell == -1)
+                color = 0x000000;
+            else if (cell == 0)
+                color = 0xFFFFFF;
+            // else if (cell == -1)
+            //     color = 0x757575;
             // Calculate scaled pixel positions
             int pixel_x_start = start_x + (int)(x * scale_x);
             int pixel_y_start = start_y + (int)(y * scale_y);
@@ -69,7 +70,7 @@ void draw_minimap(t_brain *b)
 
 void draw_miniplayer(t_brain *b)
 {
-    int minimap_size = 160;
+    int minimap_size = 180;
     int start_x = 10;
     int start_y = 10;
     int map_width = b->map->width;
