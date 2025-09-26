@@ -6,7 +6,7 @@
 /*   By: jow <jow@student.42kl.edu.my>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 14:36:13 by brian             #+#    #+#             */
-/*   Updated: 2025/09/23 23:49:32 by jow              ###   ########.fr       */
+/*   Updated: 2025/09/26 18:49:06 by jow              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,16 @@ float	distf(float ax, float ay, float bx, float by)
 	return (sqrtf(dx * dx + dy * dy));
 }
 
-float calcDist(const float ax, const float ay, const float bx, const float by)
+float	calculate_dist(const float ax, const float ay, const float bx,
+				const float by)
 {
-    return (sqrt((ax - bx) * (ax - bx) + (ay - by) * (ay - by)));
+	return (sqrt((ax - bx) * (ax - bx) + (ay - by) * (ay - by)));
 }
 
-float fixed_dist(float player_x, float player_y, float ray_x, float ray_y, float ray_angle, t_brain *b)
+float	fixed_dist(float ray_x, float ray_y, float ray_angle, t_brain *b)
 {
-    float dist = calcDist(player_x, player_y, ray_x, ray_y);
-    return (dist * cos(ray_angle - b->rc->pa)); // Fix fisheye effect
+	float	dist;
+
+	dist = calculate_dist(b->ray->posX, b->ray->posY, ray_x, ray_y);
+	return (dist * cos(ray_angle - b->rc->pa));
 }

@@ -6,12 +6,20 @@
 /*   By: jow <jow@student.42kl.edu.my>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 14:31:54 by brian             #+#    #+#             */
-/*   Updated: 2025/09/25 17:43:53 by jow              ###   ########.fr       */
+/*   Updated: 2025/09/26 18:40:29 by jow              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 #include "rc_boot.h"
+
+int	rc_boot_turn_right(t_brain *b)
+{
+	b->rc->pa += RC_TURN;
+	rc_wrap_angle(b);
+	rc_update_dir(b);
+	return (0);
+}
 
 int	cell_at(t_brain *b, int mx, int my)
 {
