@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 15:40:02 by brian             #+#    #+#             */
-/*   Updated: 2025/09/28 00:14:42 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/28 00:21:44 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ typedef struct s_gnl
 	char			*buff;
 }					t_gnl;
 
+void				meditate(t_gnl **blist, t_gnl *b, char **line);
+int					treat_left(t_gnl *b, char **line);
 int					get_next_line(int fd, char **line);
 int					has_eol(char *s);
 char				*ft_strnjoin(char const *s1, char const *s2,

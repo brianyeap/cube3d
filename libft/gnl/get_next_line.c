@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 15:14:22 by brian             #+#    #+#             */
-/*   Updated: 2025/09/28 00:14:26 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/28 00:21:12 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ t_gnl	*get_brain(t_gnl **b, int fd, char **line)
 	return (*b);
 }
 
-static void	meditate(t_gnl **blist, t_gnl *b, char **line)
+void	meditate(t_gnl **blist, t_gnl *b, char **line)
 {
 	t_gnl	**ptr;
 
