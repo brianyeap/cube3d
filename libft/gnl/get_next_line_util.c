@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 15:14:40 by brian             #+#    #+#             */
-/*   Updated: 2025/08/29 15:46:58 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/28 00:16:16 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ char	*ft_strnjoin(char const *s1, char const *s2, int start, int size)
 		start = s2len;
 	if ((size_t)size > s2len)
 		size = s2len;
-	if (!(join = malloc((s1len + size + 1) * sizeof(char))))
+	join = malloc((s1len + size + 1) * sizeof(char));
+	if (!join)
 		return (NULL);
 	while (j < s1len)
 		join[i++] = s1[j++];
@@ -39,9 +40,9 @@ char	*ft_strnjoin(char const *s1, char const *s2, int start, int size)
 	return (join);
 }
 
-int		has_eol(char *s)
+int	has_eol(char *s)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	while (s[i])
@@ -58,7 +59,8 @@ void	*ft_gnl_calloc(size_t count, size_t size)
 	void			*obj;
 	unsigned char	*pobj;
 
-	if ((obj = malloc(count * size)) != NULL)
+	obj = malloc(count * size);
+	if (obj != NULL)
 	{
 		pobj = obj;
 		while (count--)
@@ -69,11 +71,37 @@ void	*ft_gnl_calloc(size_t count, size_t size)
 
 size_t	ft_gnl_strlen(const char *s)
 {
-	size_t length;
+	size_t	length;
 
 	length = 0;
 	if (s)
 		while (s[length])
 			length++;
 	return (length);
+}
+
+int	gnl_read_loop(t_gnl *b, t_gnl **blist, char **line)
+{
+	if (b->asleft && treat_left(b, line))
+		return (1);
+	if (!b->buff)
+	{
+		b->buff = malloc((BUFFER_SIZE + 1) * sizeof(char));
+		if (!b->buff)
+			return (-1);
+	}
+	b->nbr_read = read(b->fd, b->buff, BUFFER_SIZE);
+	while (b->nbr_read > 0)
+	{
+		b->buff[b->nbr_read] = 0;
+		if (treat_left(b, line))
+			return (1);
+		b->nbr_read = read(b->fd, b->buff, BUFFER_SIZE);
+	}
+	if (b->nbr_read == 0)
+	{
+		meditate(blist, b, line);
+		return (0);
+	}
+	return (-1);
 }

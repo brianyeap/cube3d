@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 15:14:22 by brian             #+#    #+#             */
-/*   Updated: 2025/09/25 17:45:46 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/28 00:14:26 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ t_gnl	*init_brain(int fd)
 {
 	t_gnl	*brain;
 
-	if ((brain = malloc(sizeof(t_gnl))) != NULL)
+	brain = malloc(sizeof(t_gnl));
+	if (brain != NULL)
 	{
 		brain->fd = fd;
 		brain->asleft = 0;
@@ -113,25 +114,10 @@ int	get_next_line(int fd, char **line)
 	t_gnl			*b;
 
 	*line = NULL;
-	if (BUFFER_SIZE > 0 && fd >= 0)
-		if ((b = get_brain(&blist, fd, line)) != NULL)
-		{
-			if (b->asleft && treat_left(b, line))
-				return (1);
-			if (!b->buff
-				&& !(b->buff = malloc((BUFFER_SIZE + 1) * sizeof(char))))
-				return (-1);
-			while ((b->nbr_read = read(b->fd, b->buff, BUFFER_SIZE)))
-			{
-				b->buff[b->nbr_read] = 0;
-				if (treat_left(b, line))
-					return (1);
-			}
-			if (!b->nbr_read)
-			{
-				meditate(&blist, b, line);
-				return (0);
-			}
-		}
-	return (-1);
+	if (BUFFER_SIZE <= 0 || fd < 0)
+		return (-1);
+	b = get_brain(&blist, fd, line);
+	if (!b)
+		return (-1);
+	return (gnl_read_loop(b, &blist, line));
 }

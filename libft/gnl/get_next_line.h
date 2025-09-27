@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 15:40:02 by brian             #+#    #+#             */
-/*   Updated: 2025/09/25 17:43:48 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/28 00:14:42 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,5 @@ char				*ft_strnjoin(char const *s1, char const *s2,
 						int start, int size);
 size_t				ft_gnl_strlen(const char *s);
 void				*ft_gnl_calloc(size_t count, size_t size);
+int					gnl_read_loop(t_gnl *b, t_gnl **blist, char **line);
 #endif
