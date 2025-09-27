@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rc_boot_movement.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jow <jow@student.42kl.edu.my>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 19:03:22 by brian             #+#    #+#             */
-/*   Updated: 2025/09/24 01:02:13 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/26 18:41:09 by jow              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,8 @@ int	rc_boot_turn_left(t_brain *b)
 	return (0);
 }
 
-int	rc_boot_turn_right(t_brain *b)
-{
-	b->rc->pa += RC_TURN;
-	rc_wrap_angle(b);
-	rc_update_dir(b);
-	return (0);
-}
+/*
+--  int rc_boot_turn_right(t_brain *b) --
+is at rc_boot_world.c
+due to norminette limit
+*/

@@ -6,14 +6,14 @@
 /*   By: jow <jow@student.42kl.edu.my>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 14:23:20 by brian             #+#    #+#             */
-/*   Updated: 2025/09/24 00:05:14 by jow              ###   ########.fr       */
+/*   Updated: 2025/09/26 18:35:51 by jow              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 #include "rc_boot.h"
 
-int rc_boot_init(t_brain *b)
+int	rc_boot_init(t_brain *b)
 {
 	if (!b || !b->ctx || !b->ctx->mlx_ptr || !b->ctx->win_ptr)
 		return (-1);
@@ -32,8 +32,8 @@ int rc_boot_init(t_brain *b)
 		b->rc = NULL;
 		return (-1);
 	}
-	b->rc->data = mlx_get_data_addr(b->rc->img,
-									&b->rc->bpp, &b->rc->stride, &b->rc->endian);
+	b->rc->data = mlx_get_data_addr(b->rc->img, &b->rc->bpp, \
+&b->rc->stride, &b->rc->endian);
 	b->rc->pa = 0.0f;
 	b->rc->pdx = cosf(b->rc->pa) * 5.0f;
 	b->rc->pdy = sinf(b->rc->pa) * 5.0f;
@@ -42,10 +42,10 @@ int rc_boot_init(t_brain *b)
 	return (0);
 }
 
-void rc_boot_attach_world(t_brain *b)
+void	rc_boot_attach_world(t_brain *b)
 {
 	if (!b || !b->map || !b->player || !b->rc)
-		return;
+		return ;
 	b->rc->world = b->map;
 	b->rc->tile = b->map->bloc_size;
 	b->rc->px = (float)b->player->position->x;
@@ -55,14 +55,14 @@ void rc_boot_attach_world(t_brain *b)
 	b->rc->pdy = sinf(b->rc->pa) * 5.0f;
 }
 
-void put_px(t_brain *b, int x, int y, int color)
+void	put_px(t_brain *b, int x, int y, int color)
 {
-	int i;
+	int	i;
 
 	if (!b || !b->rc)
-		return;
+		return ;
 	if (x < 0 || x >= b->rc->w || y < 0 || y >= b->rc->h)
-		return;
+		return ;
 	i = y * b->rc->stride + x * (b->rc->bpp / 8);
 	b->rc->data[i + 0] = color & 0xFF;
 	b->rc->data[i + 1] = (color >> 8) & 0xFF;

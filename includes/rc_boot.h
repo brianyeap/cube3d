@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rc_boot.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jow <jow@student.42kl.edu.my>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 14:21:51 by brian             #+#    #+#             */
-/*   Updated: 2025/09/25 17:40:17 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/26 19:41:15 by jow              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,39 @@ typedef struct s_ray
 	int			texX;
 	double		step;
 	double		texPos;
+	double		scale_x;
+	double		scale_y;
+	int			px_x_start;
 }	t_ray;
 
 typedef struct s_brain	t_brain;
 
+// rc boot draw4
+void	render_sky(t_brain *b, int x);
+void	render_wall_texture(t_brain *b, int x);
+void	render_floor(t_brain *b, int x);
+
+// rc boot draw3
+void	calc_perp_wall(t_brain *b);
+void	calculate_line_height(t_brain *b);
+void	calculate_draw_bounds(t_brain *b);
+void	calculate_wall_rendering(t_brain *b);
+void	calculate_texture_x(t_brain *b);
+
+
+// rc boot draw2
+void	perform_dda(t_brain *b);
+void	calculate_step(t_brain *b);
+void	ray_setup(t_brain *b, int x);
+void    init_dda(t_brain *b);
+
 // rc boot draw
-void	put_px(t_brain *b, int x, int y, int color);
 void	clear_img(t_brain *b);
 void	draw_3d(t_brain *b);
+void	perform_raycast(t_brain *b, int x);
+int		get_texture_pixel(t_brain *b, int tex_x, int tex_y);
+
+// rc draw minimap
 void	rc_draw_minimap(t_brain *b);
 
 // rc boot hook
@@ -68,10 +93,11 @@ int		rc_boot_keydown(int key, t_brain *b);
 // rc boot init
 int		rc_boot_init(t_brain *b);
 void	rc_boot_attach_world(t_brain *b);
+void	put_px(t_brain *b, int x, int y, int color);
 
 // rc boot math
 float	distf(float ax, float ay, float bx, float by);
-float	fixed_dist(float player_x, float player_y, float ray_x, float ray_y, float ray_angle, t_brain *b);
+float	fixed_dist(float ray_x, float ray_y, float ray_angle, t_brain *b);
 
 // rc boot world
 int		cell_at(t_brain *b, int mx, int my);
