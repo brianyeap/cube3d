@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jow <jow@student.42kl.edu.my>              +#+  +:+       +#+        */
+/*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 17:46:56 by brian             #+#    #+#             */
-/*   Updated: 2025/09/25 17:21:45 by jow              ###   ########.fr       */
+/*   Updated: 2025/09/28 00:33:17 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_brain	*new_brain(int width, int height, char *name)
 	t_brain	*new;
 
 	new = malloc(sizeof(t_brain));
-	new->ctx = new_ctx(width, height);
+	new->ctx = new_ctx();
 	new->ctx->win_ptr = mlx_new_window(new->ctx->mlx_ptr, width, height, name);
 	new->map = NULL;
 	new->player = NULL;
@@ -68,8 +68,6 @@ launch with ./Cub3D <map_file>\n", 0);
 		exit_cube(NULL, "\n\nError\nMap Not Found\n", 0);
 	b = new_brain(map->res[0], map->res[1], "Cube3D");
 	exit_cube(b, "Init Exit", 1);
-	b->ctx->width = map->res[0];
-	b->ctx->height = map->res[1];
 	ft_printf("Opening Map ""%s\n", argv[1]);
 	open_map(b, argv[1], map);
 	debug_print_map_pretty(b->map);
