@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 17:46:56 by brian             #+#    #+#             */
-/*   Updated: 2025/09/28 00:33:17 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/29 13:32:38 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,7 @@ t_brain	*new_brain(int width, int height, char *name)
 
 int	loop_hook(t_brain *b)
 {
-	mlx_clear_window(b->ctx->mlx_ptr, b->ctx->win_ptr);
 	key_press(-1, b);
-
 	rc_boot_loop(b);
 	return (b->initialized);
 }
