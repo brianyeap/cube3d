@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 17:58:12 by jow               #+#    #+#             */
-/*   Updated: 2025/09/29 14:35:52 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/29 14:39:45 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,11 @@ void	calculate_draw_bounds(t_brain *b)
 void	calculate_texture_x(t_brain *b)
 {
 	if (b->ray->side == 0)
-		b->ray->wall_x = b->ray->pos_y + b->ray->perp_wall_dist * b->ray->raydir_y;
+		b->ray->wall_x = b->ray->pos_y + b->ray->perp_wall_dist
+			* b->ray->raydir_y;
 	else
-		b->ray->wall_x = b->ray->pos_x + b->ray->perp_wall_dist * b->ray->raydir_x;
+		b->ray->wall_x = b->ray->pos_x + b->ray->perp_wall_dist
+			* b->ray->raydir_x;
 	b->ray->wall_x -= floor(b->ray->wall_x);
 	b->ray->tex_x = (int)(b->ray->wall_x * (double)b->rc->tile);
 	if (b->ray->side == 0 && b->ray->raydir_x < 0)

@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 17:56:57 by jow               #+#    #+#             */
-/*   Updated: 2025/09/29 14:34:48 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/29 14:39:34 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ void	calculate_step(t_brain *b)
 	if (b->ray->raydir_x < 0)
 	{
 		b->ray->step_x = -1;
-		b->ray->side_dist_x = (b->ray->pos_x - b->ray->map_x) * b->ray->delta_dist_x;
+		b->ray->side_dist_x = (b->ray->pos_x - b->ray->map_x)
+			* b->ray->delta_dist_x;
 	}
 	else
 	{
@@ -53,7 +54,8 @@ b->ray->delta_dist_x;
 	if (b->ray->raydir_y < 0)
 	{
 		b->ray->step_y = -1;
-		b->ray->side_dist_y = (b->ray->pos_y - b->ray->map_y) * b->ray->delta_dist_y;
+		b->ray->side_dist_y = (b->ray->pos_y - b->ray->map_y)
+			* b->ray->delta_dist_y;
 	}
 	else
 	{
