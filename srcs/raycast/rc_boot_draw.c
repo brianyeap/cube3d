@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rc_boot_draw.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jow <jow@student.42kl.edu.my>              +#+  +:+       +#+        */
+/*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 14:37:35 by brian             #+#    #+#             */
-/*   Updated: 2025/09/26 18:38:15 by jow              ###   ########.fr       */
+/*   Updated: 2025/09/29 14:34:48 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,12 @@ tex_y < 0 || tex_y >= tex->height)
 
 /*
 side == 0: vertical wall (east/west)
-rayDirX > 0: east wall
-rayDirX < 0: west wall
+raydir_x > 0: east wall
+raydir_x < 0: west wall
 
 side == 1: horizontal wall (north/south)
-rayDirY > 0: south wall
-rayDirY < 0: north wall
+raydir_y > 0: south wall
+raydir_y < 0: north wall
 */
 
 int	get_texture_pixel(t_brain *b, int tex_x, int tex_y)
@@ -69,14 +69,14 @@ int	get_texture_pixel(t_brain *b, int tex_x, int tex_y)
 	tex = NULL;
 	if (b->ray->side == 0)
 	{
-		if (b->ray->rayDirX > 0)
+		if (b->ray->raydir_x > 0)
 			tex = b->map->w_e;
 		else
 			tex = b->map->w_w;
 	}
 	else
 	{
-		if (b->ray->rayDirY > 0)
+		if (b->ray->raydir_y > 0)
 			tex = b->map->w_s;
 		else
 			tex = b->map->w_n;
@@ -106,7 +106,7 @@ void	draw_3d(t_brain *b)
 	while (x < WIN_W)
 	{
 		perform_raycast(b, x);
-		if (b->ray->outOfBounds)
+		if (b->ray->out_of_bounds)
 		{
 			render_out_of_bounds(b, x);
 			x++;

@@ -539,7 +539,7 @@ are reserved in the protocol for errors and replies. */
 #define DisableScreenInterval	0
 #define DontAllowExposures	0
 #define AllowExposures		1
-#define DefaultExposures	2
+#define Defaultex_posures	2
 /* for ForceScreenSaver */
 #define ScreenSaverReset 0
 #define ScreenSaverActive 1

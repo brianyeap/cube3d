@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rc_boot_math.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jow <jow@student.42kl.edu.my>              +#+  +:+       +#+        */
+/*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 14:36:13 by brian             #+#    #+#             */
-/*   Updated: 2025/09/26 18:49:06 by jow              ###   ########.fr       */
+/*   Updated: 2025/09/29 14:32:40 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,6 @@ float	fixed_dist(float ray_x, float ray_y, float ray_angle, t_brain *b)
 {
 	float	dist;
 
-	dist = calculate_dist(b->ray->posX, b->ray->posY, ray_x, ray_y);
+	dist = calculate_dist(b->ray->pos_x, b->ray->pos_y, ray_x, ray_y);
 	return (dist * cos(ray_angle - b->rc->pa));
 }

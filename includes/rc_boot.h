@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rc_boot.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jow <jow@student.42kl.edu.my>              +#+  +:+       +#+        */
+/*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 14:21:51 by brian             #+#    #+#             */
-/*   Updated: 2025/09/26 19:41:15 by jow              ###   ########.fr       */
+/*   Updated: 2025/09/29 14:36:22 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,37 +20,37 @@ typedef struct s_ray
 {
 	double		map_area;
 	double		fov;
-	double		posX; /* player position in tiles */
-	double		posY;
-	double		dirX; /* normalized direction */
-	double		dirY;
-	double		planeLen; /* half-width of camera plane */
-	double		planeX;   /* camera plane vector */
-	double		planeY;
-	double		cameraX;
-	double		rayDirX;
-	double		rayDirY;
-	int			mapX;
-	int			mapY;
-	double		sideDistX;
-	double		sideDistY;
-	double		deltaDistX;
-	double		deltaDistY;
-	int			stepX;
-	int			stepY;
+	double		pos_x; /* player position in tiles */
+	double		pos_y;
+	double		dir_x; /* normalized direction */
+	double		dir_y;
+	double		plane_len; /* half-width of camera plane */
+	double		plane_x; /* camera plane vector */
+	double		plane_y;
+	double		camera_x;
+	double		raydir_x;
+	double		raydir_y;
+	int			map_x;
+	int			map_y;
+	double		side_dist_x;
+	double		side_dist_y;
+	double		delta_dist_x;
+	double		delta_dist_y;
+	int			step_x;
+	int			step_y;
 	int			side; /* 0 NS, 1 EW */
 	int			hit;
-	int			outOfBounds;
-	double		perpWallDist;
-	int			lineHeight;
-	int			drawStart0; // unclamped values
-	int			drawEnd0;
-	int			drawStart; // clamped values
-	int			drawEnd;
-	double		wallX;
-	int			texX;
+	int			out_of_bounds;
+	double		perp_wall_dist;
+	int			line_height;
+	int			draw_start0; // unclamped values
+	int			draw_end0;
+	int			draw_start; // clamped values
+	int			draw_end;
+	double		wall_x;
+	int			tex_x;
 	double		step;
-	double		texPos;
+	double		tex_pos;
 	double		scale_x;
 	double		scale_y;
 	int			px_x_start;
@@ -70,12 +70,11 @@ void	calculate_draw_bounds(t_brain *b);
 void	calculate_wall_rendering(t_brain *b);
 void	calculate_texture_x(t_brain *b);
 
-
 // rc boot draw2
 void	perform_dda(t_brain *b);
 void	calculate_step(t_brain *b);
 void	ray_setup(t_brain *b, int x);
-void    init_dda(t_brain *b);
+void	init_dda(t_brain *b);
 
 // rc boot draw
 void	clear_img(t_brain *b);
