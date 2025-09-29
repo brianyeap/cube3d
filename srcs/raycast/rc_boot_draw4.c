@@ -6,7 +6,7 @@
 /*   By: jow <jow@student.42kl.edu.my>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 18:01:43 by jow               #+#    #+#             */
-/*   Updated: 2025/09/26 19:59:53 by jow              ###   ########.fr       */
+/*   Updated: 2025/09/28 21:38:42 by jow              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	render_wall_texture(t_brain *b, int x)
 
 	b->ray->step = (double)b->rc->tile / (double)b->ray->lineHeight;
 	b->ray->texPos = (double)(b->ray->drawStart - b->ray->drawStart0) \
-	* b->ray->step;
+* b->ray->step;
 	y = b->ray->drawStart;
 	while (y < b->ray->drawEnd)
 	{

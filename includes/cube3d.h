@@ -40,6 +40,8 @@
 
 /* Key codes */
 # ifdef __APPLE__
+# define WIN_W 1024
+# define WIN_H 512
 #  define KEY_ESC         53
 #  define KEY_UP          13
 #  define KEY_DOWN        1
@@ -48,6 +50,8 @@
 #  define KEY_ARROW_LEFT  123
 #  define KEY_ARROW_RIGHT 124
 # elif defined(__linux__)
+# define WIN_W 1600
+# define WIN_H 800
 #  define KEY_ESC         65307
 #  define KEY_UP          119
 #  define KEY_DOWN        115
@@ -62,9 +66,6 @@
 # ifndef M_PI
 #  define M_PI 3.14159265358979323846
 # endif
-
-# define WIN_W 1024
-# define WIN_H 512
 
 # define MAX_KEYS 10
 
