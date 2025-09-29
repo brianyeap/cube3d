@@ -50,8 +50,8 @@
 #  define KEY_ARROW_LEFT  123
 #  define KEY_ARROW_RIGHT 124
 # elif defined(__linux__)
-# define WIN_W 1600
-# define WIN_H 800
+# define WIN_W 1024
+# define WIN_H 512
 #  define KEY_ESC         65307
 #  define KEY_UP          119
 #  define KEY_DOWN        115
