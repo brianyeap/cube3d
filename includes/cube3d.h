@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jow <jow@student.42kl.edu.my>              +#+  +:+       +#+        */
+/*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 18:22:12 by brian             #+#    #+#             */
-/*   Updated: 2025/09/25 16:05:11 by jow              ###   ########.fr       */
+/*   Updated: 2025/09/29 14:22:53 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@
 
 /* Key codes */
 # ifdef __APPLE__
-# define WIN_W 1024
-# define WIN_H 512
+#  define WIN_W 1024
+#  define WIN_H 512
 #  define KEY_ESC         53
 #  define KEY_UP          13
 #  define KEY_DOWN        1
@@ -50,8 +50,8 @@
 #  define KEY_ARROW_LEFT  123
 #  define KEY_ARROW_RIGHT 124
 # elif defined(__linux__)
-# define WIN_W 1024
-# define WIN_H 512
+#  define WIN_W 1024
+#  define WIN_H 512
 #  define KEY_ESC         65307
 #  define KEY_UP          119
 #  define KEY_DOWN        115
@@ -116,7 +116,7 @@ typedef struct s_brain
 	int			*keys;
 	t_rcboot	*rc;
 	t_ray		*ray;
-	t_type 		*map_cfg;
+	t_type		*map_cfg;
 }				t_brain;
 
 // Cleanups

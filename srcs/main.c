@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 17:46:56 by brian             #+#    #+#             */
-/*   Updated: 2025/09/29 13:32:38 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/29 14:20:35 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ int	loop_hook(t_brain *b)
 	rc_boot_loop(b);
 	return (b->initialized);
 }
-
 
 int	red_x_exit(void *brain)
 {

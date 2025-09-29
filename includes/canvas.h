@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 16:01:30 by brian             #+#    #+#             */
-/*   Updated: 2025/09/28 00:33:12 by brian            ###   ########.fr       */
+/*   Updated: 2025/09/29 14:22:08 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,6 @@ typedef struct s_ctx
 }				t_ctx;
 
 // Render
-t_ctx		*new_ctx();
+t_ctx		*new_ctx(void);
 
 #endif
