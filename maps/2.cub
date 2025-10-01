@@ -1,7 +1,7 @@
-EA ./assets/walls/1.xpm
-SO ./assets/walls/2.xpm
-NO ./assets/walls/north.xpm
-WE ./assets/walls/4.xpm
+EA ./assets/walls/ea_stone.xpm
+SO ./assets/walls/so_wolf.xpm
+NO ./assets/walls/no_mossy.xpm
+WE ./assets/walls/we_mine.xpm
 
 F 14, 99, 14
 C 92, 133, 255

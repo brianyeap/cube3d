@@ -1,10 +1,10 @@
-EA ./assets/walls/1.xpm
-SO ./assets/walls/2.xpm
-NO ./assets/walls/3.xpm
-WE ./assets/walls/4.xpm
+EA ./assets/walls/so_wolf.xpm
+SO ./assets/walls/so_wolf.xpm
+NO ./assets/walls/so_wolf.xpm
+WE ./assets/walls/so_wolf.xpm
 
-F 220,100,0
-C 225,30,0
+F 120, 120, 120
+C 70, 70, 70
 
 11111111111111111111111111111
 10000000000000000000000000001
