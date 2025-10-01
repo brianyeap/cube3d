@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cleanup.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jow <jow@student.42kl.edu.my>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 17:28:21 by brian             #+#    #+#             */
-/*   Updated: 2025/09/25 17:54:10 by brian            ###   ########.fr       */
+/*   Updated: 2025/10/01 12:49:28 by jow              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,12 @@ void	clean_up(t_brain *b)
 {
 	if (b)
 	{
+		if (b->ctx)
+		{
+			if (b->ctx->win_ptr)
+				mlx_destroy_window(b->ctx->mlx_ptr, b->ctx->win_ptr);
+			free(b->ctx);
+		}
 		free(b);
 	}
 }
