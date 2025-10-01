@@ -43,6 +43,7 @@ sanitize: fclean
 
 clean:
 	@rm -f $(OFILES)
+	@$(MAKE) -C $(MLX_DIR) clean
 
 fclean: clean
 	@rm -f $(NAME)
