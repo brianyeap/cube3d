@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rc_boot_draw3.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jow <jow@student.42kl.edu.my>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 17:58:12 by jow               #+#    #+#             */
-/*   Updated: 2025/09/29 14:39:45 by brian            ###   ########.fr       */
+/*   Updated: 2025/10/02 01:16:59 by jow              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	calc_perp_wall(t_brain *b)
 
 void	calculate_line_height(t_brain *b)
 {
-	b->ray->line_height = (int)(WIN_H / b->ray->perp_wall_dist);
+	b->ray->line_height = (int)((WIN_H * 2) / b->ray->perp_wall_dist);
 	if (b->ray->line_height < 1)
 		b->ray->line_height = 1;
 }
