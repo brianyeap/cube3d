@@ -11,17 +11,48 @@
 /* ************************************************************************** */
 
 #include "../includes/cube3d.h"
+#include "map.h"
+
+static void	free_map_grid(t_map *m)
+{
+	int	y;
+
+	y = 0;
+	while (y < m->height)
+	{
+		if (m->grid[y])
+		{
+			free(m->grid[y]->line);
+			free(m->grid[y]);
+		}
+		y++;
+	}
+	free(m->grid);
+}
 
 void	clean_up(t_brain *b)
 {
 	if (b)
 	{
-		if (b->ctx)
-		{
-			if (b->ctx->win_ptr)
-				mlx_destroy_window(b->ctx->mlx_ptr, b->ctx->win_ptr);
-			free(b->ctx);
-		}
+		mlx_destroy_image(b->ctx->mlx_ptr, b->map->w_n->img);
+		mlx_destroy_image(b->ctx->mlx_ptr, b->map->w_s->img);
+		mlx_destroy_image(b->ctx->mlx_ptr, b->map->w_e->img);
+		mlx_destroy_image(b->ctx->mlx_ptr, b->map->w_w->img);
+		mlx_destroy_image(b->ctx->mlx_ptr, b->rc->img);
+		mlx_destroy_window(b->ctx->mlx_ptr, b->ctx->win_ptr);
+		mlx_destroy_display(b->ctx->mlx_ptr);
+		free(b->ctx);
+		free(b->player->position);
+		free(b->player);
+		free(b->keys);
+		free(b->rc);
+		free(b->ray);
+		free(b->map->w_n);
+		free(b->map->w_s);
+		free(b->map->w_e);
+		free(b->map->w_w);
+		free_map_grid(b->map);
+		free(b->map);
 		free(b);
 	}
 }
