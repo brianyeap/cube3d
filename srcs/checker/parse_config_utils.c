@@ -15,17 +15,17 @@
 void	ft_check_struct(t_type *map)
 {
 	if (!map->no || !map->so || !map->we || !map->ea)
-		ft_exit("Missing texture identifier(s): need NO, SO, WE, EA\n", map);
+		exit_cube(NULL, "Missing texture identifier(s): need NO, SO, WE, EA\n", 0);
 	if (map->f_rgb < 0 || map->c_rgb < 0)
-		ft_exit("Floor or ceiling color missing\n", map);
+		exit_cube(NULL, "Floor or ceiling color missing\n", 0);
 	if (map->no[0] == 0)
-		ft_exit("North texture missing\n", map);
+		exit_cube(NULL, "North texture missing\n", 0);
 	if (map->so[0] == 0)
-		ft_exit("South texture missing\n", map);
+		exit_cube(NULL, "South texture missing\n", 0);
 	if (map->ea[0] == 0)
-		ft_exit("East texture missing\n", map);
+		exit_cube(NULL, "East texture missing\n", 0);
 	if (map->we[0] == 0)
-		ft_exit("West texture missing\n", map);
+		exit_cube(NULL, "West texture missing\n", 0);
 }
 
 void	ft_init_t_type(t_type *map)
@@ -78,13 +78,4 @@ int	check_ending(char *str, char *end)
 		return (1);
 	else
 		return (0);
-}
-
-void	ft_exit(char *str, t_type *map)
-{
-	ft_putstr(RED"Error\n");
-	ft_putstr(str);
-	ft_putstr(RST"\n");
-	free(map);
-	exit(0);
 }

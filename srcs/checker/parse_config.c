@@ -43,22 +43,22 @@ t_type	*ft_getmap_config(char *file)
 void	ft_getmap_values(char *line, t_type *map)
 {
 	if (!(ft_strncmp(line, "NO ", 3)))
-		parse_texture_path(line + 3, &map->no, map);
+		parse_texture_path(line + 3, &map->no);
 	else if (!(ft_strncmp(line, "SO ", 3)))
-		parse_texture_path(line + 3, &map->so, map);
+		parse_texture_path(line + 3, &map->so);
 	else if (!(ft_strncmp(line, "WE ", 3)))
-		parse_texture_path(line + 3, &map->we, map);
+		parse_texture_path(line + 3, &map->we);
 	else if (!(ft_strncmp(line, "EA ", 3)))
-		parse_texture_path(line + 3, &map->ea, map);
+		parse_texture_path(line + 3, &map->ea);
 	else if (!(ft_strncmp(line, "F ", 2)))
-		parse_color_rgb(line + 2, &map->f_rgb, map);
+		parse_color_rgb(line + 2, &map->f_rgb);
 	else if (!(ft_strncmp(line, "C ", 2)))
-		parse_color_rgb(line + 2, &map->c_rgb, map);
+		parse_color_rgb(line + 2, &map->c_rgb);
 	else if (line[0] != '\0')
-		ft_exit("Unkown identifier(s) in file\n", map);
+		exit_cube(NULL, "Unkown identifier(s) in file\n", 0);
 }
 
-void	parse_color_rgb(char *str, int *target, t_type *map)
+void	parse_color_rgb(char *str, int *target)
 {
 	char	**split;
 	int		i;
@@ -71,12 +71,12 @@ void	parse_color_rgb(char *str, int *target, t_type *map)
 	while (split[i])
 		i++;
 	if (i != 3)
-		ft_exit("Invalid RGB format\n", map);
+		exit_cube(NULL, "Invalid RGB format\n", 0);
 	r = ft_atoi(split[0]);
 	g = ft_atoi(split[1]);
 	b = ft_atoi(split[2]);
 	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
-		ft_exit("RGB values must be 0–255\n", map);
+		exit_cube(NULL, "RGB values must be 0–255\n", 0);
 	*target = (r << 16) | (g << 8) | b;
 	i = 0;
 	while (split[i])
@@ -84,22 +84,22 @@ void	parse_color_rgb(char *str, int *target, t_type *map)
 	free(split);
 }
 
-void	parse_texture_path(char *str, char **target, t_type *map)
+void	parse_texture_path(char *str, char **target)
 {
 	int	fd;
 
 	if (check_ending(str, ".xpm"))
 	{
 		if (*target != NULL)
-			ft_exit("Texture already set!\n", map);
+			exit_cube(NULL, "Texture already set!\n", 0);
 		fd = open(str, O_RDONLY);
 		if (fd == -1)
-			ft_exit("Invalid path for one of the textures\n", map);
+			exit_cube(NULL, "Invalid path for one of the textures\n", 0);
 		*target = ft_strdup(str);
 		close(fd);
 	}
 	else
-		ft_exit("Please provide a \'.xpm\' file\n", map);
+		exit_cube(NULL, "Please provide a \'.xpm\' file\n", 0);
 }
 
 char	*ft_check_str(char *str, char *chrs)

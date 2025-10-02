@@ -126,9 +126,9 @@ void		free_map_check(t_type *map);
 // Checker
 void		ft_init_t_type(t_type *map);
 void		ft_getmap_values(char *line, t_type *map);
-void		parse_color_rgb(char *str, int *target, t_type *map);
+void		parse_color_rgb(char *str, int *target);
 char		*ft_check_str(char *str, char *chrs);
-void		parse_texture_path(char *str, char **target, t_type *map);
+void		parse_texture_path(char *str, char **target);
 t_type		*ft_getmap_config(char *file);
 
 // Map
@@ -151,7 +151,6 @@ void		init_texture(t_brain *b, char *path, t_buff **t);
 
 // Checker Utils
 int			check_map(t_map *m);
-void		ft_exit(char *str, t_type *map);
 void		ft_check_struct(t_type *map);
 int			check_surround(t_map *m, t_point *pos);
 
