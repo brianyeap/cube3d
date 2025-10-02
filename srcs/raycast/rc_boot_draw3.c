@@ -6,7 +6,7 @@
 /*   By: jow <jow@student.42kl.edu.my>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 17:58:12 by jow               #+#    #+#             */
-/*   Updated: 2025/10/02 01:16:59 by jow              ###   ########.fr       */
+/*   Updated: 2025/10/02 17:22:17 by jow              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,10 @@
 
 void	calc_perp_wall(t_brain *b)
 {
-	double	denom;
-
 	if (b->ray->side == 0)
-	{
-		if (b->ray->raydir_x == 0.0)
-			denom = 1e-9;
-		else
-			denom = b->ray->raydir_x;
-		b->ray->perp_wall_dist = (b->ray->map_x - b->ray->pos_x + \
-(1 - b->ray->step_x) / 2.0) / denom;
-	}
+		b->ray->perp_wall_dist = b->ray->side_dist_x - b->ray->delta_dist_x;
 	else
-	{
-		if (b->ray->raydir_y == 0.0)
-			denom = 1e-9;
-		else
-			denom = b->ray->raydir_y;
-		b->ray->perp_wall_dist = (b->ray->map_y - b->ray->pos_y + \
-(1 - b->ray->step_y) / 2.0) / denom;
-	}
+		b->ray->perp_wall_dist = b->ray->side_dist_y - b->ray->delta_dist_y;
 	if (b->ray->perp_wall_dist < 1e-6)
 		b->ray->perp_wall_dist = 1e-6;
 }
