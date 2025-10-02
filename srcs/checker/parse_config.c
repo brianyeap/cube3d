@@ -37,7 +37,10 @@ t_type	*ft_getmap_config(char *file)
 		return (map);
 	}
 	else
+	{
+		free(map);
 		return (NULL);
+	}
 }
 
 void	ft_getmap_values(char *line, t_type *map)
