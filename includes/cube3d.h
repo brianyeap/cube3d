@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 18:22:12 by brian             #+#    #+#             */
-/*   Updated: 2025/09/29 14:22:53 by brian            ###   ########.fr       */
+/*   Updated: 2025/10/02 16:18:37 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,7 @@ int			init_player(t_brain *b, int pos_x, char angle);
 
 // Map Helper
 void		*ch_m(void *ptr, void *brain, char *msg);
+int			set_player(t_player_detect **out, int x, char *line, int i);
 
 // Textures
 void		init_texture(t_brain *b, char *path, t_buff **t);

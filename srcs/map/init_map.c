@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 17:48:01 by brian             #+#    #+#             */
-/*   Updated: 2025/09/25 18:05:43 by brian            ###   ########.fr       */
+/*   Updated: 2025/10/02 16:20:21 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,10 @@ t_player_detect	*chr_trt(char *line)
 {
 	t_player_detect	*player;
 	int				i;
+	int				found;
 
 	i = 0;
+	found = 0;
 	player = NULL;
 	while (line[i])
 	{
@@ -84,15 +86,12 @@ t_player_detect	*chr_trt(char *line)
 		else if (line[i] == 'N' || line[i] == 'E'
 			|| line[i] == 'S' || line[i] == 'W')
 		{
-			player = malloc(sizeof(t_player_detect));
-			if (!player)
-				exit_cube(NULL, "Error: malloc failed for player", 0);
-			player->pos_x = i;
-			player->direction = line[i];
-			line[i] = '0';
+			if (found == 1)
+				exit_cube(NULL, "\n\nError\nMultiple players found", 0);
+			found = set_player(&player, i, line, i);
 		}
 		else if (line[i] != '0' && line[i] != '1')
-			exit_cube(NULL, "Error: invalid character in map", 0);
+			exit_cube(NULL, "\n\nError\nInvalid character in map", 0);
 		i++;
 	}
 	return (player);

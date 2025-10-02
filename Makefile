@@ -38,9 +38,6 @@ $(NAME): $(OFILES) $(MLX_LIB)
 %.o: %.c
 	$(CC) $(CFLAGS) $(INCLUDES) $(MLX_INC) -c $< -o $@
 
-sanitize: fclean
-	$(MAKE) CFLAGS="$(CFLAGS) -fsanitize=address -g" all
-
 clean:
 	@rm -f $(OFILES)
 	@$(MAKE) -C $(MLX_DIR) clean
