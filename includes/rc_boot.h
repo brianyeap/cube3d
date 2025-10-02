@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 14:21:51 by brian             #+#    #+#             */
-/*   Updated: 2025/09/29 14:36:22 by brian            ###   ########.fr       */
+/*   Updated: 2025/10/02 17:08:37 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,10 +93,6 @@ int		rc_boot_keydown(int key, t_brain *b);
 int		rc_boot_init(t_brain *b);
 void	rc_boot_attach_world(t_brain *b);
 void	put_px(t_brain *b, int x, int y, int color);
-
-// rc boot math
-float	distf(float ax, float ay, float bx, float by);
-float	fixed_dist(float ray_x, float ray_y, float ray_angle, t_brain *b);
 
 // rc boot world
 int		cell_at(t_brain *b, int mx, int my);
