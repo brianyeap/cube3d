@@ -40,6 +40,7 @@ void	clean_up(t_brain *b)
 		mlx_destroy_image(b->ctx->mlx_ptr, b->map->w_w->img);
 		mlx_destroy_image(b->ctx->mlx_ptr, b->rc->img);
 		mlx_destroy_window(b->ctx->mlx_ptr, b->ctx->win_ptr);
+		free(b->ctx->mlx_ptr);
 		free(b->ctx);
 		if (b->player)
 		{
