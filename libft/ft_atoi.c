@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 18:28:45 by brian             #+#    #+#             */
-/*   Updated: 2024/06/12 01:43:54 by brian            ###   ########.fr       */
+/*   Updated: 2025/10/02 17:00:04 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ int	ft_atoi(const char *str)
 			sign *= -1;
 		i++;
 	}
+	if (str[i] < '0' || str[i] > '9')
+		return (-1);
 	while (str[i] && (str[i] >= '0' && str[i] <= '9'))
 	{
 		result = result * 10 + (str[i] - '0');
