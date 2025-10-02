@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rc_boot_draw.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jow <jow@student.42kl.edu.my>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 14:37:35 by brian             #+#    #+#             */
-/*   Updated: 2025/09/29 14:34:48 by brian            ###   ########.fr       */
+/*   Updated: 2025/10/02 17:13:20 by jow              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,19 +84,6 @@ int	get_texture_pixel(t_brain *b, int tex_x, int tex_y)
 	return (get_rgb(tex, tex_x, tex_y));
 }
 
-void	render_out_of_bounds(t_brain *b, int x)
-{
-	int	mid;
-	int	y;
-
-	y = 0;
-	mid = WIN_H / 2;
-	while (y < mid)
-		put_px(b, x, y++, b->map->c_rgb);
-	while (y < WIN_H)
-		put_px(b, x, y++, b->map->f_rgb);
-}
-
 void	draw_3d(t_brain *b)
 {
 	int	x;
@@ -107,11 +94,7 @@ void	draw_3d(t_brain *b)
 	{
 		perform_raycast(b, x);
 		if (b->ray->out_of_bounds)
-		{
-			render_out_of_bounds(b, x);
-			x++;
 			continue ;
-		}
 		calc_perp_wall(b);
 		calculate_wall_rendering(b);
 		render_sky(b, x);

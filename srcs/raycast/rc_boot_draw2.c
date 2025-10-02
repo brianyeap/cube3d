@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rc_boot_draw2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jow <jow@student.42kl.edu.my>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 17:56:57 by jow               #+#    #+#             */
-/*   Updated: 2025/09/29 14:39:34 by brian            ###   ########.fr       */
+/*   Updated: 2025/10/02 17:11:52 by jow              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,14 +96,11 @@ void	init_dda(t_brain *b)
 
 void	perform_raycast(t_brain *b, int x)
 {
-	int	safety;
-
 	ray_setup(b, x);
 	calculate_step(b);
 	b->ray->hit = 0;
 	b->ray->out_of_bounds = 0;
-	safety = 0;
-	while (!b->ray->hit && safety++ < 2048)
+	while (!b->ray->hit)
 		perform_dda(b);
 }
 /*
