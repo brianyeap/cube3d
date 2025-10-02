@@ -7,3 +7,13 @@ $(MLX_DIR)/libmlx.a:
 
 $(NAME): $(OBJ)
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LFLAGS)
+
+.PHONY: clean fclean re
+
+clean:
+	$(RM) -f *.o *.out a.out $(NAME)
+	$(RM) -rf *.dSYM
+
+fclean: clean
+
+re: fclean all
