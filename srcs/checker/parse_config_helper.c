@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 16:17:22 by brian             #+#    #+#             */
-/*   Updated: 2025/09/25 17:53:20 by brian            ###   ########.fr       */
+/*   Updated: 2025/10/02 17:54:22 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,11 @@ void	ck_struct_and_close_fd(t_type *map, int fd, char *line)
 	ft_check_struct(map);
 	free(line);
 	close(fd);
+}
+
+t_type	*free_map_ret(t_type *map)
+{
+	if (map)
+		free(map);
+	return (NULL);
 }

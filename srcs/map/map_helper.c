@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 17:54:30 by brian             #+#    #+#             */
-/*   Updated: 2025/10/02 16:18:14 by brian            ###   ########.fr       */
+/*   Updated: 2025/10/02 17:49:41 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,10 @@ int	set_player(t_player_detect **out, int x, char *line, int i)
 	line[i] = '0';
 	*out = p;
 	return (1);
+}
+
+void	cleanup_free_player(t_brain *b)
+{
+	free(b->player->position);
+	free(b->player);
 }

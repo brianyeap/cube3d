@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 15:43:47 by brian             #+#    #+#             */
-/*   Updated: 2025/09/29 14:20:16 by brian            ###   ########.fr       */
+/*   Updated: 2025/10/02 17:54:09 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,7 @@ t_type	*ft_getmap_config(char *file)
 		return (map);
 	}
 	else
-	{
-		free(map);
-		return (NULL);
-	}
+		return (free_map_ret(map));
 }
 
 void	ft_getmap_values(char *line, t_type *map)

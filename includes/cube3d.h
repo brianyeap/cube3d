@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 18:22:12 by brian             #+#    #+#             */
-/*   Updated: 2025/10/02 16:18:37 by brian            ###   ########.fr       */
+/*   Updated: 2025/10/02 17:54:36 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,7 @@ int			init_player(t_brain *b, int pos_x, char angle);
 // Map Helper
 void		*ch_m(void *ptr, void *brain, char *msg);
 int			set_player(t_player_detect **out, int x, char *line, int i);
+void		cleanup_free_player(t_brain *b);
 
 // Textures
 void		init_texture(t_brain *b, char *path, t_buff **t);
@@ -157,6 +158,7 @@ int			check_surround(t_map *m, t_point *pos);
 // Parse Config Helper
 int			ft_is_cub_extension(const char *filename);
 void		ck_struct_and_close_fd(t_type *map, int fd, char *line);
+t_type		*free_map_ret(t_type *map);
 
 // Keys
 void		init_keys(t_brain *b);

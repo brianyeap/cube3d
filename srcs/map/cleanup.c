@@ -6,7 +6,7 @@
 /*   By: brian <brian@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 17:28:21 by brian             #+#    #+#             */
-/*   Updated: 2025/10/02 16:03:33 by brian            ###   ########.fr       */
+/*   Updated: 2025/10/02 17:49:24 by brian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,7 @@ void	clean_up(t_brain *b)
 		free(b->ctx->mlx_ptr);
 		free(b->ctx);
 		if (b->player)
-		{
-			free(b->player->position);
-			free(b->player);
-		}
+			cleanup_free_player(b);
 		free(b->keys);
 		free(b->rc);
 		free(b->ray);
